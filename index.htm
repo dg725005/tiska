@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiska Enterprise | Premium Gown Boutique</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600;700&display=swap');
+        
+        body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        .bg-tiska { background-color: #8a1d6a; } 
+        .text-tiska { color: #8a1d6a; }
+
+        /* Full Screen Slider Heights */
+        .swiper-category { width: 100%; height: 85vh; background-color: #000; }
+        .swiper-slide { display: flex; justify-content: center; align-items: center; position: relative; overflow: hidden; }
+        
+        .main-content { max-width: 100%; max-height: 100%; object-fit: contain; z-index: 10; position: relative; }
+        .bg-blur { position: absolute; inset: 0; background-size: cover; background-position: center; filter: blur(40px) brightness(0.4); transform: scale(1.1); }
+        .slide-overlay { background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%); z-index: 20; }
+
+        /* Mascot Specific Styling */
+        .mascot-swiper { height: 500px; padding: 20px 0; }
+
+        .whatsapp-float { animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+    </style>
+</head>
+<body class="bg-white">
+
+    <nav class="fixed w-full z-[100] bg-white/90 backdrop-blur-md border-b border-slate-100 h-20">
+        <div class="max-w-7xl mx-auto px-4 h-full flex justify-between items-center">
+            <img src="tiska_logo.jpg" alt="Tiska Logo" class="h-10">
+            <div class="hidden md:flex gap-8 font-bold text-slate-700 uppercase tracking-tighter text-[10px]">
+                <a href="#engagement" class="hover:text-tiska">Engagement</a>
+                <a href="#longtail" class="hover:text-tiska">Long Tail</a>
+                <a href="#maternity" class="hover:text-tiska">Maternity</a>
+                <a href="#prewedding" class="hover:text-tiska">Pre-Wedding</a>
+                <a href="#mascots" class="hover:text-tiska">Mascots</a>
+            </div>
+            <a href="https://wa.me/917896325419" class="bg-tiska text-white px-6 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest">Inquire</a>
+        </div>
+    </nav>
+
+    <script>
+        function generateSlider(id, title, folder, count, direction) {
+            document.write(`
+                <section id="${id}" class="pt-20">
+                    <div class="bg-slate-50 py-4 text-center border-b">
+                        <h2 class="text-2xl md:text-3xl font-bold text-slate-800 uppercase tracking-widest">${title}</h2>
+                    </div>
+                    <div class="swiper swiper-category" dir="${direction}">
+                        <div class="swiper-wrapper">`);
+            
+            for (let i = 1; i <= count; i++) {
+                const imgSrc = `${folder}/${folder}${i}.jpg`;
+                document.write(`
+                    <div class="swiper-slide">
+                        <div class="bg-blur" style="background-image: url('${imgSrc}')"></div>
+                        <img src="${imgSrc}" class="main-content" loading="lazy">
+                        <div class="absolute inset-0 slide-overlay flex flex-col justify-end p-10 text-white text-center pb-20">
+                            <p class="text-tiska font-bold tracking-[0.3em] uppercase text-[10px] mb-2">Tiska Premium</p>
+                            <h3 class="text-3xl font-serif italic mb-6">${title} Collection</h3>
+                            <a href="https://wa.me/917896325419?text=Interested in ${title} #${i}" class="mx-auto bg-white text-slate-900 px-8 py-3 rounded-full font-bold uppercase text-[10px] tracking-widest hover:bg-tiska hover:text-white transition">Enquire Now</a>
+                        </div>
+                    </div>`);
+            }
+
+            document.write(`</div><div class="swiper-pagination"></div></div></section>`);
+        }
+    </script>
+
+    <script>generateSlider('engagement', 'Engagement Cocktail Gowns', 'a', 49, 'ltr');</script>
+
+    <script>generateSlider('longtail', 'Long Tail Sarree', 'b', 11, 'rtl');</script>
+
+    <section id="mascots" class="py-24 bg-slate-900 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-white mb-2">MASCOTS</h2>
+                <div class="h-1 w-20 bg-tiska mx-auto"></div>
+            </div>
+            <div class="swiper mascot-swiper">
+                <div class="swiper-wrapper">
+                    <script>
+                        for (let i = 1; i <= 110; i++) {
+                            document.write(`
+                                <div class="swiper-slide px-2">
+                                    <div class="bg-white rounded-2xl overflow-hidden shadow-2xl h-full flex flex-col">
+                                        <img src="c/c${i}.jpg" class="w-full h-80 object-cover">
+                                        <div class="p-4 text-center">
+                                            <p class="text-xs font-bold text-slate-400 uppercase">Mascot #${i}</p>
+                                            <a href="https://wa.me/917896325419?text=Mascot Inquiry ${i}" class="text-tiska text-[10px] font-bold border-b border-tiska mt-2 inline-block">RENT NOW</a>
+                                        </div>
+                                    </div>
+                                </div>`);
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>generateSlider('maternity', 'Maternity Gowns', 'd', 38, 'ltr');</script>
+
+    <script>generateSlider('prewedding', 'Pre Wedding Long Tail Gowns', 'e', 106, 'rtl');</script>
+
+    <footer class="py-12 bg-white text-center border-t">
+        <img src="tiska_logo.jpg" alt="Logo" class="h-8 mx-auto mb-4 opacity-30 grayscale">
+        <p class="text-[10px] tracking-[0.5em] text-slate-400">© 2026 TISKA ENTERPRISE</p>
+    </footer>
+
+    <a href="https://wa.me/917896325419" class="whatsapp-float fixed bottom-8 right-8 bg-[#25D366] text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl z-[999] hover:scale-110 transition duration-300">
+        <i class="fab fa-whatsapp text-3xl"></i>
+    </a>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        // Main Category Sliders
+        const categorySwipers = new Swiper(".swiper-category", {
+            loop: true,
+            speed: 1200,
+            autoplay: { delay: 4000 },
+            effect: "fade",
+            fadeEffect: { crossFade: true },
+            pagination: { el: ".swiper-pagination", clickable: true },
+        });
+
+        // Mascot Slider (5 per view)
+        const mascotSwiper = new Swiper(".mascot-swiper", {
+            slidesPerView: 1,
+            spaceBetween: 10,
+            loop: true,
+            autoplay: { delay: 3000 },
+            breakpoints: {
+                640: { slidesPerView: 2 },
+                1024: { slidesPerView: 5 }, // Show 5 images in a swipe for desktop
+            }
+        });
+    </script>
+</body>
+</html>
