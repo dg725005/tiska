@@ -10,6 +10,31 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
+
+      /* Ensure dots stay at the bottom and don't float over buttons */
+.swiper-pagination {
+    bottom: 5px !important; 
+    z-index: 50 !important;
+}
+
+/* Add a buffer to the bottom of the overlay to protect the dots */
+.slide-overlay { 
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%); 
+    z-index: 20;
+    padding-bottom: 40px !important; /* This creates the space for dots */
+}
+
+/* Specific styling for the Enquire button to lift it higher */
+.enquire-btn {
+    margin-bottom: 25px; /* Pushes button away from the dots */
+    position: relative;
+    z-index: 60;
+}
+
+/* Active dot color to match Tiska branding */
+.swiper-pagination-bullet-active {
+    background: #8a1d6a !important;
+}
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600;700&display=swap');
         
         body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
