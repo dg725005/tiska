@@ -11,29 +11,37 @@
     
     <style>
 
-      /* Ensure dots stay at the bottom and don't float over buttons */
+      /* Move pagination dots lower and style them for better visibility */
 .swiper-pagination {
-    bottom: 5px !important; 
-    z-index: 50 !important;
+    bottom: 10px !important; /* Positions dots closer to the very bottom edge */
+    z-index: 30 !important;
 }
 
-/* Add a buffer to the bottom of the overlay to protect the dots */
-.slide-overlay { 
-    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%); 
-    z-index: 20;
-    padding-bottom: 40px !important; /* This creates the space for dots */
+.swiper-pagination-bullet {
+    background: #fff !important;
+    opacity: 0.5;
 }
 
-/* Specific styling for the Enquire button to lift it higher */
-.enquire-btn {
-    margin-bottom: 25px; /* Pushes button away from the dots */
-    position: relative;
-    z-index: 60;
-}
-
-/* Active dot color to match Tiska branding */
 .swiper-pagination-bullet-active {
-    background: #8a1d6a !important;
+    background: #8a1d6a !important; /* Tiska Purple for the active dot */
+    opacity: 1;
+}
+
+/* Ensure the button stays above the dots and has clear spacing */
+.slide-overlay a {
+    margin-bottom: 30px; /* Pushes the button up away from the dots */
+    position: relative;
+    z-index: 40;
+}
+
+/* On very small mobile screens, adjust the overlay padding */
+@media (max-width: 640px) {
+    .slide-overlay {
+        padding-bottom: 50px !important; 
+    }
+    .swiper-category {
+        height: 75vh; /* Slightly shorter height on mobile to prevent overflow */
+    }
 }
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600;700&display=swap');
         
@@ -77,6 +85,7 @@
         function generateSlider(id, title, folder, count, direction) {
             document.write(`
                 <section id="${id}" class="pt-20">
+                    
                     <div class="bg-slate-50 py-4 text-center border-b">
                         <h2 class="text-2xl md:text-3xl font-bold text-slate-800 uppercase tracking-widest">${title}</h2>
                     </div>
