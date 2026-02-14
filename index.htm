@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tiska Enterprises | Premium Collection</title>
+    <title>Tiska Enterprises | Aura Collection</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         :root {
             --accent: #d4af37;
             --text: #ffffff;
             --wa-green: #25D366;
-            /* Section Hue Mappings */
-            --bg-e: #1a1610; --bg-d: #101a16; --bg-a: #16101a; --bg-b: #1a1010; --bg-c: #0f121a;
+            /* Section Background Mappings */
+            --bg-e: #141210; --bg-d: #101412; --bg-a: #121014; --bg-b: #141010; --bg-c: #0d0f14;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -20,14 +20,14 @@
             font-family: 'Montserrat', sans-serif;
             background-color: #0a0a0a;
             color: var(--text);
-            transition: background-color 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: background-color 1.5s ease;
             overflow-x: hidden;
         }
 
-        /* Navigation Bar */
+        /* Header Navigation */
         header {
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(15px);
             padding: 10px 5%;
             position: fixed;
             top: 0; width: 100%;
@@ -37,49 +37,40 @@
             align-items: center;
             border-bottom: 1px solid rgba(212, 175, 55, 0.2);
         }
-
-        .logo-container img { height: 50px; display: block; }
-
-        nav ul { display: flex; list-style: none; gap: 20px; }
+        .logo img { height: 50px; }
+        nav ul { display: flex; list-style: none; gap: 25px; }
         nav a {
             text-decoration: none;
-            color: #888;
+            color: #aaa;
             font-size: 0.75rem;
             letter-spacing: 2px;
             text-transform: uppercase;
-            font-weight: 500;
             transition: 0.3s;
         }
         nav a:hover { color: var(--accent); }
 
-        main { margin-top: 100px; }
+        main { margin-top: 120px; }
 
-        /* Section Layout */
-        .section-wrap {
-            padding: 60px 0;
-            position: relative;
-        }
-
+        .section-wrap { padding: 60px 0; position: relative; }
         .section-title {
             padding-left: 5%;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             font-family: 'Cinzel', serif;
-            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            font-size: 2rem;
             color: var(--accent);
             letter-spacing: 5px;
             text-transform: uppercase;
         }
 
-        /* Bidirectional Navigation Arrows */
+        /* Navigation Arrows */
         .nav-arrow {
             position: absolute;
             top: 55%;
             transform: translateY(-50%);
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.5);
             color: var(--accent);
             border: 1px solid var(--accent);
-            width: 60px;
-            height: 60px;
+            width: 60px; height: 60px;
             border-radius: 50%;
             cursor: pointer;
             z-index: 100;
@@ -87,88 +78,92 @@
             align-items: center;
             justify-content: center;
             font-size: 2rem;
-            transition: 0.3s ease;
+            transition: 0.3s;
         }
         .nav-arrow:hover { background: var(--accent); color: #000; box-shadow: 0 0 20px var(--accent); }
-        .arrow-left { left: 2%; }
-        .arrow-right { right: 2%; }
+        .arrow-left { left: 20px; }
+        .arrow-right { right: 20px; }
 
-        /* The Continuous Slider */
+        /* Slider Viewport */
         .slider-viewport {
             display: flex;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
-            gap: 25px;
-            padding: 15px 5%;
+            gap: 50px; /* Wider gap for aura space */
+            padding: 40px 10%;
             scrollbar-width: none;
             scroll-behavior: smooth;
         }
         .slider-viewport::-webkit-scrollbar { display: none; }
 
-        /* Full Image View Card */
-        .img-card {
+        /* IMAGE AURA CONTAINER */
+        .aura-container {
             flex: 0 0 320px;
-            height: 520px;
-            scroll-snap-align: start;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 10px;
+            height: 500px;
+            scroll-snap-align: center;
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: 0.4s;
-        }
-        .img-card:hover { border-color: var(--accent); transform: translateY(-5px); }
-
-        .img-card img {
-            max-width: 94%;
-            max-height: 94%;
-            object-fit: contain; /* FIXED: Prevents cropping */
-            display: block;
+            transition: transform 0.5s ease;
         }
 
-        /* WhatsApp Floating FAB */
+        /* The Shrouded Aura Effect */
+        .aura-container::before {
+            content: '';
+            position: absolute;
+            top: 10%; left: 10%; right: 10%; bottom: 10%;
+            background-image: var(--img-url);
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            filter: blur(40px) saturate(2);
+            opacity: 0.6;
+            z-index: 1;
+            transition: opacity 0.4s;
+        }
+
+        .aura-container:hover::before { opacity: 0.9; filter: blur(30px) saturate(2.5); }
+
+        .aura-container img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            z-index: 2;
+            position: relative;
+            border-radius: 4px;
+        }
+
+        /* WhatsApp FAB */
         .wa-float {
             position: fixed;
-            width: 60px;
-            height: 60px;
-            bottom: 30px;
-            right: 30px;
+            width: 60px; height: 60px;
+            bottom: 30px; right: 30px;
             background-color: var(--wa-green);
-            color: #FFF;
+            color: white;
             border-radius: 50px;
-            z-index: 2000;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
             transition: 0.3s;
-            animation: pulse-ring 2s infinite;
         }
         .wa-float:hover { transform: scale(1.1); box-shadow: 0 0 20px var(--wa-green); }
-
-        @keyframes pulse-ring {
-            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-            70% { box-shadow: 0 0 0 12px rgba(37, 211, 102, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-        }
 
         footer { text-align: center; padding: 60px; color: #444; font-size: 0.8rem; letter-spacing: 2px; }
 
         @media (max-width: 768px) {
-            nav { display: none; } /* Mobile cleanup */
-            .nav-arrow { width: 45px; height: 45px; font-size: 1.5rem; }
-            .img-card { flex: 0 0 280px; height: 420px; }
+            nav { display: none; }
+            .section-title { font-size: 1.4rem; }
+            .aura-container { flex: 0 0 260px; height: 400px; }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo-container">
-        <img src="tiska_logo.jpg" alt="Tiska Enterprises Logo">
-    </div>
+    <div class="logo"><img src="tiska_logo.jpg" alt="Tiska"></div>
     <nav>
         <ul>
             <li><a href="#section-e">Prewedding</a></li>
@@ -180,18 +175,18 @@
     </nav>
 </header>
 
-<a href="https://wa.me/1234567890" class="wa-float" target="_blank" title="Contact us on WhatsApp">
-    <svg width="32" height="32" fill="white" viewBox="0 0 16 16">
+<a href="https://wa.me/YOUR_NUMBER" class="wa-float" target="_blank">
+    <svg width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
         <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.06 3.973L0 16l4.195-1.103a7.859 7.859 0 0 0 3.792.98h.004c4.367 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
     </svg>
 </a>
 
-<main id="main-content"></main>
+<main id="gallery-root"></main>
 
-<footer>&copy; 2026 TISKA ENTERPRISES | JABALPUR</footer>
+<footer>&copy; 2026 TISKA ENTERPRISES</footer>
 
 <script>
-    const dataConfig = {
+    const config = {
         e: { title: "Prewedding Long Tail", folder: 'e', prefix: 'e', total: 106, skip: [100, 101], current: 1, hue: 'var(--bg-e)' },
         d: { title: "Maternity Collection", folder: 'd', prefix: 'd', total: 37, skip: [], current: 1, hue: 'var(--bg-d)' },
         a: { title: "Engagement Cocktail", folder: 'a', prefix: 'a', total: 49, skip: [], current: 1, hue: 'var(--bg-a)' },
@@ -199,68 +194,68 @@
         c: { title: "Premium Mascots", folder: 'c', prefix: 'c', total: 108, skip: [], current: 1, hue: 'var(--bg-c)' }
     };
 
-    const main = document.getElementById('main-content');
+    const root = document.getElementById('gallery-root');
 
-    // Setup Sections
-    Object.keys(dataConfig).forEach(key => {
-        const cat = dataConfig[key];
+    Object.keys(config).forEach(key => {
+        const cat = config[key];
         const section = document.createElement('section');
         section.className = 'section-wrap';
         section.id = `section-${key}`;
         section.innerHTML = `
             <h2 class="section-title">${cat.title}</h2>
-            <button class="nav-arrow arrow-left" onclick="slideGallery('${key}', -1)">&#8596;</button>
+            <button class="nav-arrow arrow-left" onclick="navigate('${key}', -1)">&#8596;</button>
             <div class="slider-viewport" id="pane-${key}"></div>
-            <button class="nav-arrow arrow-right" onclick="slideGallery('${key}', 1)">&#8596;</button>
+            <button class="nav-arrow arrow-right" onclick="navigate('${key}', 1)">&#8596;</button>
         `;
-        main.appendChild(section);
-        loadBatch(key); 
+        root.appendChild(section);
+        loadBatch(key);
     });
 
     function loadBatch(key) {
-        const cat = dataConfig[key];
+        const cat = config[key];
         const pane = document.getElementById(`pane-${key}`);
-        let added = 0;
+        let count = 0;
 
-        while (added < 5 && cat.current <= cat.total) {
+        while (count < 5 && cat.current <= cat.total) {
             if (cat.skip.includes(cat.current)) { cat.current++; continue; }
             
-            const card = document.createElement('div');
-            card.className = 'img-card';
-            const img = document.createElement('img');
-            img.src = `${cat.folder}/${cat.prefix}${cat.current}.jpg`;
-            img.loading = "lazy";
-            img.onerror = function() { this.parentElement.remove(); };
+            const url = `${cat.folder}/${cat.prefix}${cat.current}.jpg`;
+            const container = document.createElement('div');
+            container.className = 'aura-container';
+            container.style.setProperty('--img-url', `url(${url})`);
             
-            card.appendChild(img);
-            pane.appendChild(card);
+            const img = document.createElement('img');
+            img.src = url;
+            img.loading = "lazy";
+            img.onerror = () => container.remove();
+            
+            container.appendChild(img);
+            pane.appendChild(container);
+            
             cat.current++;
-            added++;
+            count++;
         }
     }
 
-    function slideGallery(key, direction) {
+    function navigate(key, dir) {
         const pane = document.getElementById(`pane-${key}`);
-        const scrollAmount = 345; 
-
-        // Auto-load logic: If we hit the end of the current slider while moving right
-        if (direction === 1) {
-            const atEnd = pane.scrollLeft + pane.clientWidth >= pane.scrollWidth - 100;
-            if (atEnd && dataConfig[key].current <= dataConfig[key].total) {
+        const shift = 370; // Card width + gap
+        
+        if (dir === 1) {
+            const isAtEnd = pane.scrollLeft + pane.clientWidth >= pane.scrollWidth - 100;
+            if (isAtEnd && config[key].current <= config[key].total) {
                 loadBatch(key);
             }
         }
-        
-        pane.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+        pane.scrollBy({ left: dir * shift, behavior: 'smooth' });
     }
 
-    // Dynamic Ambience Logic on Scroll
+    // Scroll Observer for background transitions
     window.addEventListener('scroll', () => {
-        Object.keys(dataConfig).forEach(key => {
-            const el = document.getElementById(`section-${key}`);
-            const rect = el.getBoundingClientRect();
-            if (rect.top < window.innerHeight / 2 && rect.bottom > window.innerHeight / 2) {
-                document.body.style.backgroundColor = dataConfig[key].hue;
+        Object.keys(config).forEach(key => {
+            const rect = document.getElementById(`section-${key}`).getBoundingClientRect();
+            if (rect.top < window.innerHeight/2 && rect.bottom > window.innerHeight/2) {
+                document.body.style.backgroundColor = config[key].hue;
             }
         });
     });
