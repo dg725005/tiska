@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiska Enterprises | Seamless Collection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #d4af37;
+            --text: #ffffff;
+            /* Adaptive Background Colors */
+            --bg-e: #1a1610; /* Bronze */
+            --bg-d: #101a16; /* Emerald */
+            --bg-a: #16101a; /* Royal Purple */
+            --bg-b: #1a1010; /* Deep Maroon */
+            --bg-c: #0f121a; /* Midnight Blue */
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #0a0a0a;
+            color: var(--text);
+            transition: background-color 1.2s ease;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 20px 5%;
+            position: fixed;
+            top: 0; width: 100%;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        .logo img { height: 40px; }
+
+        main { margin-top: 120px; }
+
+        .section-container {
+            padding: 60px 0;
+            position: relative;
+        }
+
+        .section-title {
+            padding-left: 5%;
+            margin-bottom: 30px;
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            color: var(--accent);
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+
+        /* Bidirectional Control Arrows */
+        .nav-control {
+            position: absolute;
+            top: 60%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.6);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            transition: 0.3s;
+        }
+        .nav-control:hover { background: var(--accent); color: #000; box-shadow: 0 0 20px var(--accent); }
+        .prev { left: 2%; }
+        .next { right: 2%; }
+
+        /* The Slider */
+        .slider-viewport {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 25px;
+            padding: 20px 8%;
+            scrollbar-width: none;
+            scroll-behavior: smooth;
+        }
+        .slider-viewport::-webkit-scrollbar { display: none; }
+
+        /* Full Image View (No Crop) */
+        .image-card {
+            flex: 0 0 320px;
+            height: 500px;
+            scroll-snap-align: center;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            transition: transform 0.4s ease;
+        }
+        .image-card:hover { transform: scale(1.02); border-color: var(--accent); }
+
+        .image-card img {
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain; /* FIXED: Prevents any cropping */
+            display: block;
+        }
+
+        footer { text-align: center; padding: 60px; color: #333; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo"><img src="tiska_logo.jpg" alt="Tiska Logo"></div>
+</header>
+
+<main id="main-gallery">
+    </main>
+
+<footer>&copy; 2026 TISKA ENTERPRISES</footer>
+
+<script>
+    const config = {
+        e: { title: "Prewedding Long Tail", folder: 'e', prefix: 'e', total: 106, skip: [100, 101], current: 1, hue: 'var(--bg-e)' },
+        d: { title: "Maternity Gowns", folder: 'd', prefix: 'd', total: 37, skip: [], current: 1, hue: 'var(--bg-d)' },
+        a: { title: "Engagement Cocktail", folder: 'a', prefix: 'a', total: 49, skip: [], current: 1, hue: 'var(--bg-a)' },
+        b: { title: "Long Tail Saree", folder: 'b', prefix: 'b', total: 11, skip: [], current: 1, hue: 'var(--bg-b)' },
+        c: { title: "Mascots", folder: 'c', prefix: 'c', total: 108, skip: [], current: 1, hue: 'var(--bg-c)' }
+    };
+
+    const main = document.getElementById('main-gallery');
+
+    // Generate HTML for each section
+    Object.keys(config).forEach(key => {
+        const cat = config[key];
+        const section = document.createElement('section');
+        section.className = 'section-container';
+        section.id = `section-${key}`;
+        section.innerHTML = `
+            <h2 class="section-title">${cat.title}</h2>
+            <button class="nav-control prev" onclick="moveSlider('${key}', -1)">&#8596;</button>
+            <div class="slider-viewport" id="pane-${key}" onscroll="checkHue('${key}')">
+                </div>
+            <button class="nav-control next" onclick="moveSlider('${key}', 1)">&#8596;</button>
+        `;
+        main.appendChild(section);
+        loadBatch(key); // Initial load
+    });
+
+    function loadBatch(key) {
+        const cat = config[key];
+        const pane = document.getElementById(`pane-${key}`);
+        let added = 0;
+
+        while (added < 5 && cat.current <= cat.total) {
+            if (cat.skip.includes(cat.current)) { cat.current++; continue; }
+
+            const card = document.createElement('div');
+            card.className = 'image-card';
+            const img = document.createElement('img');
+            img.src = `${cat.folder}/${cat.prefix}${cat.current}.jpg`;
+            img.onerror = function() { this.parentElement.remove(); };
+            
+            card.appendChild(img);
+            pane.appendChild(card);
+            cat.current++;
+            added++;
+        }
+    }
+
+    function moveSlider(key, dir) {
+        const pane = document.getElementById(`pane-${key}`);
+        const scrollAmount = 345; // Card width + gap
+        
+        // If moving right, check if we need to load more images
+        if (dir === 1) {
+            const isAtEnd = pane.scrollLeft + pane.clientWidth >= pane.scrollWidth - 100;
+            if (isAtEnd && config[key].current <= config[key].total) {
+                loadBatch(key);
+            }
+        }
+        
+        pane.scrollBy({ left: dir * scrollAmount, behavior: 'smooth' });
+    }
+
+    function checkHue(key) {
+        const section = document.getElementById(`section-${key}`);
+        const rect = section.getBoundingClientRect();
+        // If the section is in the middle of the screen, change body background
+        if (rect.top < window.innerHeight / 2 && rect.bottom > window.innerHeight / 2) {
+            document.body.style.backgroundColor = config[key].hue;
+        }
+    }
+
+    // Keyboard Arrow Support
+    document.addEventListener('keydown', (e) => {
+        // Find which section is most visible
+        let activeKey = 'e';
+        let minDiff = Infinity;
+        Object.keys(config).forEach(k => {
+            const rect = document.getElementById(`section-${k}`).getBoundingClientRect();
+            const diff = Math.abs(rect.top);
+            if (diff < minDiff) { minDiff = diff; activeKey = k; }
+        });
+
+        if (e.key === 'ArrowRight') moveSlider(activeKey, 1);
+        if (e.key === 'ArrowLeft') moveSlider(activeKey, -1);
+    });
+
+    window.addEventListener('scroll', () => {
+        Object.keys(config).forEach(key => checkHue(key));
+    });
+</script>
+</body>
+</html>
