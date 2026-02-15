@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Tiska Enterprises | Swipeable Collection</title>
+    <title>Tiska Enterprises | Premium Collection</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -23,7 +23,6 @@
             overflow-x: hidden;
         }
 
-        /* Fixed Header - Prevents disappearing on click */
         header {
             background: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(10px);
@@ -38,13 +37,12 @@
         }
         .logo img { height: 28px; }
         nav ul { display: flex; list-style: none; gap: 12px; }
-        nav a { text-decoration: none; color: #888; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
+        nav a { text-decoration: none; color: #888; font-size: 0.55rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
 
         main { margin-top: 70px; }
         .section-wrap { padding: 15px 0; position: relative; }
-        .section-title { padding-left: 5%; margin-bottom: 5px; font-family: 'Cinzel', serif; font-size: 1.1rem; color: var(--accent); letter-spacing: 2px; }
+        .section-title { padding-left: 5%; margin-bottom: 5px; font-family: 'Cinzel', serif; font-size: 1.1rem; color: var(--accent); letter-spacing: 2px; line-height: 1.2; }
 
-        /* Navigation Arrows (Hidden on small touch screens) */
         .nav-arrow {
             position: absolute; top: 55%; transform: translateY(-50%);
             background: rgba(0,0,0,0.7); color: var(--accent); border: 1px solid var(--accent);
@@ -53,13 +51,11 @@
         }
         .arrow-left { left: 10px; } .arrow-right { right: 10px; }
 
-        /* THE SWIPEABLE VIEWPORT */
         .slider-viewport {
             display: flex; 
             overflow-x: auto; 
-            overflow-y: hidden;
-            scroll-snap-type: x mandatory; /* Enables the snapping effect */
-            -webkit-overflow-scrolling: touch; /* Smooth swipe on iOS */
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
             gap: 20px; 
             padding: 45px 15% 65px 15%; 
             scrollbar-width: none; 
@@ -70,12 +66,11 @@
         .photo-cover {
             flex: 0 0 220px; 
             height: 280px; 
-            scroll-snap-align: center; /* Snaps image to center */
+            scroll-snap-align: center;
             position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;
             transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); z-index: 5;
         }
 
-        /* Aura Background */
         .photo-cover::before {
             content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
             background-image: var(--img-url); background-size: cover;
@@ -96,7 +91,6 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
         }
 
-        /* MAGNIFICATION & ILLUMINATION */
         .is-magnified { transform: scale(1.35) !important; z-index: 9000 !important; } 
         .is-magnified::before { filter: blur(35px) saturate(2) brightness(1.6); opacity: 0.95; }
         
@@ -120,9 +114,10 @@
         }
 
         @media (max-width: 768px) {
-            .nav-arrow { display: none; } /* Arrows unnecessary on mobile swipe */
+            .nav-arrow { display: none; }
             .photo-cover { flex: 0 0 180px; height: 240px; }
             .slider-viewport { padding: 40px 20% 60px 20%; }
+            .section-title { font-size: 0.9rem; }
         }
     </style>
 </head>
@@ -132,11 +127,11 @@
     <div class="logo"><img src="tiska_logo.jpg" alt="Tiska"></div>
     <nav>
         <ul>
-            <li><a href="#section-e">Pre</a></li>
-            <li><a href="#section-d">Mat</a></li>
-            <li><a href="#section-a">Cock</a></li>
+            <li><a href="#section-e">Prewedding</a></li>
+            <li><a href="#section-d">Maternity</a></li>
+            <li><a href="#section-a">Cocktail</a></li>
             <li><a href="#section-b">Saree</a></li>
-            <li><a href="#section-c">Masc</a></li>
+            <li><a href="#section-c">Mascots</a></li>
         </ul>
     </nav>
 </header>
@@ -149,11 +144,11 @@
 
 <script>
     const config = {
-        e: { title: "Prewedding", folder: 'e', prefix: 'e', total: 106, skip: [100, 101], hue: 'var(--bg-e)', mode: 'all', current: 1 },
-        d: { title: "Maternity", folder: 'd', prefix: 'd', total: 37, skip: [], hue: 'var(--bg-d)', mode: 'all', current: 1 },
-        a: { title: "Cocktail", folder: 'a', prefix: 'a', total: 49, skip: [], hue: 'var(--bg-a)', mode: 'all', current: 1 },
-        b: { title: "Saree", folder: 'b', prefix: 'b', total: 11, skip: [], hue: 'var(--bg-b)', mode: 'all', current: 1 },
-        c: { title: "Mascots", folder: 'c', prefix: 'c', total: 108, skip: [], hue: 'var(--bg-c)', mode: 'batch', current: 1 }
+        e: { title: "PREWEDDING LONG TAIL GOWNS", folder: 'e', prefix: 'e', total: 106, skip: [100, 101], hue: 'var(--bg-e)', mode: 'all', current: 1 },
+        d: { title: "MATERNITY GOWNS", folder: 'd', prefix: 'd', total: 37, skip: [], hue: 'var(--bg-d)', mode: 'all', current: 1 },
+        a: { title: "ENGAGEMENT COCKTAIL GOWNS", folder: 'a', prefix: 'a', total: 49, skip: [], hue: 'var(--bg-a)', mode: 'all', current: 1 },
+        b: { title: "LONGTAIL SAREEs", folder: 'b', prefix: 'b', total: 11, skip: [], hue: 'var(--bg-b)', mode: 'all', current: 1 },
+        c: { title: "MASCOTS", folder: 'c', prefix: 'c', total: 108, skip: [3, 12, 33, 108], hue: 'var(--bg-c)', mode: 'batch', current: 1 }
     };
 
     const root = document.getElementById('gallery-root');
@@ -174,10 +169,9 @@
         if (cat.mode === 'all') {
             loadImages(key, cat.total);
         } else {
-            loadImages(key, 5); // Mascots batch
+            loadImages(key, 5);
         }
 
-        // Auto-load more Mascots on scroll
         const pane = document.getElementById(`pane-${key}`);
         pane.addEventListener('scroll', () => {
             if (cat.mode === 'batch' && pane.scrollLeft + pane.clientWidth >= pane.scrollWidth - 50) {
@@ -223,7 +217,7 @@
             btn.innerText = "Inquire";
             btn.onclick = (e) => {
                 e.stopPropagation();
-                window.open(`https://wa.me/919993636912?text=${encodeURIComponent('Hi! I want to inquire about this dress: ' + absUrl)}`, '_blank');
+                window.open(`https://wa.me/919993636912?text=${encodeURIComponent('Hi Tiska! I am interested in this design: ' + absUrl)}`, '_blank');
             };
 
             frame.appendChild(img);
@@ -238,7 +232,7 @@
 
     function navigate(key, dir) {
         const pane = document.getElementById(`pane-${key}`);
-        pane.scrollBy({ left: dir * (window.innerWidth * 0.6), behavior: 'smooth' });
+        pane.scrollBy({ left: dir * (window.innerWidth * 0.7), behavior: 'smooth' });
     }
 
     window.addEventListener('scroll', () => {
