@@ -91,6 +91,7 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
         }
 
+        /* WAVE MAGNIFICATION & ILLUMINATION */
         .is-magnified { transform: scale(1.35) !important; z-index: 9000 !important; } 
         .is-magnified::before { filter: blur(35px) saturate(2) brightness(1.6); opacity: 0.95; }
         
@@ -145,7 +146,7 @@
 <script>
     const config = {
         e: { title: "PREWEDDING LONG TAIL GOWNS", folder: 'e', prefix: 'e', total: 106, skip: [100, 101], hue: 'var(--bg-e)', mode: 'all', current: 1 },
-        d: { title: "MATERNITY GOWNS", folder: 'd', prefix: 'd', total: 37, skip: [], hue: 'var(--bg-d)', mode: 'all', current: 1 },
+        d: { title: "MATERNITY GOWNS", folder: 'd', prefix: 'd', total: 37, skip: [22], hue: 'var(--bg-d)', mode: 'all', current: 1 },
         a: { title: "ENGAGEMENT COCKTAIL GOWNS", folder: 'a', prefix: 'a', total: 49, skip: [], hue: 'var(--bg-a)', mode: 'all', current: 1 },
         b: { title: "LONGTAIL SAREEs", folder: 'b', prefix: 'b', total: 11, skip: [], hue: 'var(--bg-b)', mode: 'all', current: 1 },
         c: { title: "MASCOTS", folder: 'c', prefix: 'c', total: 108, skip: [3, 12, 33, 108], hue: 'var(--bg-c)', mode: 'batch', current: 1 }
