@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tiska Enterprises | Interactive Compact Collection</title>
+    <title>Tiska Enterprises | Boutique Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -23,14 +23,14 @@
             overflow-x: hidden;
         }
 
-        /* Fixed Header - High z-index to prevent disappearing */
+        /* Fixed Header */
         header {
             background: rgba(0, 0, 0, 0.98);
             backdrop-filter: blur(10px);
-            padding: 5px 5%;
+            padding: 8px 5%;
             position: fixed;
             top: 0; width: 100%;
-            z-index: 9999; /* Highest priority */
+            z-index: 9999;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -38,9 +38,10 @@
         }
         .logo img { height: 32px; }
         nav ul { display: flex; list-style: none; gap: 15px; }
-        nav a { text-decoration: none; color: #888; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; }
+        nav a { text-decoration: none; color: #888; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 500; transition: 0.3s; }
+        nav a:hover { color: var(--accent); }
 
-        main { margin-top: 50px; }
+        main { margin-top: 60px; }
         .section-wrap { padding: 5px 0; position: relative; }
         .section-title { padding-left: 5%; margin-bottom: 2px; font-family: 'Cinzel', serif; font-size: 1.1rem; color: var(--accent); letter-spacing: 2px; }
 
@@ -54,17 +55,17 @@
 
         .slider-viewport {
             display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
-            gap: 20px; padding: 20px 8% 30px 8%; scrollbar-width: none; scroll-behavior: smooth;
+            gap: 20px; padding: 25px 8% 40px 8%; scrollbar-width: none; scroll-behavior: smooth;
         }
         .slider-viewport::-webkit-scrollbar { display: none; }
 
-        /* REDUCED FRAME HEIGHT */
+        /* Compact Frame Height */
         .photo-cover {
             flex: 0 0 220px; 
-            height: 280px; /* Reduced from 400px */
+            height: 280px; 
             scroll-snap-align: center;
             position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: transform 0.4s ease; z-index: 5;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 5;
         }
 
         .photo-cover::before {
@@ -78,25 +79,22 @@
             background: #111; border: 4px solid #1a1a1a; outline: 1px solid var(--accent);
             border-radius: 3px; overflow: hidden; display: flex; align-items: center; justify-content: center;
             box-shadow: 0 5px 15px rgba(0,0,0,0.6); cursor: pointer;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.2);
         }
 
         .cover-frame img { max-width: 95%; max-height: 95%; object-fit: contain; }
 
-        /* Interaction Effects */
-        .is-magnified { transform: scale(1.2); z-index: 9000; } /* Stays below header */
-        .is-neighbor { transform: scale(1.1); z-index: 5000; }
+        .is-magnified { transform: scale(1.2) !important; z-index: 9000 !important; } 
+        .is-neighbor { transform: scale(1.1) !important; z-index: 5000 !important; }
 
-        /* WhatsApp Button */
         .wa-order-btn {
             position: absolute; bottom: 0;
             background: var(--accent); color: #000;
-            border: none; padding: 4px 12px; font-family: 'Montserrat', sans-serif;
-            font-weight: 700; font-size: 0.6rem; border-radius: 15px;
+            border: none; padding: 6px 16px; font-family: 'Montserrat', sans-serif;
+            font-weight: 700; font-size: 0.65rem; border-radius: 20px;
             cursor: pointer; opacity: 0; transform: translateY(10px);
-            transition: 0.3s ease; z-index: 100;
+            transition: 0.3s ease; z-index: 110;
         }
-        .is-magnified .wa-order-btn { opacity: 1; transform: translateY(-15px); }
+        .is-magnified .wa-order-btn { opacity: 1; transform: translateY(-30px); }
 
         .wa-float {
             position: fixed; width: 50px; height: 50px; bottom: 20px; right: 20px;
@@ -109,7 +107,7 @@
 </head>
 <body>
 
-<header id="top-nav">
+<header>
     <div class="logo"><img src="tiska_logo.jpg" alt="Tiska"></div>
     <nav>
         <ul>
@@ -139,33 +137,47 @@
 
     const root = document.getElementById('gallery-root');
 
+    // Initialization
     Object.keys(config).forEach(key => {
         const cat = config[key];
         const section = document.createElement('section');
         section.className = 'section-wrap';
         section.id = `section-${key}`;
-        section.innerHTML = `<h2 class="section-title">${cat.title}</h2><button class="nav-arrow arrow-left" onclick="navigate('${key}', -1)">&#8596;</button><div class="slider-viewport" id="pane-${key}"></div><button class="nav-arrow arrow-right" onclick="navigate('${key}', 1)">&#8596;</button>`;
+        section.innerHTML = `
+            <h2 class="section-title">${cat.title}</h2>
+            <button class="nav-arrow arrow-left" onclick="navigate('${key}', -1)">&#8596;</button>
+            <div class="slider-viewport" id="pane-${key}"></div>
+            <button class="nav-arrow arrow-right" onclick="navigate('${key}', 1)">&#8596;</button>
+        `;
         root.appendChild(section);
-        loadBatch(key);
+        loadBatch(key, 5); // STRICTLY load 5 on startup
     });
 
-    function loadBatch(key) {
+    function loadBatch(key, amount = 5) {
         const cat = config[key];
         const pane = document.getElementById(`pane-${key}`);
-        let count = 0;
-        while (count < 5 && cat.current <= cat.total) {
-            if (cat.skip.includes(cat.current)) { cat.current++; continue; }
-            const url = `${cat.folder}/${cat.prefix}${cat.current}.jpg`;
+        let loadedThisTime = 0;
+
+        while (loadedThisTime < amount && cat.current <= cat.total) {
+            if (cat.skip.includes(cat.current)) { 
+                cat.current++; 
+                continue; 
+            }
+            
+            const relativeUrl = `${cat.folder}/${cat.prefix}${cat.current}.jpg`;
+            const absoluteUrl = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '/') + relativeUrl;
+
             const container = document.createElement('div');
             container.className = 'photo-cover';
-            container.style.setProperty('--img-url', `url(${url})`);
+            container.style.setProperty('--img-url', `url(${relativeUrl})`);
             
             const frame = document.createElement('div');
             frame.className = 'cover-frame';
-            frame.onclick = (e) => handleWave(container, url, cat.title);
+            frame.onclick = () => handleWave(container);
             
             const img = document.createElement('img');
-            img.src = url; img.loading = "lazy";
+            img.src = relativeUrl; 
+            img.loading = "lazy";
             img.onerror = () => container.remove();
             
             const btn = document.createElement('button');
@@ -173,32 +185,41 @@
             btn.innerText = "Inquire";
             btn.onclick = (e) => {
                 e.stopPropagation();
-                window.open(`https://wa.me/919993636912?text=I am interested in this ${cat.title} design: ${url}`, '_blank');
+                const message = encodeURIComponent(`I am interested in this design! \n\n ${absoluteUrl}`);
+                window.open(`https://wa.me/919993636912?text=${message}`, '_blank');
             };
 
             frame.appendChild(img);
             container.appendChild(frame);
             container.appendChild(btn);
             pane.appendChild(container);
-            cat.current++; count++;
+
+            cat.current++;
+            loadedThisTime++;
         }
     }
 
-    function handleWave(target, url, title) {
+    function handleWave(target) {
         const all = Array.from(target.parentElement.children);
         const idx = all.indexOf(target);
         document.querySelectorAll('.photo-cover').forEach(el => el.classList.remove('is-magnified', 'is-neighbor'));
         
         target.classList.add('is-magnified');
-        [idx-2, idx-1, idx+1, idx+2].forEach(i => { if(all[i]) all[i].classList.add('is-neighbor'); });
+        [idx-2, idx-1, idx+1, idx+2].forEach(i => { 
+            if(all[i]) all[i].classList.add('is-neighbor'); 
+        });
     }
 
     function navigate(key, dir) {
         const pane = document.getElementById(`pane-${key}`);
-        if (dir === 1 && pane.scrollLeft + pane.clientWidth >= pane.scrollWidth - 100) loadBatch(key);
-        pane.scrollBy({ left: dir * 250, behavior: 'smooth' });
+        // If clicking right and near the end of loaded items, load 5 more
+        if (dir === 1 && (pane.scrollLeft + pane.clientWidth >= pane.scrollWidth - 150)) {
+            loadBatch(key, 5);
+        }
+        pane.scrollBy({ left: dir * 240, behavior: 'smooth' });
     }
 
+    // Scroll Observer for background transitions
     window.addEventListener('scroll', () => {
         Object.keys(config).forEach(key => {
             const el = document.getElementById(`section-${key}`);
