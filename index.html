@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Tiska Enterprises | Modern Gallery Collection</title>
+    <title>Tiska Enterprises | Pearl & Rose Collection</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Modern Gallery Palette */
-            --base-bg: #FFFFFF;      /* Pure White */
-            --secondary-bg: #F2F2F2; /* Light Slate */
+            /* Pearl & Rose Palette */
+            --base-bg: #F9F6F7;      /* Pearl White */
+            --secondary-bg: #EEE2DF; /* Muted Shell Pink */
+            --taupe: #B79D94;        /* Warm Taupe */
             --gold: #D4AF37;         /* Accent Gold */
-            --text-main: #111111;    /* Deep Black */
-            --text-muted: #666666;
+            --text-main: #4A4444;    /* Soft Charcoal */
             --wa-green: #25D366;
 
-            /* Subtle light-tone shifts for section transitions */
-            --bg-e: #FFFFFF; --bg-d: #F9F9F9; --bg-a: #FFFFFF; --bg-b: #FDFCF0; --bg-c: #F4F4F4;
+            /* Dynamic Section Hues (Romantic soft shifts) */
+            --bg-e: #F9F6F7; --bg-d: #F4EBE9; --bg-a: #F9F6F7; --bg-b: #F2ECEA; --bg-c: #F0F0F0;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -25,13 +25,13 @@
             font-family: 'Montserrat', sans-serif;
             background-color: var(--base-bg);
             color: var(--text-main);
-            transition: background-color 0.8s ease;
+            transition: background-color 1s ease;
             overflow-x: hidden;
         }
 
         header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(15px);
+            background: rgba(249, 246, 247, 0.92);
+            backdrop-filter: blur(10px);
             padding: 12px 5%;
             position: fixed;
             top: 0; width: 100%;
@@ -39,25 +39,25 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #EEEEEE;
+            border-bottom: 1px solid rgba(183, 157, 148, 0.2);
         }
-        .logo img { height: 32px; }
+        .logo img { height: 32px; filter: contrast(0.9); }
         nav ul { display: flex; list-style: none; gap: 14px; }
-        nav a { text-decoration: none; color: var(--text-muted); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 700; transition: 0.3s; }
+        nav a { text-decoration: none; color: var(--taupe); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; transition: 0.3s; }
         nav a:hover { color: var(--gold); }
 
         main { margin-top: 90px; }
         .section-wrap { padding: 25px 0; position: relative; }
-        .section-title { padding-left: 6%; margin-bottom: 10px; font-family: 'Cinzel', serif; font-size: 1.2rem; color: var(--text-main); letter-spacing: 2.5px; line-height: 1.3; }
+        .section-title { padding-left: 6%; margin-bottom: 10px; font-family: 'Cinzel', serif; font-size: 1.25rem; color: var(--taupe); letter-spacing: 3px; line-height: 1.3; }
 
         .nav-arrow {
             position: absolute; top: 55%; transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.9); color: var(--text-main); border: 1px solid #DDDDDD;
+            background: rgba(255, 255, 255, 0.8); color: var(--taupe); border: 1px solid var(--secondary-bg);
             width: 44px; height: 44px; border-radius: 50%; cursor: pointer; z-index: 100;
             display: flex; align-items: center; justify-content: center; font-size: 1.3rem;
-            transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: 0.3s; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
-        .nav-arrow:hover { border-color: var(--gold); color: var(--gold); }
+        .nav-arrow:hover { background: var(--secondary-bg); color: var(--text-main); }
         .arrow-left { left: 12px; } .arrow-right { right: 12px; }
 
         .slider-viewport {
@@ -65,8 +65,8 @@
             overflow-x: auto; 
             scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
-            gap: 30px; 
-            padding: 50px 15% 80px 15%; 
+            gap: 25px; 
+            padding: 50px 15% 85px 15%; 
             scrollbar-width: none; 
             scroll-behavior: smooth;
         }
@@ -77,57 +77,58 @@
             height: 320px; 
             scroll-snap-align: center;
             position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); z-index: 5;
+            transition: transform 0.6s cubic-bezier(0.17, 0.67, 0.83, 0.67); z-index: 5;
         }
 
-        /* Clean High-Key Aura */
+        /* Soft Rose Aura */
         .photo-cover::before {
             content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
             background-image: var(--img-url); background-size: cover;
-            filter: blur(40px) saturate(0.8) brightness(1.1); 
-            opacity: 0.15; z-index: 1;
+            filter: blur(40px) saturate(0.8) brightness(1.2); 
+            opacity: 0.2; z-index: 1;
             transition: 0.6s ease;
         }
 
         .cover-frame {
             position: relative; z-index: 10; width: 100%; height: 100%;
-            background: #F9F9F9; border-radius: 4px; overflow: hidden; 
+            background: #FFF; border-radius: 8px; overflow: hidden; 
             display: flex; align-items: center; justify-content: center;
             cursor: pointer;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            border: 1px solid #F0F0F0;
+            box-shadow: 0 12px 25px rgba(183, 157, 148, 0.15);
+            border: 4px solid #FFF;
         }
-        .cover-frame img { max-width: 95%; max-height: 95%; object-fit: contain; }
+        .cover-frame img { max-width: 100%; max-height: 100%; object-fit: contain; }
 
         /* MAGNIFICATION WAVE */
         .is-magnified { transform: scale(1.3) !important; z-index: 9000 !important; } 
-        .is-magnified::before { opacity: 0.4; filter: blur(50px) saturate(1.4) brightness(1.0); }
-        .is-magnified .cover-frame { box-shadow: 0 25px 50px rgba(0,0,0,0.15); border-color: var(--gold); }
+        .is-magnified::before { opacity: 0.5; filter: blur(50px) saturate(1.3) brightness(1.0); }
+        .is-magnified .cover-frame { box-shadow: 0 20px 40px rgba(183, 157, 148, 0.3); border-color: var(--secondary-bg); }
         
         .is-neighbor { transform: scale(1.15) !important; z-index: 5000 !important; }
 
         .wa-order-btn {
             position: absolute; bottom: 0;
-            background: var(--text-main); color: #FFF;
-            border: none; padding: 10px 24px; font-family: 'Montserrat', sans-serif;
-            font-weight: 700; font-size: 0.75rem; border-radius: 2px;
+            background: var(--taupe); color: #FFF;
+            border: none; padding: 10px 22px; font-family: 'Montserrat', sans-serif;
+            font-weight: 700; font-size: 0.7rem; border-radius: 20px;
             cursor: pointer; opacity: 0; transform: translateY(15px);
             transition: 0.4s ease; z-index: 110;
             letter-spacing: 1px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-        .is-magnified .wa-order-btn { opacity: 1; transform: translateY(-30px); background: var(--gold); color: #000; }
+        .is-magnified .wa-order-btn { opacity: 1; transform: translateY(-30px); background: var(--gold); color: #FFF; }
 
         .wa-float {
             position: fixed; width: 55px; height: 55px; bottom: 25px; right: 25px;
             background-color: var(--wa-green); color: white; border-radius: 50px;
             display: flex; align-items: center; justify-content: center; z-index: 9998;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
 
         @media (max-width: 768px) {
             .nav-arrow { display: none; }
             .photo-cover { flex: 0 0 200px; height: 280px; }
-            .slider-viewport { padding: 45px 20% 70px 20%; }
+            .slider-viewport { padding: 45px 20% 75px 20%; }
         }
     </style>
 </head>
