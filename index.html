@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tiska Enterprises | Boutique Portfolio</title>
+    <title>Tiska Enterprises | Complete Collection</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -34,7 +34,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
         }
         .logo img { height: 32px; }
         nav ul { display: flex; list-style: none; gap: 15px; }
@@ -42,49 +42,65 @@
         nav a:hover { color: var(--accent); }
 
         main { margin-top: 60px; }
-        .section-wrap { padding: 5px 0; position: relative; }
-        .section-title { padding-left: 5%; margin-bottom: 2px; font-family: 'Cinzel', serif; font-size: 1.1rem; color: var(--accent); letter-spacing: 2px; }
+        .section-wrap { padding: 10px 0; position: relative; }
+        .section-title { padding-left: 5%; margin-bottom: 5px; font-family: 'Cinzel', serif; font-size: 1.1rem; color: var(--accent); letter-spacing: 2px; }
 
         .nav-arrow {
             position: absolute; top: 55%; transform: translateY(-50%);
             background: rgba(0,0,0,0.8); color: var(--accent); border: 1px solid var(--accent);
-            width: 35px; height: 35px; border-radius: 50%; cursor: pointer; z-index: 1000;
+            width: 40px; height: 40px; border-radius: 50%; cursor: pointer; z-index: 1000;
             display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+            transition: 0.3s;
         }
-        .arrow-left { left: 10px; } .arrow-right { right: 10px; }
+        .nav-arrow:hover { background: var(--accent); color: #000; }
+        .arrow-left { left: 15px; } .arrow-right { right: 15px; }
 
         .slider-viewport {
             display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
-            gap: 20px; padding: 25px 8% 40px 8%; scrollbar-width: none; scroll-behavior: smooth;
+            gap: 25px; padding: 50px 12% 70px 12%; scrollbar-width: none; scroll-behavior: smooth;
         }
         .slider-viewport::-webkit-scrollbar { display: none; }
 
-        /* Compact Frame Height */
         .photo-cover {
             flex: 0 0 220px; 
             height: 280px; 
             scroll-snap-align: center;
             position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 5;
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); z-index: 5;
         }
 
+        /* Aura Background */
         .photo-cover::before {
-            content: ''; position: absolute; top: 5%; left: 5%; right: 5%; bottom: 5%;
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
             background-image: var(--img-url); background-size: cover;
-            filter: blur(25px) saturate(2); opacity: 0.4; z-index: 1;
+            filter: blur(25px) saturate(1.5) brightness(0.4); 
+            opacity: 0.6; z-index: 1;
+            transition: filter 0.5s ease, opacity 0.5s ease;
         }
 
         .cover-frame {
             position: relative; z-index: 10; width: 100%; height: 100%;
-            background: #111; border: 4px solid #1a1a1a; outline: 1px solid var(--accent);
-            border-radius: 3px; overflow: hidden; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.6); cursor: pointer;
+            background: transparent; border: none; outline: none;
+            border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
         }
 
-        .cover-frame img { max-width: 95%; max-height: 95%; object-fit: contain; }
+        .cover-frame img { 
+            max-width: 100%; max-height: 100%; object-fit: contain; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            transition: filter 0.5s ease;
+        }
 
-        .is-magnified { transform: scale(1.2) !important; z-index: 9000 !important; } 
-        .is-neighbor { transform: scale(1.1) !important; z-index: 5000 !important; }
+        /* --- WAVE MAGNIFICATION & ILLUMINATION --- */
+
+        /* Central Image: 35% Zoom + Highest Brightness */
+        .is-magnified { transform: scale(1.35) !important; z-index: 9000 !important; } 
+        .is-magnified::before { filter: blur(35px) saturate(2) brightness(1.6); opacity: 0.95; }
+        .is-magnified .cover-frame img { filter: brightness(1.15); }
+
+        /* Neighbor Images: 25% Zoom + Partial Brightness */
+        .is-neighbor { transform: scale(1.25) !important; z-index: 5000 !important; }
+        .is-neighbor::before { filter: blur(25px) saturate(1.8) brightness(1.0); opacity: 0.75; }
 
         .wa-order-btn {
             position: absolute; bottom: 0;
@@ -94,7 +110,7 @@
             cursor: pointer; opacity: 0; transform: translateY(10px);
             transition: 0.3s ease; z-index: 110;
         }
-        .is-magnified .wa-order-btn { opacity: 1; transform: translateY(-30px); }
+        .is-magnified .wa-order-btn { opacity: 1; transform: translateY(-15px); }
 
         .wa-float {
             position: fixed; width: 50px; height: 50px; bottom: 20px; right: 20px;
@@ -102,7 +118,7 @@
             display: flex; align-items: center; justify-content: center; z-index: 9998;
         }
 
-        footer { text-align: center; padding: 20px; color: #333; font-size: 0.6rem; }
+        footer { text-align: center; padding: 40px 20px; color: #333; font-size: 0.6rem; letter-spacing: 2px; }
     </style>
 </head>
 <body>
@@ -128,16 +144,16 @@
 
 <script>
     const config = {
-        e: { title: "Prewedding", folder: 'e', prefix: 'e', total: 106, skip: [100, 101], current: 1, hue: 'var(--bg-e)' },
-        d: { title: "Maternity", folder: 'd', prefix: 'd', total: 37, skip: [], current: 1, hue: 'var(--bg-d)' },
-        a: { title: "Cocktail", folder: 'a', prefix: 'a', total: 49, skip: [], current: 1, hue: 'var(--bg-a)' },
-        b: { title: "Saree", folder: 'b', prefix: 'b', total: 11, skip: [], current: 1, hue: 'var(--bg-b)' },
-        c: { title: "Mascots", folder: 'c', prefix: 'c', total: 108, skip: [], current: 1, hue: 'var(--bg-c)' }
+        e: { title: "Prewedding", folder: 'e', prefix: 'e', total: 106, skip: [100, 101], hue: 'var(--bg-e)' },
+        d: { title: "Maternity", folder: 'd', prefix: 'd', total: 37, skip: [], hue: 'var(--bg-d)' },
+        a: { title: "Cocktail", folder: 'a', prefix: 'a', total: 49, skip: [], hue: 'var(--bg-a)' },
+        b: { title: "Saree", folder: 'b', prefix: 'b', total: 11, skip: [], hue: 'var(--bg-b)' },
+        c: { title: "Mascots", folder: 'c', prefix: 'c', total: 108, skip: [], hue: 'var(--bg-c)' }
     };
 
     const root = document.getElementById('gallery-root');
 
-    // Initialization
+    // Initialization: Render every section and fill them completely
     Object.keys(config).forEach(key => {
         const cat = config[key];
         const section = document.createElement('section');
@@ -145,26 +161,22 @@
         section.id = `section-${key}`;
         section.innerHTML = `
             <h2 class="section-title">${cat.title}</h2>
-            <button class="nav-arrow arrow-left" onclick="navigate('${key}', -1)">&#8596;</button>
+            <button class="nav-arrow arrow-left" onclick="navigate('${key}', -1)">&#8592;</button>
             <div class="slider-viewport" id="pane-${key}"></div>
-            <button class="nav-arrow arrow-right" onclick="navigate('${key}', 1)">&#8596;</button>
+            <button class="nav-arrow arrow-right" onclick="navigate('${key}', 1)">&#8594;</button>
         `;
         root.appendChild(section);
-        loadBatch(key, 5); // STRICTLY load 5 on startup
+        fillCategory(key); 
     });
 
-    function loadBatch(key, amount = 5) {
+    function fillCategory(key) {
         const cat = config[key];
         const pane = document.getElementById(`pane-${key}`);
-        let loadedThisTime = 0;
-
-        while (loadedThisTime < amount && cat.current <= cat.total) {
-            if (cat.skip.includes(cat.current)) { 
-                cat.current++; 
-                continue; 
-            }
+        
+        for (let i = 1; i <= cat.total; i++) {
+            if (cat.skip.includes(i)) continue;
             
-            const relativeUrl = `${cat.folder}/${cat.prefix}${cat.current}.jpg`;
+            const relativeUrl = `${cat.folder}/${cat.prefix}${i}.jpg`;
             const absoluteUrl = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '/') + relativeUrl;
 
             const container = document.createElement('div');
@@ -177,7 +189,7 @@
             
             const img = document.createElement('img');
             img.src = relativeUrl; 
-            img.loading = "lazy";
+            img.loading = "lazy"; // Vital for performance when loading all at once
             img.onerror = () => container.remove();
             
             const btn = document.createElement('button');
@@ -193,18 +205,20 @@
             container.appendChild(frame);
             container.appendChild(btn);
             pane.appendChild(container);
-
-            cat.current++;
-            loadedThisTime++;
         }
     }
 
     function handleWave(target) {
         const all = Array.from(target.parentElement.children);
         const idx = all.indexOf(target);
+        
+        // Clear previous state
         document.querySelectorAll('.photo-cover').forEach(el => el.classList.remove('is-magnified', 'is-neighbor'));
         
+        // Primary Focus (35%)
         target.classList.add('is-magnified');
+        
+        // Neighbors (25%)
         [idx-2, idx-1, idx+1, idx+2].forEach(i => { 
             if(all[i]) all[i].classList.add('is-neighbor'); 
         });
@@ -212,14 +226,9 @@
 
     function navigate(key, dir) {
         const pane = document.getElementById(`pane-${key}`);
-        // If clicking right and near the end of loaded items, load 5 more
-        if (dir === 1 && (pane.scrollLeft + pane.clientWidth >= pane.scrollWidth - 150)) {
-            loadBatch(key, 5);
-        }
-        pane.scrollBy({ left: dir * 240, behavior: 'smooth' });
+        pane.scrollBy({ left: dir * 400, behavior: 'smooth' });
     }
 
-    // Scroll Observer for background transitions
     window.addEventListener('scroll', () => {
         Object.keys(config).forEach(key => {
             const el = document.getElementById(`section-${key}`);
