@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tiska Enterprises | Complete Collection</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tiska Enterprises | Swipeable Collection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --accent: #d4af37;
@@ -13,7 +13,7 @@
             --bg-e: #141210; --bg-d: #101412; --bg-a: #121014; --bg-b: #141010; --bg-c: #0d0f14;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         
         body {
             font-family: 'Montserrat', sans-serif;
@@ -23,11 +23,11 @@
             overflow-x: hidden;
         }
 
-        /* Fixed Header */
+        /* Fixed Header - Prevents disappearing on click */
         header {
-            background: rgba(0, 0, 0, 0.98);
+            background: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(10px);
-            padding: 8px 5%;
+            padding: 10px 5%;
             position: fixed;
             top: 0; width: 100%;
             z-index: 9999;
@@ -36,35 +36,41 @@
             align-items: center;
             border-bottom: 1px solid rgba(212, 175, 55, 0.2);
         }
-        .logo img { height: 32px; }
-        nav ul { display: flex; list-style: none; gap: 15px; }
-        nav a { text-decoration: none; color: #888; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 500; transition: 0.3s; }
-        nav a:hover { color: var(--accent); }
+        .logo img { height: 28px; }
+        nav ul { display: flex; list-style: none; gap: 12px; }
+        nav a { text-decoration: none; color: #888; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
 
-        main { margin-top: 60px; }
-        .section-wrap { padding: 10px 0; position: relative; }
+        main { margin-top: 70px; }
+        .section-wrap { padding: 15px 0; position: relative; }
         .section-title { padding-left: 5%; margin-bottom: 5px; font-family: 'Cinzel', serif; font-size: 1.1rem; color: var(--accent); letter-spacing: 2px; }
 
+        /* Navigation Arrows (Hidden on small touch screens) */
         .nav-arrow {
             position: absolute; top: 55%; transform: translateY(-50%);
-            background: rgba(0,0,0,0.8); color: var(--accent); border: 1px solid var(--accent);
-            width: 40px; height: 40px; border-radius: 50%; cursor: pointer; z-index: 1000;
+            background: rgba(0,0,0,0.7); color: var(--accent); border: 1px solid var(--accent);
+            width: 40px; height: 40px; border-radius: 50%; cursor: pointer; z-index: 100;
             display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
-            transition: 0.3s;
         }
-        .nav-arrow:hover { background: var(--accent); color: #000; }
-        .arrow-left { left: 15px; } .arrow-right { right: 15px; }
+        .arrow-left { left: 10px; } .arrow-right { right: 10px; }
 
+        /* THE SWIPEABLE VIEWPORT */
         .slider-viewport {
-            display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
-            gap: 25px; padding: 50px 12% 70px 12%; scrollbar-width: none; scroll-behavior: smooth;
+            display: flex; 
+            overflow-x: auto; 
+            overflow-y: hidden;
+            scroll-snap-type: x mandatory; /* Enables the snapping effect */
+            -webkit-overflow-scrolling: touch; /* Smooth swipe on iOS */
+            gap: 20px; 
+            padding: 45px 15% 65px 15%; 
+            scrollbar-width: none; 
+            scroll-behavior: smooth;
         }
         .slider-viewport::-webkit-scrollbar { display: none; }
 
         .photo-cover {
             flex: 0 0 220px; 
             height: 280px; 
-            scroll-snap-align: center;
+            scroll-snap-align: center; /* Snaps image to center */
             position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;
             transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); z-index: 5;
         }
@@ -75,42 +81,37 @@
             background-image: var(--img-url); background-size: cover;
             filter: blur(25px) saturate(1.5) brightness(0.4); 
             opacity: 0.6; z-index: 1;
-            transition: filter 0.5s ease, opacity 0.5s ease;
+            transition: 0.5s ease;
         }
 
         .cover-frame {
             position: relative; z-index: 10; width: 100%; height: 100%;
-            background: transparent; border: none; outline: none;
-            border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center;
+            background: transparent; border-radius: 4px; overflow: hidden; 
+            display: flex; align-items: center; justify-content: center;
             cursor: pointer;
         }
 
         .cover-frame img { 
             max-width: 100%; max-height: 100%; object-fit: contain; 
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            transition: filter 0.5s ease;
         }
 
-        /* --- WAVE MAGNIFICATION & ILLUMINATION --- */
-
-        /* Central Image: 35% Zoom + Highest Brightness */
+        /* MAGNIFICATION & ILLUMINATION */
         .is-magnified { transform: scale(1.35) !important; z-index: 9000 !important; } 
         .is-magnified::before { filter: blur(35px) saturate(2) brightness(1.6); opacity: 0.95; }
-        .is-magnified .cover-frame img { filter: brightness(1.15); }
-
-        /* Neighbor Images: 25% Zoom + Partial Brightness */
+        
         .is-neighbor { transform: scale(1.25) !important; z-index: 5000 !important; }
         .is-neighbor::before { filter: blur(25px) saturate(1.8) brightness(1.0); opacity: 0.75; }
 
         .wa-order-btn {
             position: absolute; bottom: 0;
             background: var(--accent); color: #000;
-            border: none; padding: 6px 16px; font-family: 'Montserrat', sans-serif;
-            font-weight: 700; font-size: 0.65rem; border-radius: 20px;
+            border: none; padding: 8px 18px; font-family: 'Montserrat', sans-serif;
+            font-weight: 700; font-size: 0.7rem; border-radius: 25px;
             cursor: pointer; opacity: 0; transform: translateY(10px);
             transition: 0.3s ease; z-index: 110;
         }
-        .is-magnified .wa-order-btn { opacity: 1; transform: translateY(-15px); }
+        .is-magnified .wa-order-btn { opacity: 1; transform: translateY(-20px); }
 
         .wa-float {
             position: fixed; width: 50px; height: 50px; bottom: 20px; right: 20px;
@@ -118,7 +119,11 @@
             display: flex; align-items: center; justify-content: center; z-index: 9998;
         }
 
-        footer { text-align: center; padding: 40px 20px; color: #333; font-size: 0.6rem; letter-spacing: 2px; }
+        @media (max-width: 768px) {
+            .nav-arrow { display: none; } /* Arrows unnecessary on mobile swipe */
+            .photo-cover { flex: 0 0 180px; height: 240px; }
+            .slider-viewport { padding: 40px 20% 60px 20%; }
+        }
     </style>
 </head>
 <body>
@@ -127,11 +132,11 @@
     <div class="logo"><img src="tiska_logo.jpg" alt="Tiska"></div>
     <nav>
         <ul>
-            <li><a href="#section-e">Prewedding</a></li>
-            <li><a href="#section-d">Maternity</a></li>
-            <li><a href="#section-a">Cocktail</a></li>
+            <li><a href="#section-e">Pre</a></li>
+            <li><a href="#section-d">Mat</a></li>
+            <li><a href="#section-a">Cock</a></li>
             <li><a href="#section-b">Saree</a></li>
-            <li><a href="#section-c">Mascots</a></li>
+            <li><a href="#section-c">Masc</a></li>
         </ul>
     </nav>
 </header>
@@ -144,16 +149,15 @@
 
 <script>
     const config = {
-        e: { title: "Prewedding", folder: 'e', prefix: 'e', total: 106, skip: [100, 101], hue: 'var(--bg-e)' },
-        d: { title: "Maternity", folder: 'd', prefix: 'd', total: 37, skip: [], hue: 'var(--bg-d)' },
-        a: { title: "Cocktail", folder: 'a', prefix: 'a', total: 49, skip: [], hue: 'var(--bg-a)' },
-        b: { title: "Saree", folder: 'b', prefix: 'b', total: 11, skip: [], hue: 'var(--bg-b)' },
-        c: { title: "Mascots", folder: 'c', prefix: 'c', total: 108, skip: [], hue: 'var(--bg-c)' }
+        e: { title: "Prewedding", folder: 'e', prefix: 'e', total: 106, skip: [100, 101], hue: 'var(--bg-e)', mode: 'all', current: 1 },
+        d: { title: "Maternity", folder: 'd', prefix: 'd', total: 37, skip: [], hue: 'var(--bg-d)', mode: 'all', current: 1 },
+        a: { title: "Cocktail", folder: 'a', prefix: 'a', total: 49, skip: [], hue: 'var(--bg-a)', mode: 'all', current: 1 },
+        b: { title: "Saree", folder: 'b', prefix: 'b', total: 11, skip: [], hue: 'var(--bg-b)', mode: 'all', current: 1 },
+        c: { title: "Mascots", folder: 'c', prefix: 'c', total: 108, skip: [], hue: 'var(--bg-c)', mode: 'batch', current: 1 }
     };
 
     const root = document.getElementById('gallery-root');
 
-    // Initialization: Render every section and fill them completely
     Object.keys(config).forEach(key => {
         const cat = config[key];
         const section = document.createElement('section');
@@ -166,73 +170,80 @@
             <button class="nav-arrow arrow-right" onclick="navigate('${key}', 1)">&#8594;</button>
         `;
         root.appendChild(section);
-        fillCategory(key); 
+
+        if (cat.mode === 'all') {
+            loadImages(key, cat.total);
+        } else {
+            loadImages(key, 5); // Mascots batch
+        }
+
+        // Auto-load more Mascots on scroll
+        const pane = document.getElementById(`pane-${key}`);
+        pane.addEventListener('scroll', () => {
+            if (cat.mode === 'batch' && pane.scrollLeft + pane.clientWidth >= pane.scrollWidth - 50) {
+                loadImages(key, 5);
+            }
+        });
     });
 
-    function fillCategory(key) {
+    function loadImages(key, countToLoad) {
         const cat = config[key];
         const pane = document.getElementById(`pane-${key}`);
-        
-        for (let i = 1; i <= cat.total; i++) {
-            if (cat.skip.includes(i)) continue;
+        let loaded = 0;
+
+        while (loaded < countToLoad && cat.current <= cat.total) {
+            if (cat.skip.includes(cat.current)) { cat.current++; continue; }
             
-            const relativeUrl = `${cat.folder}/${cat.prefix}${i}.jpg`;
-            const absoluteUrl = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '/') + relativeUrl;
+            const relUrl = `${cat.folder}/${cat.prefix}${cat.current}.jpg`;
+            const absUrl = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '/') + relUrl;
 
             const container = document.createElement('div');
             container.className = 'photo-cover';
-            container.style.setProperty('--img-url', `url(${relativeUrl})`);
+            container.style.setProperty('--img-url', `url(${relUrl})`);
             
             const frame = document.createElement('div');
             frame.className = 'cover-frame';
-            frame.onclick = () => handleWave(container);
+            frame.onclick = () => {
+                const isActive = container.classList.contains('is-magnified');
+                document.querySelectorAll('.photo-cover').forEach(el => el.classList.remove('is-magnified', 'is-neighbor'));
+                
+                if (!isActive) {
+                    container.classList.add('is-magnified');
+                    const all = Array.from(pane.children);
+                    const idx = all.indexOf(container);
+                    [idx-2, idx-1, idx+1, idx+2].forEach(i => { if(all[i]) all[i].classList.add('is-neighbor'); });
+                }
+            };
             
             const img = document.createElement('img');
-            img.src = relativeUrl; 
-            img.loading = "lazy"; // Vital for performance when loading all at once
-            img.onerror = () => container.remove();
+            img.src = relUrl; img.loading = "lazy";
             
             const btn = document.createElement('button');
             btn.className = 'wa-order-btn';
             btn.innerText = "Inquire";
             btn.onclick = (e) => {
                 e.stopPropagation();
-                const message = encodeURIComponent(`I am interested in this design! \n\n ${absoluteUrl}`);
-                window.open(`https://wa.me/919993636912?text=${message}`, '_blank');
+                window.open(`https://wa.me/919993636912?text=${encodeURIComponent('Hi! I want to inquire about this dress: ' + absUrl)}`, '_blank');
             };
 
             frame.appendChild(img);
             container.appendChild(frame);
             container.appendChild(btn);
             pane.appendChild(container);
-        }
-    }
 
-    function handleWave(target) {
-        const all = Array.from(target.parentElement.children);
-        const idx = all.indexOf(target);
-        
-        // Clear previous state
-        document.querySelectorAll('.photo-cover').forEach(el => el.classList.remove('is-magnified', 'is-neighbor'));
-        
-        // Primary Focus (35%)
-        target.classList.add('is-magnified');
-        
-        // Neighbors (25%)
-        [idx-2, idx-1, idx+1, idx+2].forEach(i => { 
-            if(all[i]) all[i].classList.add('is-neighbor'); 
-        });
+            cat.current++;
+            loaded++;
+        }
     }
 
     function navigate(key, dir) {
         const pane = document.getElementById(`pane-${key}`);
-        pane.scrollBy({ left: dir * 400, behavior: 'smooth' });
+        pane.scrollBy({ left: dir * (window.innerWidth * 0.6), behavior: 'smooth' });
     }
 
     window.addEventListener('scroll', () => {
         Object.keys(config).forEach(key => {
-            const el = document.getElementById(`section-${key}`);
-            const rect = el.getBoundingClientRect();
+            const rect = document.getElementById(`section-${key}`).getBoundingClientRect();
             if (rect.top < window.innerHeight/2 && rect.bottom > window.innerHeight/2) 
                 document.body.style.backgroundColor = config[key].hue;
         });
