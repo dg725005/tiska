@@ -7,17 +7,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Morning Rose Theme */
             --base-bg: #FDFBFB;      
             --secondary-bg: #F4EBE9; 
             --taupe: #B79D94;        
             --gold: #D4AF37;         
-            --gold-light: rgba(212, 175, 55, 0.4);
+            --gold-light: rgba(212, 175, 55, 0.3);
             --text-main: #332F2F;    
             --wa-green: #25D366;
             --glass: rgba(253, 251, 251, 0.9);
 
-            /* Section Transitions */
             --bg-e: #FDFBFB; --bg-d: #F9F3F1; --bg-a: #FDFBFB; --bg-b: #F7F1EF; --bg-c: #F2F2F2;
         }
 
@@ -101,33 +99,33 @@
             z-index: 5;
         }
 
-        /* THE GOLDEN BOUNDARY */
+        /* ROUNDED CORNERS & GOLD BOUNDARY */
         .cover-frame {
             position: relative; z-index: 10; width: 100%; height: 100%;
             background: #FFF;
-            border-radius: 4px; /* Slightly sharper corners for luxury feel */
+            border-radius: 25px; /* Pronounced rounded corners */
             overflow: hidden; 
             display: flex; 
             align-items: center; 
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            /* Thin Golden Boundary */
+            box-shadow: 0 12px 35px rgba(0,0,0,0.06);
             border: 1px solid var(--gold); 
             transition: 0.5s ease;
         }
 
         .cover-frame img { 
-            max-width: 96%; /* Slight padding to show the frame interior */
-            max-height: 96%; 
+            max-width: 92%; 
+            max-height: 92%; 
             object-fit: contain; 
             display: block;
+            border-radius: 15px; /* Matching inner roundness */
         }
 
         /* INTERACTION STATES */
         .is-magnified { transform: scale(1.15) !important; z-index: 9000 !important; } 
         .is-magnified .cover-frame { 
-            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2); 
+            box-shadow: 0 25px 50px rgba(212, 175, 55, 0.25); 
             border-width: 1.5px;
         }
         .is-neighbor { transform: scale(1.02) !important; opacity: 0.6; }
@@ -136,11 +134,11 @@
             position: absolute; bottom: 0;
             background: var(--gold); color: #FFF;
             border: none; padding: 12px 30px; font-family: 'Montserrat', sans-serif;
-            font-weight: 700; font-size: 0.75rem; border-radius: 0; /* Boxy luxury button */
+            font-weight: 700; font-size: 0.75rem; border-radius: 25px; 
             cursor: pointer; opacity: 0; transform: translateY(15px);
             transition: 0.4s ease; z-index: 110;
             letter-spacing: 2px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
         }
         .is-magnified .wa-order-btn { opacity: 1; transform: translateY(-30px); }
 
@@ -161,6 +159,7 @@
             .nav-arrow { display: none; }
             .photo-cover { flex: 0 0 240px; height: 340px; }
             .slider-viewport { padding: 40px 15% 80px 15%; gap: 20px; }
+            .cover-frame { border-radius: 20px; }
         }
     </style>
 </head>
