@@ -13,7 +13,7 @@
             --gold: #D4AF37;         
             --text-main: #4A4444;    
             --wa-green: #25D366;
-            --glass: rgba(249, 246, 247, 0.85);
+            --glass: rgba(249, 246, 247, 0.9);
 
             /* Dynamic Background Colors */
             --bg-e: #F9F6F7; --bg-d: #F4EBE9; --bg-a: #F9F6F7; --bg-b: #F2ECEA; --bg-c: #F0F0F0;
@@ -27,142 +27,138 @@
             color: var(--text-main);
             transition: background-color 1.2s cubic-bezier(0.4, 0, 0.2, 1);
             overflow-x: hidden;
-            line-height: 1.6;
         }
 
-        /* PREMIUM HEADER */
+        /* HEADER */
         header {
             background: var(--glass);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            padding: 15px 5%;
+            padding: 12px 5%;
             position: fixed;
             top: 0; width: 100%;
             z-index: 9999;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(183, 157, 148, 0.15);
+            border-bottom: 1px solid rgba(183, 157, 148, 0.1);
         }
         .logo img { 
-            height: 40px; 
-            max-width: 160px; 
+            height: 38px; 
+            max-width: 150px; 
             object-fit: contain;
-            filter: contrast(0.9); 
         }
-        nav ul { display: flex; list-style: none; gap: 20px; align-items: center; }
+        nav ul { display: flex; list-style: none; gap: 18px; }
         nav a { 
             text-decoration: none; 
             color: var(--taupe); 
-            font-size: 0.7rem; 
+            font-size: 0.65rem; 
             text-transform: uppercase; 
             letter-spacing: 1.5px; 
             font-weight: 700; 
-            transition: 0.3s ease;
-            white-space: nowrap;
+            transition: 0.3s;
         }
         nav a:hover { color: var(--gold); }
 
-        /* GALLERY LAYOUT */
-        main { margin-top: 120px; }
-        .section-wrap { padding: 50px 0; position: relative; min-height: 60vh; }
+        /* MAIN GALLERY */
+        main { margin-top: 110px; }
+        .section-wrap { padding: 40px 0; position: relative; }
         .section-title { 
             padding-left: 8%; 
             margin-bottom: 5px; 
             font-family: 'Cinzel', serif; 
-            font-size: 1.5rem; 
+            font-size: 1.4rem; 
             color: var(--taupe); 
             letter-spacing: 4px;
-            opacity: 0.8;
         }
 
-        /* NAVIGATION ARROWS */
+        /* NAVIGATION */
         .nav-arrow {
-            position: absolute; top: 58%; transform: translateY(-50%);
+            position: absolute; top: 55%; transform: translateY(-50%);
             background: #FFF; color: var(--taupe); border: none;
             width: 45px; height: 45px; border-radius: 50%; cursor: pointer; z-index: 100;
             display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
-            transition: 0.4s; box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: 0.3s; box-shadow: 0 4px 12px rgba(0,0,0,0.06);
         }
-        .nav-arrow:hover { background: var(--gold); color: #FFF; transform: translateY(-50%) scale(1.1); }
-        .arrow-left { left: 25px; } .arrow-right { right: 25px; }
+        .nav-arrow:hover { background: var(--gold); color: #FFF; }
+        .arrow-left { left: 20px; } .arrow-right { right: 20px; }
 
-        /* SLIDER VIEWPORT */
         .slider-viewport {
             display: flex; 
             overflow-x: auto; 
             scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-            gap: 40px; 
-            padding: 60px 10% 100px 10%; 
+            gap: 35px; 
+            padding: 50px 10% 90px 10%; 
             scrollbar-width: none; 
             scroll-behavior: smooth;
         }
         .slider-viewport::-webkit-scrollbar { display: none; }
 
-        /* PHOTO CARDS */
+        /* CENTERED PHOTO FRAMES */
         .photo-cover {
             flex: 0 0 260px; 
             height: 360px; 
             scroll-snap-align: center;
             position: relative; display: flex; flex-direction: column; align-items: center;
-            transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1), z-index 0.7s; 
+            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
             z-index: 5;
         }
 
         .cover-frame {
             position: relative; z-index: 10; width: 100%; height: 100%;
-            background: #EAEAEA; /* Placeholder color */
-            border-radius: 12px; overflow: hidden; 
-            display: flex; align-items: center; justify-content: center;
+            background: #FFF; /* Pure white background for 'contain' logic */
+            border-radius: 10px; 
+            overflow: hidden; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
             cursor: pointer;
-            box-shadow: 0 15px 35px rgba(183, 157, 148, 0.12);
-            border: 1px solid rgba(255,255,255,0.8);
-            transition: 0.5s ease;
+            box-shadow: 0 10px 30px rgba(183, 157, 148, 0.15);
+            border: 1px solid rgba(255,255,255,0.5);
         }
-        .cover-frame img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s ease; }
+
+        /* FIX: Ensure person is centered and symmetric */
+        .cover-frame img { 
+            max-width: 100%; 
+            max-height: 100%; 
+            object-fit: contain; /* Shows full person without cropping */
+            display: block;
+        }
 
         /* INTERACTION STATES */
-        .is-magnified { transform: scale(1.25) !important; z-index: 9000 !important; } 
-        .is-magnified .cover-frame { box-shadow: 0 25px 50px rgba(0,0,0,0.15); border-color: #FFF; }
-        .is-neighbor { transform: scale(1.05) !important; z-index: 5000 !important; opacity: 0.7; }
+        .is-magnified { transform: scale(1.2) !important; z-index: 9000 !important; } 
+        .is-neighbor { transform: scale(1.05) !important; opacity: 0.8; }
 
-        /* INQUIRE BUTTON */
         .wa-order-btn {
-            position: absolute; bottom: -20px;
+            position: absolute; bottom: 0;
             background: var(--gold); color: #FFF;
-            border: none; padding: 12px 28px; font-family: 'Montserrat', sans-serif;
-            font-weight: 700; font-size: 0.7rem; border-radius: 30px;
-            cursor: pointer; opacity: 0; transform: translateY(10px);
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 110;
-            letter-spacing: 1.5px;
-            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+            border: none; padding: 10px 25px; font-family: 'Montserrat', sans-serif;
+            font-weight: 700; font-size: 0.7rem; border-radius: 25px;
+            cursor: pointer; opacity: 0; transform: translateY(15px);
+            transition: 0.4s ease; z-index: 110;
+            letter-spacing: 1px;
+            box-shadow: 0 6px 15px rgba(212, 175, 55, 0.2);
         }
-        .is-magnified .wa-order-btn { opacity: 1; transform: translateY(-45px); }
+        .is-magnified .wa-order-btn { opacity: 1; transform: translateY(-40px); }
 
-        /* FLOATING WA */
+        /* FLOATING BUTTON */
         .wa-float {
-            position: fixed; width: 55px; height: 55px; bottom: 30px; right: 30px;
+            position: fixed; width: 60px; height: 60px; bottom: 30px; right: 30px;
             background-color: var(--wa-green); color: white; border-radius: 50%;
             display: flex; align-items: center; justify-content: center; z-index: 9998;
-            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
-            transition: 0.3s;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
-        .wa-float:hover { transform: scale(1.1); }
 
-        /* RESPONSIVE REFINEMENTS */
         @media (max-width: 850px) {
-            header { flex-direction: column; gap: 10px; padding: 10px; }
+            header { flex-direction: column; gap: 8px; }
+            main { margin-top: 130px; }
             nav ul { gap: 12px; }
-            nav a { font-size: 0.6rem; letter-spacing: 1px; }
-            main { margin-top: 140px; }
         }
 
         @media (max-width: 600px) {
             .nav-arrow { display: none; }
             .photo-cover { flex: 0 0 220px; height: 320px; }
-            .slider-viewport { padding: 40px 15% 80px 15%; gap: 25px; }
-            .section-title { font-size: 1.1rem; text-align: center; padding: 0; }
+            .slider-viewport { padding: 40px 15% 80px 15%; }
         }
     </style>
 </head>
@@ -184,22 +180,21 @@
 <main id="gallery-root"></main>
 
 <a href="https://wa.me/919993636912" class="wa-float" target="_blank">
-    <svg width="28" height="28" fill="white" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.06 3.973L0 16l4.195-1.103a7.859 7.859 0 0 0 3.792.98h.004c4.367 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
+    <svg width="30" height="30" fill="white" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.06 3.973L0 16l4.195-1.103a7.859 7.859 0 0 0 3.792.98h.004c4.367 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
 </a>
 
 <script>
     const waNumber = "919993636912";
     const config = {
-        e: { title: "Prewedding Long Tail Gowns", folder: 'e', prefix: 'e', suffix: '_', ext: 'webp', total: 106, skip: [100, 101], hue: 'var(--bg-e)', mode: 'all', current: 1 },
-        d: { title: "Maternity Gowns", folder: 'd', prefix: 'd', suffix: '_', ext: 'webp', total: 37, skip: [22], hue: 'var(--bg-d)', mode: 'all', current: 1 },
-        a: { title: "Engagement Cocktail Gowns", folder: 'a', prefix: 'a', suffix: '', ext: 'jpg', total: 49, skip: [], hue: 'var(--bg-a)', mode: 'all', current: 1 },
-        b: { title: "Longtail Saree Collection", folder: 'b', prefix: 'b', suffix: '', ext: 'jpg', total: 11, skip: [], hue: 'var(--bg-b)', mode: 'all', current: 1 },
-        c: { title: "Exclusive Mascots", folder: 'c', prefix: 'c', suffix: '', ext: 'jpg', total: 108, skip: [3, 12, 33, 108], hue: 'var(--bg-c)', mode: 'batch', current: 1 }
+        e: { title: "PREWEDDING GOWNS", folder: 'e', prefix: 'e', suffix: '_', ext: 'webp', total: 106, skip: [100, 101], hue: 'var(--bg-e)', mode: 'all', current: 1 },
+        d: { title: "MATERNITY GOWNS", folder: 'd', prefix: 'd', suffix: '_', ext: 'webp', total: 37, skip: [22], hue: 'var(--bg-d)', mode: 'all', current: 1 },
+        a: { title: "COCKTAIL GOWNS", folder: 'a', prefix: 'a', suffix: '', ext: 'jpg', total: 49, skip: [], hue: 'var(--bg-a)', mode: 'all', current: 1 },
+        b: { title: "SAREE COLLECTION", folder: 'b', prefix: 'b', suffix: '', ext: 'jpg', total: 11, skip: [], hue: 'var(--bg-b)', mode: 'all', current: 1 },
+        c: { title: "EXCLUSIVE MASCOTS", folder: 'c', prefix: 'c', suffix: '', ext: 'jpg', total: 108, skip: [3, 12, 33, 108], hue: 'var(--bg-c)', mode: 'batch', current: 1 }
     };
 
     const root = document.getElementById('gallery-root');
 
-    // 1. Initialize Sections
     Object.keys(config).forEach(key => {
         const cat = config[key];
         const section = document.createElement('section');
@@ -213,18 +208,16 @@
         `;
         root.appendChild(section);
 
-        cat.mode === 'all' ? loadImages(key, cat.total) : loadImages(key, 12);
+        cat.mode === 'all' ? loadImages(key, cat.total) : loadImages(key, 10);
 
-        // Infinite scroll for Mascots
         const pane = document.getElementById(`pane-${key}`);
         pane.addEventListener('scroll', () => {
-            if (cat.mode === 'batch' && pane.scrollLeft + pane.clientWidth >= pane.scrollWidth - 150) {
-                loadImages(key, 6);
+            if (cat.mode === 'batch' && pane.scrollLeft + pane.clientWidth >= pane.scrollWidth - 100) {
+                loadImages(key, 5);
             }
         });
     });
 
-    // 2. Image Loader with Pro UX
     function loadImages(key, countToLoad) {
         const cat = config[key];
         const pane = document.getElementById(`pane-${key}`);
@@ -241,8 +234,6 @@
             
             const frame = document.createElement('div');
             frame.className = 'cover-frame';
-            
-            // Toggle Magnification Refinement
             frame.onclick = () => {
                 const isActive = container.classList.contains('is-magnified');
                 document.querySelectorAll('.photo-cover').forEach(el => el.classList.remove('is-magnified', 'is-neighbor'));
@@ -258,15 +249,13 @@
             const img = document.createElement('img');
             img.src = relUrl; 
             img.loading = "lazy";
-            img.alt = cat.title;
             
             const btn = document.createElement('button');
             btn.className = 'wa-order-btn';
             btn.innerText = "INQUIRE";
             btn.onclick = (e) => {
                 e.stopPropagation();
-                // Pro Suggestion: Context-aware message
-                const msg = `Hi Tiska! I'm interested in this design from your ${cat.title}:\n\n${absUrl}`;
+                const msg = `Hi Tiska! I am interested in this design from your ${cat.title} collection:\n\n${absUrl}`;
                 window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`, '_blank');
             };
 
@@ -280,17 +269,13 @@
         }
     }
 
-    // 3. Smooth Navigation
     function navigate(key, dir) {
-        const cat = config[key];
         const pane = document.getElementById(`pane-${key}`);
-        if (cat.mode === 'batch' && dir === 1) loadImages(key, 6);
         const scrollAmount = pane.offsetWidth * 0.8;
         pane.scrollBy({ left: dir * scrollAmount, behavior: 'smooth' });
     }
 
-    // 4. Performance Optimized Background Swapper
-    const observerOptions = { threshold: 0.4 };
+    // Performance Optimized Background Swapper
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -298,10 +283,9 @@
                 document.body.style.backgroundColor = config[key].hue;
             }
         });
-    }, observerOptions);
+    }, { threshold: 0.5 });
 
-    document.querySelectorAll('.section-wrap').forEach(section => observer.observe(section));
-
+    document.querySelectorAll('.section-wrap').forEach(s => observer.observe(s));
 </script>
 </body>
 </html>
