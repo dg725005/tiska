@@ -8,15 +8,11 @@
     <style>
         :root {
             --base-bg: #FDFBFB;      
-            --secondary-bg: #F4EBE9; 
             --taupe: #B79D94;        
             --gold: #D4AF37;         
             --gold-light: rgba(212, 175, 55, 0.3);
-            --text-main: #4A4444;    
-            --wa-green: #25D366;
             --glass: rgba(253, 251, 251, 0.95);
-
-            --bg-e: #FDFBFB; --bg-d: #F9F3F1; --bg-a: #FDFBFB; --bg-b: #F7F1EF; --bg-c: #F2F2F2;
+            --bg-e: #FDFBFB; --bg-d: #F9F3F1; --bg-a: #FDFBFB; --bg-b: #F7F1EF;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -24,7 +20,6 @@
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: var(--base-bg);
-            color: var(--text-main);
             transition: background-color 1.2s ease;
             overflow-x: hidden;
         }
@@ -34,7 +29,6 @@
         header {
             background: var(--glass);
             backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
             padding: 15px 5%;
             position: fixed;
             top: 0; width: 100%;
@@ -45,7 +39,7 @@
             border-bottom: 1px solid var(--gold-light);
         }
 
-        .logo img { height: 40px; max-width: 150px; object-fit: contain; }
+        .logo img { height: 40px; }
 
         nav ul { display: flex; list-style: none; gap: 20px; }
         nav a { 
@@ -75,8 +69,7 @@
         .cover-frame {
             width: 100%; height: 100%; background: #FFF; border-radius: 25px;
             overflow: hidden; display: flex; align-items: center; justify-content: center;
-            cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.04);
-            border: 1px solid var(--gold);
+            cursor: pointer; border: 1px solid var(--gold);
         }
 
         .cover-frame img { 
@@ -90,7 +83,7 @@
             position: absolute; bottom: 0; background: var(--gold); color: #FFF;
             border: none; padding: 12px 25px; font-weight: 700; font-size: 0.7rem; 
             border-radius: 25px; cursor: pointer; opacity: 0; transform: translateY(10px);
-            transition: 0.4s; letter-spacing: 1.5px; z-index: 10;
+            transition: 0.4s; z-index: 10;
         }
         .is-magnified .wa-order-btn { opacity: 1; transform: translateY(-30px); }
         .is-magnified { transform: scale(1.08); }
@@ -100,7 +93,6 @@
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(253, 251, 251, 0.98);
             z-index: 10000; display: none; align-items: center; justify-content: center;
-            cursor: zoom-out;
         }
 
         #zoom-img {
@@ -108,28 +100,26 @@
             box-shadow: 0 30px 70px rgba(183, 157, 148, 0.2);
             border: 1px solid var(--gold);
             border-radius: 8px;
-            object-fit: contain;
-            background: white;
+            transition: all 0.3s ease;
         }
 
         .close-zoom {
             position: absolute; top: 25px; right: 30px; font-size: 2.5rem;
             color: var(--taupe); cursor: pointer; font-family: 'Cinzel', serif;
-            line-height: 1; z-index: 10001;
+            z-index: 10001;
         }
 
+        /* WHATSAPP FLOAT */
         .wa-float {
             position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
-            background: var(--wa-green); border-radius: 50%; display: flex;
+            background: #25D366; border-radius: 50%; display: flex;
             align-items: center; justify-content: center; z-index: 900;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
 
         @media (max-width: 600px) {
             .photo-cover { flex: 0 0 240px; height: 340px; }
-            header { flex-direction: column; gap: 8px; padding: 10px; }
+            header { flex-direction: column; padding: 10px; }
             main { margin-top: 140px; }
-            .section-title { font-size: 1.3rem; }
         }
     </style>
 </head>
@@ -151,7 +141,7 @@
 
 <div id="zoom-overlay" onclick="closeZoom()">
     <span class="close-zoom">&times;</span>
-    <img id="zoom-img" src="" alt="Detailed View">
+    <img id="zoom-img" src="">
 </div>
 
 <a href="https://wa.me/919993636912" class="wa-float" target="_blank">
@@ -172,32 +162,20 @@
     const zoomImg = document.getElementById('zoom-img');
 
     let lastTap = 0;
-    function handleDoubleTap(imgSrc) {
-        const now = Date.now();
-        const delta = now - lastTap;
-        if (delta < 300 && delta > 0) {
-            openZoom(imgSrc);
-        }
-        lastTap = now;
-    }
 
     function openZoom(src) {
         const tempImg = new Image();
         tempImg.src = src;
-        
         tempImg.onload = function() {
-            const ratio = this.width / this.height;
-            
-            // Set source first
+            const isLandscape = this.width > this.height;
             zoomImg.src = src;
 
-            // Apply aspect-ratio logic
-            if (ratio > 1) {
-                // LANDSCAPE MODE
+            if (isLandscape) {
+                // FORCE LANDSCAPE SCALE
                 zoomImg.style.width = '95vw';
                 zoomImg.style.height = 'auto';
             } else {
-                // PORTRAIT MODE
+                // FORCE PORTRAIT SCALE
                 zoomImg.style.height = '95vh';
                 zoomImg.style.width = 'auto';
             }
@@ -210,8 +188,6 @@
     function closeZoom() {
         zoomOverlay.style.display = 'none';
         zoomImg.src = '';
-        zoomImg.style.width = '';
-        zoomImg.style.height = '';
         document.body.classList.remove('lock-scroll');
     }
 
@@ -229,25 +205,28 @@
             const url = `${cat.folder}/${cat.prefix}${i}${cat.suffix}.${cat.ext}`;
             const container = document.createElement('div');
             container.className = 'photo-cover';
-            
             const frame = document.createElement('div');
             frame.className = 'cover-frame';
+            
             frame.onclick = () => {
-                const isActive = container.classList.contains('is-magnified');
-                document.querySelectorAll('.photo-cover').forEach(el => el.classList.remove('is-magnified'));
-                if (!isActive) container.classList.add('is-magnified');
-                handleDoubleTap(url);
+                const now = Date.now();
+                if (now - lastTap < 300) {
+                    openZoom(url);
+                } else {
+                    document.querySelectorAll('.photo-cover').forEach(el => el.classList.remove('is-magnified'));
+                    container.classList.add('is-magnified');
+                }
+                lastTap = now;
             };
 
             const img = document.createElement('img');
             img.src = url; img.loading = "lazy";
-            
             const btn = document.createElement('button');
             btn.className = 'wa-order-btn';
             btn.innerText = "INQUIRE";
             btn.onclick = (e) => {
                 e.stopPropagation();
-                window.open(`https://wa.me/${waNumber}?text=Inquiry for: ${window.location.href}${url}`, '_blank');
+                window.open(`https://wa.me/${waNumber}?text=Inquiry for ${url}`, '_blank');
             };
 
             frame.appendChild(img);
@@ -260,8 +239,7 @@
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                const key = entry.target.id.replace('section-', '');
-                document.body.style.backgroundColor = config[key].hue;
+                document.body.style.backgroundColor = config[entry.target.id.replace('section-', '')].hue;
             }
         });
     }, { threshold: 0.5 });
