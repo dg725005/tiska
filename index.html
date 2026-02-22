@@ -15,7 +15,7 @@
             --bg-e: #FDFBFB; --bg-d: #F9F3F1; --bg-a: #FDFBFB; --bg-b: #F7F1EF;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
         
         body {
             font-family: 'Montserrat', sans-serif;
@@ -93,6 +93,12 @@
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(253, 251, 251, 0.98);
             z-index: 10000; display: none; align-items: center; justify-content: center;
+            overflow: hidden; touch-action: none; /* Disable default browser zoom */
+        }
+
+        #zoom-container {
+            width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: center;
         }
 
         #zoom-img {
@@ -100,7 +106,8 @@
             box-shadow: 0 30px 70px rgba(183, 157, 148, 0.2);
             border: 1px solid var(--gold);
             border-radius: 8px;
-            transition: all 0.3s ease;
+            transform-origin: center;
+            will-change: transform;
         }
 
         .close-zoom {
@@ -109,7 +116,6 @@
             z-index: 10001;
         }
 
-        /* WHATSAPP FLOAT */
         .wa-float {
             position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
             background: #25D366; border-radius: 50%; display: flex;
@@ -139,9 +145,11 @@
 
 <main id="gallery-root"></main>
 
-<div id="zoom-overlay" onclick="closeZoom()">
-    <span class="close-zoom">&times;</span>
-    <img id="zoom-img" src="">
+<div id="zoom-overlay">
+    <span class="close-zoom" onclick="closeZoom()">&times;</span>
+    <div id="zoom-container">
+        <img id="zoom-img" src="">
+    </div>
 </div>
 
 <a href="https://wa.me/919993636912" class="wa-float" target="_blank">
@@ -162,24 +170,23 @@
     const zoomImg = document.getElementById('zoom-img');
 
     let lastTap = 0;
+    let scale = 1, lastScale = 1;
+    let pointX = 0, pointY = 0, startX = 0, startY = 0;
 
     function openZoom(src) {
         const tempImg = new Image();
         tempImg.src = src;
         tempImg.onload = function() {
+            scale = 1; pointX = 0; pointY = 0;
+            updateTransform();
+            
             const isLandscape = this.width > this.height;
             zoomImg.src = src;
-
             if (isLandscape) {
-                // FORCE LANDSCAPE SCALE
-                zoomImg.style.width = '95vw';
-                zoomImg.style.height = 'auto';
+                zoomImg.style.width = '95vw'; zoomImg.style.height = 'auto';
             } else {
-                // FORCE PORTRAIT SCALE
-                zoomImg.style.height = '95vh';
-                zoomImg.style.width = 'auto';
+                zoomImg.style.height = '95vh'; zoomImg.style.width = 'auto';
             }
-            
             zoomOverlay.style.display = 'flex';
             document.body.classList.add('lock-scroll');
         };
@@ -187,10 +194,42 @@
 
     function closeZoom() {
         zoomOverlay.style.display = 'none';
-        zoomImg.src = '';
         document.body.classList.remove('lock-scroll');
     }
 
+    // Touch Handling for Pinch & Swipe
+    zoomOverlay.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 2) {
+            lastScale = scale;
+            startX = (e.touches[0].pageX + e.touches[1].pageX) / 2;
+            startY = (e.touches[0].pageY + e.touches[1].pageY) / 2;
+        } else if (e.touches.length === 1) {
+            startX = e.touches[0].pageX - pointX;
+            startY = e.touches[0].pageY - pointY;
+        }
+    });
+
+    zoomOverlay.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+        if (e.touches.length === 2) {
+            let dist = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
+            if (!zoomOverlay.startDist) zoomOverlay.startDist = dist;
+            scale = Math.min(Math.max(1, (dist / zoomOverlay.startDist) * lastScale), 4);
+            updateTransform();
+        } else if (e.touches.length === 1 && scale > 1) {
+            pointX = e.touches[0].pageX - startX;
+            pointY = e.touches[0].pageY - startY;
+            updateTransform();
+        }
+    });
+
+    zoomOverlay.addEventListener('touchend', () => { zoomOverlay.startDist = 0; });
+
+    function updateTransform() {
+        zoomImg.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
+    }
+
+    // Gallery Generation
     Object.keys(config).forEach(key => {
         const cat = config[key];
         const section = document.createElement('section');
@@ -210,9 +249,8 @@
             
             frame.onclick = () => {
                 const now = Date.now();
-                if (now - lastTap < 300) {
-                    openZoom(url);
-                } else {
+                if (now - lastTap < 300) openZoom(url);
+                else {
                     document.querySelectorAll('.photo-cover').forEach(el => el.classList.remove('is-magnified'));
                     container.classList.add('is-magnified');
                 }
@@ -224,10 +262,7 @@
             const btn = document.createElement('button');
             btn.className = 'wa-order-btn';
             btn.innerText = "INQUIRE";
-            btn.onclick = (e) => {
-                e.stopPropagation();
-                window.open(`https://wa.me/${waNumber}?text=Inquiry for ${url}`, '_blank');
-            };
+            btn.onclick = (e) => { e.stopPropagation(); window.open(`https://wa.me/${waNumber}?text=Inquiry for ${url}`, '_blank'); };
 
             frame.appendChild(img);
             container.appendChild(frame);
@@ -238,9 +273,7 @@
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                document.body.style.backgroundColor = config[entry.target.id.replace('section-', '')].hue;
-            }
+            if (entry.isIntersecting) document.body.style.backgroundColor = config[entry.target.id.replace('section-', '')].hue;
         });
     }, { threshold: 0.5 });
     document.querySelectorAll('.section-wrap').forEach(s => observer.observe(s));
