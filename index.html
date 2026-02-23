@@ -12,7 +12,7 @@
             --gold: #D4AF37;         
             --gold-light: rgba(212, 175, 55, 0.3);
             --glass: rgba(253, 251, 251, 0.95);
-            --bg-e: #FDFBFB; --bg-d: #F9F3F1; --bg-a: #FDFBFB; --bg-b: #F7F1EF;
+            --bg-e: #FDFBFB; --bg-d: #F9F3F1; --bg-a: #FDFBFB; --bg-b: #F7F1EF; --bg-c: #F2F2F2;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
@@ -88,18 +88,14 @@
         .is-magnified .wa-order-btn { opacity: 1; transform: translateY(-30px); }
         .is-magnified { transform: scale(1.08); }
 
-        /* FULLSCREEN ZOOM OVERLAY */
         #zoom-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(253, 251, 251, 0.98);
             z-index: 10000; display: none; align-items: center; justify-content: center;
-            overflow: hidden; touch-action: none; /* Disable default browser zoom */
+            overflow: hidden; touch-action: none;
         }
 
-        #zoom-container {
-            width: 100%; height: 100%;
-            display: flex; align-items: center; justify-content: center;
-        }
+        #zoom-container { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
 
         #zoom-img {
             display: block;
@@ -139,6 +135,7 @@
             <li><a href="#section-d">Maternity</a></li>
             <li><a href="#section-a">Cocktail</a></li>
             <li><a href="#section-b">Saree</a></li>
+            <li><a href="#section-c">Mascots</a></li>
         </ul>
     </nav>
 </header>
@@ -162,15 +159,15 @@
         e: { title: "Prewedding", folder: 'e', prefix: 'e', suffix: '_', ext: 'webp', total: 106, skip: [65, 82, 100, 101, 105], hue: 'var(--bg-e)' },
         d: { title: "Maternity", folder: 'd', prefix: 'd', suffix: '_', ext: 'webp', total: 37, skip: [22], hue: 'var(--bg-d)' },
         a: { title: "Cocktail", folder: 'a', prefix: 'a', suffix: '', ext: 'jpg', total: 49, skip: [], hue: 'var(--bg-a)' },
-        b: { title: "Saree", folder: 'b', prefix: 'b', suffix: '', ext: 'jpg', total: 11, skip: [], hue: 'var(--bg-b)' }
+        b: { title: "Saree", folder: 'b', prefix: 'b', suffix: '', ext: 'jpg', total: 11, skip: [], hue: 'var(--bg-b)' },
+        c: { title: "Mascots", folder: 'c', prefix: 'c', suffix: '', ext: 'webp', total: 60, skip: [], hue: 'var(--bg-c)' }
     };
 
     const root = document.getElementById('gallery-root');
     const zoomOverlay = document.getElementById('zoom-overlay');
     const zoomImg = document.getElementById('zoom-img');
 
-    let lastTap = 0;
-    let scale = 1, lastScale = 1;
+    let lastTap = 0, scale = 1, lastScale = 1;
     let pointX = 0, pointY = 0, startX = 0, startY = 0;
 
     function openZoom(src) {
@@ -179,14 +176,10 @@
         tempImg.onload = function() {
             scale = 1; pointX = 0; pointY = 0;
             updateTransform();
-            
             const isLandscape = this.width > this.height;
             zoomImg.src = src;
-            if (isLandscape) {
-                zoomImg.style.width = '95vw'; zoomImg.style.height = 'auto';
-            } else {
-                zoomImg.style.height = '95vh'; zoomImg.style.width = 'auto';
-            }
+            if (isLandscape) { zoomImg.style.width = '95vw'; zoomImg.style.height = 'auto'; } 
+            else { zoomImg.style.height = '95vh'; zoomImg.style.width = 'auto'; }
             zoomOverlay.style.display = 'flex';
             document.body.classList.add('lock-scroll');
         };
@@ -197,7 +190,6 @@
         document.body.classList.remove('lock-scroll');
     }
 
-    // Touch Handling for Pinch & Swipe
     zoomOverlay.addEventListener('touchstart', (e) => {
         if (e.touches.length === 2) {
             lastScale = scale;
@@ -225,11 +217,8 @@
 
     zoomOverlay.addEventListener('touchend', () => { zoomOverlay.startDist = 0; });
 
-    function updateTransform() {
-        zoomImg.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
-    }
+    function updateTransform() { zoomImg.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`; }
 
-    // Gallery Generation
     Object.keys(config).forEach(key => {
         const cat = config[key];
         const section = document.createElement('section');
