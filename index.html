@@ -54,6 +54,30 @@
             font-size: 1.6rem; color: var(--taupe); letter-spacing: 5px; text-transform: uppercase;
         }
 
+        /* NAVIGATION ARROWS */
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: white;
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 100;
+            color: var(--gold);
+            font-size: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+        .nav-arrow:hover { background: var(--gold); color: white; transform: translateY(-50%) scale(1.1); }
+        .arrow-left { left: 20px; }
+        .arrow-right { right: 20px; }
+
         .slider-viewport {
             display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
             gap: 35px; padding: 40px 10% 100px 10%; scrollbar-width: none; scroll-behavior: smooth;
@@ -88,6 +112,7 @@
         .is-magnified .wa-order-btn { opacity: 1; transform: translateY(-30px); }
         .is-magnified { transform: scale(1.08); }
 
+        /* FULLSCREEN ZOOM OVERLAY */
         #zoom-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(253, 251, 251, 0.98);
@@ -106,11 +131,27 @@
             will-change: transform;
         }
 
+        /* UPDATED BIG BLACK CLOSE BUTTON */
         .close-zoom {
-            position: absolute; top: 25px; right: 30px; font-size: 2.5rem;
-            color: var(--taupe); cursor: pointer; font-family: 'Cinzel', serif;
+            position: absolute; 
+            top: 25px; 
+            right: 25px; 
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 0, 0, 0.08); /* Soft circle for visibility */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem; /* Large size */
+            color: #000000; /* Solid Black */
+            cursor: pointer; 
+            font-family: Arial, sans-serif;
+            line-height: 1;
             z-index: 10001;
+            transition: background 0.3s;
         }
+        .close-zoom:hover { background: rgba(0, 0, 0, 0.15); }
 
         .wa-float {
             position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
@@ -118,10 +159,15 @@
             align-items: center; justify-content: center; z-index: 900;
         }
 
+        @media (max-width: 850px) {
+            .nav-arrow { display: none; } 
+        }
+
         @media (max-width: 600px) {
             .photo-cover { flex: 0 0 240px; height: 340px; }
             header { flex-direction: column; padding: 10px; }
             main { margin-top: 140px; }
+            .close-zoom { width: 50px; height: 50px; font-size: 2.8rem; top: 15px; right: 15px; }
         }
     </style>
 </head>
@@ -143,7 +189,7 @@
 <main id="gallery-root"></main>
 
 <div id="zoom-overlay">
-    <span class="close-zoom" onclick="closeZoom()">&times;</span>
+    <div class="close-zoom" onclick="closeZoom()">&times;</div>
     <div id="zoom-container">
         <img id="zoom-img" src="">
     </div>
@@ -170,15 +216,20 @@
     let lastTap = 0, scale = 1, lastScale = 1;
     let pointX = 0, pointY = 0, startX = 0, startY = 0;
 
+    function scrollGallery(id, direction) {
+        const pane = document.getElementById(`pane-${id}`);
+        pane.scrollBy({ left: direction * pane.clientWidth * 0.8, behavior: 'smooth' });
+    }
+
     function openZoom(src) {
         const tempImg = new Image();
         tempImg.src = src;
         tempImg.onload = function() {
             scale = 1; pointX = 0; pointY = 0;
             updateTransform();
-            const isLandscape = this.width > this.height;
+            const ratio = this.width / this.height;
             zoomImg.src = src;
-            if (isLandscape) { zoomImg.style.width = '95vw'; zoomImg.style.height = 'auto'; } 
+            if (ratio > 1) { zoomImg.style.width = '95vw'; zoomImg.style.height = 'auto'; } 
             else { zoomImg.style.height = '95vh'; zoomImg.style.width = 'auto'; }
             zoomOverlay.style.display = 'flex';
             document.body.classList.add('lock-scroll');
@@ -216,7 +267,6 @@
     });
 
     zoomOverlay.addEventListener('touchend', () => { zoomOverlay.startDist = 0; });
-
     function updateTransform() { zoomImg.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`; }
 
     Object.keys(config).forEach(key => {
@@ -224,7 +274,12 @@
         const section = document.createElement('section');
         section.className = 'section-wrap';
         section.id = `section-${key}`;
-        section.innerHTML = `<h2 class="section-title">${cat.title}</h2><div class="slider-viewport" id="pane-${key}"></div>`;
+        section.innerHTML = `
+            <h2 class="section-title">${cat.title}</h2>
+            <div class="nav-arrow arrow-left" onclick="scrollGallery('${key}', -1)">&#10094;</div>
+            <div class="slider-viewport" id="pane-${key}"></div>
+            <div class="nav-arrow arrow-right" onclick="scrollGallery('${key}', 1)">&#10095;</div>
+        `;
         root.appendChild(section);
 
         const pane = document.getElementById(`pane-${key}`);
