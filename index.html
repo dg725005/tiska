@@ -131,27 +131,29 @@
             will-change: transform;
         }
 
-        /* UPDATED BIG BLACK CLOSE BUTTON */
+        /* CLIENT REQUEST: WHITE CROSS ON BLACK CIRCLE */
         .close-zoom {
             position: absolute; 
             top: 25px; 
             right: 25px; 
             width: 60px;
             height: 60px;
-            background: rgba(0, 0, 0, 0.08); /* Soft circle for visibility */
+            background: rgba(0, 0, 0, 0.85); /* Solid Dark Circle */
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3.5rem; /* Large size */
-            color: #000000; /* Solid Black */
+            font-size: 3rem; 
+            color: #FFFFFF; /* Pure White Cross */
             cursor: pointer; 
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
             line-height: 1;
             z-index: 10001;
-            transition: background 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .close-zoom:hover { background: rgba(0, 0, 0, 0.15); }
+        .close-zoom:active { transform: scale(0.9); }
 
         .wa-float {
             position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
@@ -167,7 +169,7 @@
             .photo-cover { flex: 0 0 240px; height: 340px; }
             header { flex-direction: column; padding: 10px; }
             main { margin-top: 140px; }
-            .close-zoom { width: 50px; height: 50px; font-size: 2.8rem; top: 15px; right: 15px; }
+            .close-zoom { width: 55px; height: 55px; font-size: 2.5rem; top: 15px; right: 15px; }
         }
     </style>
 </head>
