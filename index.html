@@ -7,20 +7,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --base-bg: #FDFBFB;      
             --taupe: #B79D94;        
             --gold: #D4AF37;         
             --gold-light: rgba(212, 175, 55, 0.3);
-            --glass: rgba(253, 251, 251, 0.95);
-            --bg-e: #FDFBFB; --bg-d: #F9F3F1; --bg-a: #FDFBFB; --bg-b: #F7F1EF; --bg-c: #F2F2F2;
+            --glass: rgba(255, 255, 255, 0.85);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
         
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: var(--base-bg);
-            transition: background-color 1.2s ease;
+            /* LANDING PAGE BACKGROUND SETTINGS */
+            background-image: linear-gradient(rgba(255,255,255,0.2), rgba(255,255,255,0.2)), url('water.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Parallax effect */
+            background-repeat: no-repeat;
+            min-height: 100vh;
             overflow-x: hidden;
         }
 
@@ -47,11 +50,13 @@
             text-transform: uppercase; letter-spacing: 2px; font-weight: 700; 
         }
 
-        main { margin-top: 120px; }
+        main { margin-top: 120px; position: relative; z-index: 1; }
+        
         .section-wrap { padding: 50px 0; position: relative; }
         .section-title { 
             padding-left: 9%; margin-bottom: 10px; font-family: 'Cinzel', serif; 
-            font-size: 1.6rem; color: var(--taupe); letter-spacing: 5px; text-transform: uppercase;
+            font-size: 1.6rem; color: #333; letter-spacing: 5px; text-transform: uppercase;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
         }
 
         /* NAVIGATION ARROWS */
@@ -94,12 +99,12 @@
             width: 100%; height: 100%; background: #FFF; border-radius: 25px;
             overflow: hidden; display: flex; align-items: center; justify-content: center;
             cursor: pointer; border: 1px solid var(--gold);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
         }
 
         .cover-frame img { 
             max-width: 90%; max-height: 90%; object-fit: contain; 
             image-rendering: -webkit-optimize-contrast;
-            filter: contrast(1.02) brightness(1.01);
             border-radius: 12px;
         }
 
@@ -115,7 +120,7 @@
         /* FULLSCREEN ZOOM OVERLAY */
         #zoom-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(253, 251, 251, 0.98);
+            background: rgba(255, 255, 255, 0.98);
             z-index: 10000; display: none; align-items: center; justify-content: center;
             overflow: hidden; touch-action: none;
         }
@@ -124,7 +129,7 @@
 
         #zoom-img {
             display: block;
-            box-shadow: 0 30px 70px rgba(183, 157, 148, 0.2);
+            box-shadow: 0 30px 70px rgba(0,0,0,0.1);
             border: 1px solid var(--gold);
             border-radius: 8px;
             transform-origin: center;
@@ -138,22 +143,20 @@
             right: 25px; 
             width: 60px;
             height: 60px;
-            background: rgba(0, 0, 0, 0.85); /* Solid Dark Circle */
+            background: rgba(0, 0, 0, 0.85); 
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 3rem; 
-            color: #FFFFFF; /* Pure White Cross */
+            color: #FFFFFF; 
             cursor: pointer; 
             font-family: 'Arial', sans-serif;
             font-weight: bold;
             line-height: 1;
             z-index: 10001;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .close-zoom:active { transform: scale(0.9); }
 
         .wa-float {
             position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
@@ -204,11 +207,11 @@
 <script>
     const waNumber = "919993636912";
     const config = {
-        e: { title: "Prewedding", folder: 'e', prefix: 'e', suffix: '_', ext: 'webp', total: 106, skip: [65, 82, 100, 101, 105], hue: 'var(--bg-e)' },
-        d: { title: "Maternity", folder: 'd', prefix: 'd', suffix: '_', ext: 'webp', total: 37, skip: [22], hue: 'var(--bg-d)' },
-        a: { title: "Cocktail", folder: 'a', prefix: 'a', suffix: '', ext: 'jpg', total: 49, skip: [], hue: 'var(--bg-a)' },
-        b: { title: "Saree", folder: 'b', prefix: 'b', suffix: '', ext: 'jpg', total: 11, skip: [], hue: 'var(--bg-b)' },
-        c: { title: "Mascots", folder: 'c', prefix: 'c', suffix: '', ext: 'webp', total: 60, skip: [], hue: 'var(--bg-c)' }
+        e: { title: "Prewedding", folder: 'e', prefix: 'e', suffix: '_', ext: 'webp', total: 106, skip: [65, 82, 100, 101, 105] },
+        d: { title: "Maternity", folder: 'd', prefix: 'd', suffix: '_', ext: 'webp', total: 37, skip: [22] },
+        a: { title: "Cocktail", folder: 'a', prefix: 'a', suffix: '', ext: 'jpg', total: 49, skip: [] },
+        b: { title: "Saree", folder: 'b', prefix: 'b', suffix: '', ext: 'jpg', total: 11, skip: [] },
+        c: { title: "Mascots", folder: 'c', prefix: 'c', suffix: '', ext: 'webp', total: 60, skip: [] }
     };
 
     const root = document.getElementById('gallery-root');
@@ -243,6 +246,7 @@
         document.body.classList.remove('lock-scroll');
     }
 
+    // Zoom Handlers
     zoomOverlay.addEventListener('touchstart', (e) => {
         if (e.touches.length === 2) {
             lastScale = scale;
@@ -271,6 +275,7 @@
     zoomOverlay.addEventListener('touchend', () => { zoomOverlay.startDist = 0; });
     function updateTransform() { zoomImg.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`; }
 
+    // Builder
     Object.keys(config).forEach(key => {
         const cat = config[key];
         const section = document.createElement('section');
@@ -316,13 +321,6 @@
             pane.appendChild(container);
         }
     });
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) document.body.style.backgroundColor = config[entry.target.id.replace('section-', '')].hue;
-        });
-    }, { threshold: 0.5 });
-    document.querySelectorAll('.section-wrap').forEach(s => observer.observe(s));
 </script>
 </body>
 </html>
