@@ -11,15 +11,16 @@
             --gold: #D4AF37;         
             --gold-light: rgba(212, 175, 55, 0.3);
             --glass: rgba(255, 255, 255, 0.85);
-            /* NEW FRAME BACKGROUND COLOR */
-            --frame-matte: #F9F6F2; 
+            /* SILVER METALLIC PALETTE */
+            --silver-base: #D1D9E1;
+            --silver-dark: #A9B2BC;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
         
         body {
             font-family: 'Montserrat', sans-serif;
-            background-image: linear-gradient(rgba(255,255,255,0.2), rgba(255,255,255,0.2)), url('water.jpg');
+            background-image: linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1)), url('water.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -57,7 +58,7 @@
         .section-title { 
             padding-left: 9%; margin-bottom: 10px; font-family: 'Cinzel', serif; 
             font-size: 1.6rem; color: #333; letter-spacing: 5px; text-transform: uppercase;
-            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+            text-shadow: 1px 1px 3px rgba(255,255,255,0.9);
         }
 
         .nav-arrow {
@@ -100,15 +101,16 @@
         .cover-frame {
             width: 100%; 
             height: 100%; 
-            background: var(--frame-matte); /* Updated from white */
+            /* SILVER GRADIENT BACKGROUND */
+            background: linear-gradient(135deg, var(--silver-base) 0%, #F0F2F5 50%, var(--silver-dark) 100%);
             border-radius: 25px;
             overflow: hidden; 
             display: flex; 
             align-items: center; 
             justify-content: center;
             cursor: pointer; 
-            border: 1px solid var(--gold);
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.03), 0 10px 20px rgba(0,0,0,0.05);
+            border: 1px solid #BDC3C7; /* Silver border */
+            box-shadow: inset 0 0 10px rgba(255,255,255,0.5), 0 12px 25px rgba(0,0,0,0.1);
         }
 
         .cover-frame img { 
@@ -117,8 +119,9 @@
             object-fit: contain; 
             image-rendering: -webkit-optimize-contrast;
             border-radius: 12px;
-            /* Suble shadow to pop against the colored frame background */
-            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
+            filter: drop-shadow(0 6px 12px rgba(0,0,0,0.2));
+            /* Creates a slight "inset" look against the silver */
+            border: 4px solid rgba(255,255,255,0.3);
         }
 
         .wa-order-btn {
@@ -149,24 +152,11 @@
         }
 
         .close-zoom {
-            position: absolute; 
-            top: 25px; 
-            right: 25px; 
-            width: 60px;
-            height: 60px;
-            background: rgba(0, 0, 0, 0.85); 
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem; 
-            color: #FFFFFF; 
-            cursor: pointer; 
-            font-family: 'Arial', sans-serif;
-            font-weight: bold;
-            line-height: 1;
-            z-index: 10001;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            position: absolute; top: 25px; right: 25px; width: 60px; height: 60px;
+            background: rgba(0, 0, 0, 0.85); border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; font-size: 3rem; 
+            color: #FFFFFF; cursor: pointer; font-family: 'Arial', sans-serif;
+            font-weight: bold; line-height: 1; z-index: 10001;
         }
 
         .wa-float {
@@ -183,7 +173,6 @@
             .photo-cover { flex: 0 0 240px; height: 340px; }
             header { flex-direction: column; padding: 10px; }
             main { margin-top: 140px; }
-            .close-zoom { width: 55px; height: 55px; font-size: 2.5rem; top: 15px; right: 15px; }
         }
     </style>
 </head>
@@ -257,7 +246,6 @@
         document.body.classList.remove('lock-scroll');
     }
 
-    // Zoom Input Handling
     zoomOverlay.addEventListener('touchstart', (e) => {
         if (e.touches.length === 2) {
             lastScale = scale;
@@ -286,7 +274,6 @@
     zoomOverlay.addEventListener('touchend', () => { zoomOverlay.startDist = 0; });
     function updateTransform() { zoomImg.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`; }
 
-    // Dynamic Gallery Construction
     Object.keys(config).forEach(key => {
         const cat = config[key];
         const section = document.createElement('section');
