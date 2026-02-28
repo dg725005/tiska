@@ -11,16 +11,16 @@
             --gold: #D4AF37;         
             --gold-light: rgba(212, 175, 55, 0.3);
             --glass: rgba(255, 255, 255, 0.85);
-            /* SILVER METALLIC PALETTE */
-            --silver-base: #D1D9E1;
-            --silver-dark: #A9B2BC;
+            /* NEW SAGE GREEN PALETTE */
+            --sage-matte: #B2BCA3;
+            --sage-glow: rgba(178, 188, 163, 0.4);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
         
         body {
             font-family: 'Montserrat', sans-serif;
-            background-image: linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1)), url('water.jpg');
+            background-image: linear-gradient(rgba(255,255,255,0.15), rgba(255,255,255,0.15)), url('water.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -68,19 +68,19 @@
             width: 50px;
             height: 50px;
             background: white;
-            border: 1px solid var(--gold);
+            border: 1px solid var(--sage-matte);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             z-index: 100;
-            color: var(--gold);
+            color: var(--sage-matte);
             font-size: 1.5rem;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             transition: 0.3s;
         }
-        .nav-arrow:hover { background: var(--gold); color: white; transform: translateY(-50%) scale(1.1); }
+        .nav-arrow:hover { background: var(--sage-matte); color: white; transform: translateY(-50%) scale(1.1); }
         .arrow-left { left: 20px; }
         .arrow-right { right: 20px; }
 
@@ -101,16 +101,15 @@
         .cover-frame {
             width: 100%; 
             height: 100%; 
-            /* SILVER GRADIENT BACKGROUND */
-            background: linear-gradient(135deg, var(--silver-base) 0%, #F0F2F5 50%, var(--silver-dark) 100%);
+            background: var(--sage-matte);
             border-radius: 25px;
             overflow: hidden; 
             display: flex; 
             align-items: center; 
             justify-content: center;
             cursor: pointer; 
-            border: 1px solid #BDC3C7; /* Silver border */
-            box-shadow: inset 0 0 10px rgba(255,255,255,0.5), 0 12px 25px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.05), 0 12px 25px rgba(0,0,0,0.1);
         }
 
         .cover-frame img { 
@@ -119,9 +118,9 @@
             object-fit: contain; 
             image-rendering: -webkit-optimize-contrast;
             border-radius: 12px;
-            filter: drop-shadow(0 6px 12px rgba(0,0,0,0.2));
-            /* Creates a slight "inset" look against the silver */
-            border: 4px solid rgba(255,255,255,0.3);
+            filter: drop-shadow(0 8px 15px rgba(0,0,0,0.2));
+            /* Subtle border to make the image pop against the sage */
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .wa-order-btn {
@@ -246,6 +245,7 @@
         document.body.classList.remove('lock-scroll');
     }
 
+    // Standard Zoom Events (Touch)
     zoomOverlay.addEventListener('touchstart', (e) => {
         if (e.touches.length === 2) {
             lastScale = scale;
@@ -274,6 +274,7 @@
     zoomOverlay.addEventListener('touchend', () => { zoomOverlay.startDist = 0; });
     function updateTransform() { zoomImg.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`; }
 
+    // Init Logic
     Object.keys(config).forEach(key => {
         const cat = config[key];
         const section = document.createElement('section');
