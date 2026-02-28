@@ -23,7 +23,6 @@
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            background-repeat: no-repeat;
             min-height: 100vh;
             overflow-x: hidden;
         }
@@ -56,7 +55,7 @@
         .section-wrap { padding: 50px 0; position: relative; max-width: 100vw; }
         
         .section-title { 
-            padding-left: 9%; margin-bottom: 10px; font-family: 'Cinzel', serif; 
+            padding-left: 9%; margin-bottom: 20px; font-family: 'Cinzel', serif; 
             font-size: 1.6rem; color: #333; letter-spacing: 5px; text-transform: uppercase;
         }
 
@@ -73,54 +72,65 @@
 
         .slider-viewport {
             display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
-            gap: 35px; padding: 40px 10% 100px 10%; 
+            gap: 30px; padding: 40px 10% 100px 10%; 
             scrollbar-width: none; scroll-behavior: smooth;
         }
         .slider-viewport::-webkit-scrollbar { display: none; }
 
         .photo-cover {
-            flex: 0 0 280px; height: 380px; scroll-snap-align: center;
+            flex: 0 0 280px; height: 400px; scroll-snap-align: center;
             position: relative; display: flex; flex-direction: column; align-items: center;
-            transition: transform 0.6s cubic-bezier(0.2, 1, 0.2, 1);
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             will-change: transform;
         }
 
-        /* Focus Wave States */
         .photo-cover.is-clicked { transform: scale(1.1); z-index: 20; }
         .photo-cover.is-neighbor { transform: scale(1.04); z-index: 15; }
 
         .cover-frame {
             width: 100%; height: 100%; 
             background-image: url('rain.jpg'); background-size: cover; background-position: center;
-            border-radius: 25px; overflow: hidden; display: flex; align-items: center; justify-content: center;
-            cursor: pointer; border: 1px solid rgba(255,255,255,0.3);
-            box-shadow: inset 0 0 50px rgba(0,0,0,0.2), 0 15px 30px rgba(0,0,0,0.2);
+            border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; border: 1px solid rgba(255,255,255,0.4);
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.2), 0 10px 25px rgba(0,0,0,0.2);
         }
 
+        /* FIX: Ensure images fill the frame properly */
         .cover-frame img { 
-            max-width: 88%; max-height: 88%; object-fit: contain; 
-            border-radius: 8px; filter: drop-shadow(0 12px 20px rgba(0,0,0,0.4));
+            width: 90%; height: 90%; object-fit: cover; 
+            border-radius: 10px; filter: drop-shadow(0 8px 15px rgba(0,0,0,0.3));
             border: 1px solid rgba(255,255,255,0.2); background: #fff;
         }
 
         .wa-order-btn {
-            position: absolute; bottom: 0; background: var(--dark-espresso); 
+            position: absolute; bottom: -15px; background: var(--dark-espresso); 
             color: #FFF; border: none; padding: 12px 25px; font-weight: 700; font-size: 0.7rem; 
             border-radius: 25px; cursor: pointer; opacity: 0; transform: translateY(10px);
-            transition: 0.4s; z-index: 10;
+            transition: 0.4s; z-index: 30; pointer-events: none;
         }
-        .is-clicked .wa-order-btn { opacity: 1; transform: translateY(-30px); }
+        .is-clicked .wa-order-btn { opacity: 1; transform: translateY(-40px); pointer-events: auto; }
 
+        /* DEEP ZOOM OVERLAY */
         #zoom-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(255, 255, 255, 0.98); z-index: 10000; display: none;
             align-items: center; justify-content: center; overflow: hidden;
+            touch-action: none;
         }
-        #zoom-img { display: block; box-shadow: 0 30px 70px rgba(0,0,0,0.2); border: 5px solid white; border-radius: 8px; transition: transform 0.1s ease-out; }
+        
+        #zoom-container { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+
+        #zoom-img { 
+            max-width: 95%; max-height: 90%; object-fit: contain;
+            box-shadow: 0 30px 70px rgba(0,0,0,0.15); border: 4px solid white; border-radius: 4px; 
+            transition: transform 0.1s ease-out; will-change: transform;
+        }
+
         .close-zoom {
-            position: absolute; top: 25px; right: 25px; width: 60px; height: 60px;
+            position: absolute; top: 25px; right: 25px; width: 50px; height: 50px;
             background: var(--dark-espresso); border-radius: 50%; display: flex;
-            align-items: center; justify-content: center; font-size: 3rem; color: #FFFFFF; cursor: pointer;
+            align-items: center; justify-content: center; font-size: 2.5rem; color: #FFFFFF; cursor: pointer;
+            z-index: 10001;
         }
 
         .wa-float {
@@ -129,7 +139,7 @@
         }
 
         @media (max-width: 850px) { .nav-arrow { display: none; } }
-        @media (max-width: 600px) { .photo-cover { flex: 0 0 240px; height: 340px; } }
+        @media (max-width: 600px) { .photo-cover { flex: 0 0 240px; height: 360px; } }
     </style>
 </head>
 <body>
@@ -171,7 +181,8 @@
     const root = document.getElementById('gallery-root');
     const zoomOverlay = document.getElementById('zoom-overlay');
     const zoomImg = document.getElementById('zoom-img');
-    let lastTap = 0;
+    
+    let lastTap = 0, scale = 1, pointX = 0, pointY = 0, startX = 0, startY = 0;
 
     function scrollGallery(id, direction) {
         const pane = document.getElementById(`pane-${id}`);
@@ -179,6 +190,8 @@
     }
 
     function openZoom(src) {
+        scale = 1; pointX = 0; pointY = 0;
+        updateTransform();
         zoomImg.src = src;
         zoomOverlay.style.display = 'flex';
         document.body.classList.add('lock-scroll');
@@ -189,20 +202,44 @@
         document.body.classList.remove('lock-scroll');
     }
 
+    function updateTransform() {
+        zoomImg.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
+    }
+
+    // Touch events for deep zoom
+    zoomOverlay.addEventListener('touchstart', e => {
+        if (e.touches.length === 2) {
+            startX = (e.touches[0].pageX + e.touches[1].pageX) / 2;
+            startY = (e.touches[0].pageY + e.touches[1].pageY) / 2;
+        } else {
+            startX = e.touches[0].pageX - pointX;
+            startY = e.touches[0].pageY - pointY;
+        }
+    });
+
+    zoomOverlay.addEventListener('touchmove', e => {
+        e.preventDefault();
+        if (e.touches.length === 2) {
+            let dist = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
+            if (!zoomOverlay.startDist) zoomOverlay.startDist = dist;
+            scale = Math.min(Math.max(1, (dist / zoomOverlay.startDist)), 4);
+        } else if (scale > 1) {
+            pointX = e.touches[0].pageX - startX;
+            pointY = e.touches[0].pageY - startY;
+        }
+        updateTransform();
+    });
+
+    zoomOverlay.addEventListener('touchend', () => { zoomOverlay.startDist = 0; });
+
     function applyFocusWave(element) {
-        // Clear all states first
-        document.querySelectorAll('.photo-cover').forEach(el => {
-            el.classList.remove('is-clicked', 'is-neighbor');
-        });
-
-        // Apply Clicked state
+        document.querySelectorAll('.photo-cover').forEach(el => el.classList.remove('is-clicked', 'is-neighbor'));
         element.classList.add('is-clicked');
-
-        // Apply Neighbor states
-        const prev = element.previousElementSibling;
-        const next = element.nextElementSibling;
-        if(prev) prev.classList.add('is-neighbor');
-        if(next) next.classList.add('is-neighbor');
+        if(element.previousElementSibling) element.previousElementSibling.classList.add('is-neighbor');
+        if(element.nextElementSibling) element.nextElementSibling.classList.add('is-neighbor');
+        
+        // Auto-center in viewport
+        element.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
     }
 
     function createCard(folder, prefix, i, suffix, ext) {
@@ -210,7 +247,7 @@
         const container = document.createElement('div');
         container.className = 'photo-cover';
         
-        container.onclick = (e) => {
+        container.onclick = () => {
             const now = Date.now();
             if (now - lastTap < 300) {
                 openZoom(url);
@@ -230,7 +267,7 @@
         btn.innerText = "INQUIRE";
         btn.onclick = (e) => { 
             e.stopPropagation(); 
-            window.open(`https://wa.me/${waNumber}?text=Inquiry for ${url}`, '_blank'); 
+            window.open(`https://wa.me/${waNumber}?text=Inquiry for image: ${url}`, '_blank'); 
         };
 
         frame.appendChild(img);
