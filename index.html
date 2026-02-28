@@ -11,9 +11,9 @@
             --gold: #D4AF37;         
             --gold-light: rgba(212, 175, 55, 0.3);
             --glass: rgba(255, 255, 255, 0.85);
-            /* NEW SAGE GREEN PALETTE */
-            --sage-matte: #B2BCA3;
-            --sage-glow: rgba(178, 188, 163, 0.4);
+            /* THEME COLORS */
+            --accent-color: #C88E4F; /* Keeping for borders and arrows */
+            --dark-espresso: #2D241E;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
@@ -54,39 +54,56 @@
 
         main { margin-top: 120px; position: relative; z-index: 1; }
         
-        .section-wrap { padding: 50px 0; position: relative; }
+        .section-wrap { 
+            padding: 50px 0; 
+            position: relative; 
+            max-width: 100vw; 
+        }
+        
         .section-title { 
             padding-left: 9%; margin-bottom: 10px; font-family: 'Cinzel', serif; 
             font-size: 1.6rem; color: #333; letter-spacing: 5px; text-transform: uppercase;
             text-shadow: 1px 1px 3px rgba(255,255,255,0.9);
         }
 
+        /* NAVIGATION ARROWS */
         .nav-arrow {
             position: absolute;
-            top: 50%;
+            top: 55%;
             transform: translateY(-50%);
-            width: 50px;
-            height: 50px;
+            width: 55px;
+            height: 55px;
             background: white;
-            border: 1px solid var(--sage-matte);
+            border: 2px solid var(--accent-color);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            z-index: 100;
-            color: var(--sage-matte);
-            font-size: 1.5rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transition: 0.3s;
+            z-index: 500;
+            color: var(--accent-color);
+            font-size: 1.8rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
         }
-        .nav-arrow:hover { background: var(--sage-matte); color: white; transform: translateY(-50%) scale(1.1); }
-        .arrow-left { left: 20px; }
-        .arrow-right { right: 20px; }
+        
+        .nav-arrow:hover { 
+            background: var(--accent-color); 
+            color: white; 
+            transform: translateY(-50%) scale(1.1); 
+        }
+        
+        .arrow-left { left: 2%; }
+        .arrow-right { right: 2%; }
 
         .slider-viewport {
-            display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
-            gap: 35px; padding: 40px 10% 100px 10%; scrollbar-width: none; scroll-behavior: smooth;
+            display: flex; 
+            overflow-x: auto; 
+            scroll-snap-type: x mandatory;
+            gap: 35px; 
+            padding: 40px 10% 100px 10%; 
+            scrollbar-width: none; 
+            scroll-behavior: smooth;
         }
         .slider-viewport::-webkit-scrollbar { display: none; }
 
@@ -101,31 +118,35 @@
         .cover-frame {
             width: 100%; 
             height: 100%; 
-            background: var(--sage-matte);
+            /* USING rain.jpg AS THE FRAME BACKGROUND */
+            background-image: url('rain.jpg');
+            background-size: cover;
+            background-position: center;
             border-radius: 25px;
             overflow: hidden; 
             display: flex; 
             align-items: center; 
             justify-content: center;
             cursor: pointer; 
-            border: 1px solid rgba(255,255,255,0.2);
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.05), 0 12px 25px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            /* Overlay shadow to help the white/light colors in rain.jpg pop the photo */
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.2), 0 15px 30px rgba(0,0,0,0.2);
         }
 
         .cover-frame img { 
-            max-width: 90%; 
-            max-height: 90%; 
+            max-width: 88%; 
+            max-height: 88%; 
             object-fit: contain; 
             image-rendering: -webkit-optimize-contrast;
-            border-radius: 12px;
-            filter: drop-shadow(0 8px 15px rgba(0,0,0,0.2));
-            /* Subtle border to make the image pop against the sage */
-            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.4));
+            border: 1px solid rgba(255,255,255,0.2);
+            background: #fff; /* White base for transparent-prone images */
         }
 
         .wa-order-btn {
-            position: absolute; bottom: 0; background: var(--gold); color: #FFF;
-            border: none; padding: 12px 25px; font-weight: 700; font-size: 0.7rem; 
+            position: absolute; bottom: 0; background: var(--dark-espresso); 
+            color: #FFF; border: none; padding: 12px 25px; font-weight: 700; font-size: 0.7rem; 
             border-radius: 25px; cursor: pointer; opacity: 0; transform: translateY(10px);
             transition: 0.4s; z-index: 10;
         }
@@ -143,8 +164,8 @@
 
         #zoom-img {
             display: block;
-            box-shadow: 0 30px 70px rgba(0,0,0,0.1);
-            border: 1px solid var(--gold);
+            box-shadow: 0 30px 70px rgba(0,0,0,0.2);
+            border: 5px solid white;
             border-radius: 8px;
             transform-origin: center;
             will-change: transform;
@@ -152,10 +173,9 @@
 
         .close-zoom {
             position: absolute; top: 25px; right: 25px; width: 60px; height: 60px;
-            background: rgba(0, 0, 0, 0.85); border-radius: 50%; display: flex;
+            background: var(--dark-espresso); border-radius: 50%; display: flex;
             align-items: center; justify-content: center; font-size: 3rem; 
-            color: #FFFFFF; cursor: pointer; font-family: 'Arial', sans-serif;
-            font-weight: bold; line-height: 1; z-index: 10001;
+            color: #FFFFFF; cursor: pointer; line-height: 1; z-index: 10001;
         }
 
         .wa-float {
@@ -222,7 +242,7 @@
 
     function scrollGallery(id, direction) {
         const pane = document.getElementById(`pane-${id}`);
-        pane.scrollBy({ left: direction * pane.clientWidth * 0.8, behavior: 'smooth' });
+        pane.scrollBy({ left: direction * (pane.clientWidth * 0.8), behavior: 'smooth' });
     }
 
     function openZoom(src) {
@@ -245,7 +265,6 @@
         document.body.classList.remove('lock-scroll');
     }
 
-    // Standard Zoom Events (Touch)
     zoomOverlay.addEventListener('touchstart', (e) => {
         if (e.touches.length === 2) {
             lastScale = scale;
@@ -274,7 +293,6 @@
     zoomOverlay.addEventListener('touchend', () => { zoomOverlay.startDist = 0; });
     function updateTransform() { zoomImg.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`; }
 
-    // Init Logic
     Object.keys(config).forEach(key => {
         const cat = config[key];
         const section = document.createElement('section');
@@ -283,8 +301,8 @@
         section.innerHTML = `
             <h2 class="section-title">${cat.title}</h2>
             <div class="nav-arrow arrow-left" onclick="scrollGallery('${key}', -1)">&#10094;</div>
-            <div class="slider-viewport" id="pane-${key}"></div>
             <div class="nav-arrow arrow-right" onclick="scrollGallery('${key}', 1)">&#10095;</div>
+            <div class="slider-viewport" id="pane-${key}"></div>
         `;
         root.appendChild(section);
 
