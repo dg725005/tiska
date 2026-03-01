@@ -169,7 +169,7 @@
     const waNumber = "919993636912";
     
     const config = {
-        e: { title: "Prewedding", folder: 'e', prefix: 'e', suffix: '_', ext: 'webp', total: 106, skip: [65, 82, 100, 101, 105], featured: [8, 14, 15, 19, 20, 21, 22, 23, 78, 87] },
+        e: { title: "Prewedding", folder: 'e', prefix: 'e', suffix: '', ext: 'webp', total: 213, skip: [], featured: [8, 14, 15, 19, 20, 21, 22, 23] },
         d: { title: "Maternity", folder: 'd', prefix: 'd', suffix: '', ext: 'webp', total: 70, skip: [] },
         a: { title: "Cocktail", folder: 'a', prefix: 'a', suffix: '', ext: 'jpg', total: 49, skip: [] },
         b: { title: "Saree", folder: 'b', prefix: 'b', suffix: '', ext: 'jpg', total: 11, skip: [] },
@@ -267,7 +267,6 @@
 
     Object.keys(config).forEach(key => {
         const cat = config[key];
-        
         const li = document.createElement('li');
         li.innerHTML = `<a href="#section-${key}">${cat.title}</a>`;
         navList.appendChild(li);
