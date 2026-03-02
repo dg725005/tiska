@@ -3,142 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Tiska Enterprises | Boutique Collection</title>
+    <title>Tiska Enterprises | Midnight Chic</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-neutral: #EAE7E2;      /* Stone Gray/Greige */
-            --card-white: #FFFFFF;
-            --text-dark: #2D2D2D;
-            --accent-gold: #967B4F;     /* Muted Matte Gold */
-            --nav-muted: #666666;
-            --shadow-soft: rgba(0, 0, 0, 0.08);
+            --pitch-black: #050505;
+            --card-bg: #111111;
+            --gold-accent: #D4AF37;
+            --stark-white: #FFFFFF;
+            --nav-gray: #BBBBBB;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg-neutral);
-            color: var(--text-dark);
+            background-color: var(--pitch-black);
+            color: var(--stark-white);
             min-height: 100vh;
             overflow-x: hidden;
         }
 
         body.lock-scroll { overflow: hidden; }
 
-        /* HEADER */
         header {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(15px);
-            padding: 15px 6%;
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 6%;
             position: fixed;
             top: 0; width: 100%;
             z-index: 1000;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            box-shadow: 0 2px 10px var(--shadow-soft);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
         }
 
         .logo-box {
             background: #FFFFFF;
-            padding: 5px 12px;
-            border: 1px solid #EEE;
+            padding: 6px 15px;
+            border-radius: 2px;
             display: flex;
             align-items: center;
             height: 45px;
         }
 
-        .logo-box img { height: 35px; width: auto; object-fit: contain; }
+        .logo-box img { height: 32px; width: auto; object-fit: contain; }
 
-        nav ul { display: flex; list-style: none; gap: 20px; }
+        nav ul { display: flex; list-style: none; gap: 25px; }
         nav a { 
-            text-decoration: none; color: var(--nav-muted); font-size: 0.75rem; 
-            text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600;
+            text-decoration: none; color: var(--nav-gray); font-size: 0.75rem; 
+            text-transform: uppercase; letter-spacing: 2px; font-weight: 600;
             transition: 0.3s;
         }
-        nav a:hover { color: var(--accent-gold); }
+        nav a:hover { color: var(--gold-accent); }
 
-        /* MAIN */
-        main { margin-top: 130px; }
+        main { margin-top: 150px; }
         
-        .section-wrap { padding: 40px 0; position: relative; }
+        .section-wrap { padding: 50px 0; position: relative; }
         
         .section-title { 
-            padding-left: 6%; margin-bottom: 25px; 
+            padding-left: 6%; margin-bottom: 30px; 
             font-family: 'Playfair Display', serif; 
-            font-size: 2rem; color: var(--text-dark);
+            font-size: 2.2rem; color: var(--stark-white); letter-spacing: 2px;
         }
 
-        /* VISIBLE ARROWS */
+        /* REINFORCED SLIDING ARROWS */
         .nav-arrow {
-            position: absolute; top: 55%; transform: translateY(-50%);
-            width: 55px; height: 55px; background: var(--card-white); 
-            border: 1px solid #DDD; border-radius: 50%; display: flex; 
-            align-items: center; justify-content: center;
-            cursor: pointer; z-index: 800; color: var(--accent-gold); 
-            font-size: 1.3rem; box-shadow: 0 4px 12px var(--shadow-soft);
-            transition: 0.3s;
+            position: absolute; 
+            top: 50%; 
+            transform: translateY(-50%);
+            width: 60px; 
+            height: 60px; 
+            background: rgba(17, 17, 17, 0.85); 
+            backdrop-filter: blur(5px);
+            border: 2px solid var(--gold-accent);
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            cursor: pointer; 
+            z-index: 800; 
+            color: var(--gold-accent); 
+            font-size: 1.5rem;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+            transition: all 0.3s ease;
         }
-        .nav-arrow:hover { background: var(--accent-gold); color: #FFF; border-color: var(--accent-gold); }
-        .arrow-left { left: 1.5%; }
-        .arrow-right { right: 1.5%; }
+        .nav-arrow:hover { 
+            background: var(--gold-accent); 
+            color: #000; 
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.7);
+        }
+        .arrow-left { left: 2%; }
+        .arrow-right { right: 2%; }
 
         .slider-viewport {
             display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
-            gap: 30px; padding: 0 6% 60px 6%; 
+            gap: 35px; padding: 0 6% 60px 6%; 
             scrollbar-width: none;
         }
         .slider-viewport::-webkit-scrollbar { display: none; }
 
         .photo-cover {
-            flex: 0 0 280px; height: 380px; scroll-snap-align: start;
-            position: relative; transition: transform 0.4s ease;
+            flex: 0 0 300px; height: 420px; scroll-snap-align: start;
+            position: relative; transition: transform 0.5s ease;
         }
 
         .photo-cover.is-clicked { transform: scale(1.03); }
 
         .cover-frame {
             width: 100%; height: 100%; 
-            background: var(--card-white);
-            border-radius: 12px; overflow: hidden; display: flex; align-items: center; justify-content: center;
-            cursor: pointer; border: 1px solid #EEE;
-            box-shadow: 0 10px 25px var(--shadow-soft);
+            background: var(--card-bg);
+            border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
 
-        .cover-frame img { max-width: 92%; max-height: 92%; object-fit: contain; }
+        .cover-frame img { max-width: 90%; max-height: 90%; object-fit: contain; }
 
         .wa-order-btn {
-            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(10px);
-            background: var(--text-dark); color: #FFF; border: none; 
-            padding: 10px 20px; font-weight: 600; font-size: 0.7rem; 
-            letter-spacing: 1px; border-radius: 25px; cursor: pointer; opacity: 0; transition: 0.3s;
+            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(20px);
+            background: var(--gold-accent); color: #000; border: none; 
+            padding: 12px 24px; font-weight: 700; font-size: 0.7rem; 
+            letter-spacing: 1px; border-radius: 2px; cursor: pointer; opacity: 0; transition: 0.4s;
         }
         .is-clicked .wa-order-btn { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-        /* ZOOM */
         #zoom-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.98); z-index: 9999; display: none;
+            background: rgba(0, 0, 0, 0.98); z-index: 9999; display: none;
             align-items: center; justify-content: center;
         }
-        #zoom-img { max-width: 90%; max-height: 85%; object-fit: contain; box-shadow: 0 30px 60px rgba(0,0,0,0.1); }
+        #zoom-img { max-width: 90%; max-height: 85%; object-fit: contain; }
         .close-zoom {
-            position: absolute; top: 25px; right: 35px; font-size: 2.5rem; color: #333; cursor: pointer;
+            position: absolute; top: 30px; right: 40px; font-size: 3rem; color: #fff; cursor: pointer;
         }
 
         .wa-float {
             position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
             background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 900;
-            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
         }
 
         @media (max-width: 900px) {
             nav ul { display: none; }
-            .section-title { font-size: 1.5rem; }
-            .photo-cover { flex: 0 0 240px; height: 330px; }
+            .nav-arrow { width: 45px; height: 45px; font-size: 1.1rem; }
+            .section-title { font-size: 1.6rem; }
         }
     </style>
 </head>
@@ -164,12 +173,12 @@
     const waNumber = "919993636912";
     
     const config = {
-        e: { title: "Prewedding", folder: 'e', prefix: 'e', total: 213, ext: 'webp', featured: [8, 14, 15, 19, 20] },
-        d: { title: "Maternity", folder: 'd', prefix: 'd', total: 70, ext: 'webp' },
-        a: { title: "Cocktail", folder: 'a', prefix: 'a', total: 49, ext: 'jpg' },
-        b: { title: "Saree", folder: 'b', prefix: 'b', total: 11, ext: 'jpg' },
-        c: { title: "Mascots", folder: 'c', prefix: 'c', total: 60, ext: 'webp' },
-        f: { title: "Fancy Dress", folder: 'f', prefix: 'f', total: 988, ext: 'webp' }
+        e: { title: "Prewedding", folder: 'e', prefix: 'e', suffix: '', ext: 'webp', total: 213, featured: [8, 14, 15, 19, 20] },
+        d: { title: "Maternity", folder: 'd', prefix: 'd', suffix: '', ext: 'webp', total: 70 },
+        a: { title: "Cocktail", folder: 'a', prefix: 'a', suffix: '', ext: 'jpg', total: 49 },
+        b: { title: "Saree", folder: 'b', prefix: 'b', suffix: '', ext: 'jpg', total: 11 },
+        c: { title: "Mascots", folder: 'c', prefix: 'c', suffix: '', ext: 'webp', total: 60 },
+        f: { title: "Fancy Dress", folder: 'f', prefix: 'f', suffix: '', ext: 'webp', total: 988 }
     };
 
     const root = document.getElementById('gallery-root');
@@ -179,7 +188,7 @@
     let lastTap = 0;
 
     function scrollGallery(id, direction) {
-        document.getElementById(`pane-${id}`).scrollBy({ left: direction * 450, behavior: 'smooth' });
+        document.getElementById(`pane-${id}`).scrollBy({ left: direction * 500, behavior: 'smooth' });
     }
 
     function openZoom(src) {
@@ -193,8 +202,8 @@
         document.body.classList.remove('lock-scroll');
     }
 
-    function createCard(folder, prefix, i, ext) {
-        const url = `${folder}/${prefix}${i}.${ext}`;
+    function createCard(folder, prefix, i, suffix, ext) {
+        const url = `${folder}/${prefix}${i}${suffix}.${ext}`;
         const container = document.createElement('div');
         container.className = 'photo-cover';
         
@@ -216,7 +225,7 @@
         
         const btn = document.createElement('button');
         btn.className = 'wa-order-btn';
-        btn.innerText = "INQUIRE";
+        btn.innerText = "INQUIRE NOW";
         btn.onclick = (e) => { 
             e.stopPropagation(); 
             window.open(`https://wa.me/${waNumber}?text=Inquiry for image: ${url}`, '_blank'); 
@@ -247,13 +256,13 @@
         const pane = document.getElementById(`pane-${key}`);
 
         if (cat.featured) {
-            cat.featured.forEach(num => pane.appendChild(createCard(cat.folder, cat.prefix, num, cat.ext)));
+            cat.featured.forEach(num => pane.appendChild(createCard(cat.folder, cat.prefix, num, cat.suffix, cat.ext)));
             for(let i=1; i<=cat.total; i++) {
-                if (!cat.featured.includes(i)) pane.appendChild(createCard(cat.folder, cat.prefix, i, cat.ext));
+                if (!cat.featured.includes(i)) pane.appendChild(createCard(cat.folder, cat.prefix, i, cat.suffix, cat.ext));
             }
         } else {
             for(let i=1; i<=cat.total; i++) {
-                pane.appendChild(createCard(cat.folder, cat.prefix, i, cat.ext));
+                pane.appendChild(createCard(cat.folder, cat.prefix, i, cat.suffix, cat.ext));
             }
         }
     });
