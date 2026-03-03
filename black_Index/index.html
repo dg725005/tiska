@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tiska Enterprises | Midnight Chic</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pitch-black: #050505;
+            --card-bg: #111111;
+            --gold-accent: #D4AF37;
+            --stark-white: #FFFFFF;
+            --nav-gray: #BBBBBB;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--pitch-black);
+            color: var(--stark-white);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        body.lock-scroll { overflow: hidden; }
+
+        header {
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 6%;
+            position: fixed;
+            top: 0; width: 100%;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .logo-box {
+            background: #FFFFFF;
+            padding: 6px 15px;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            height: 45px;
+        }
+
+        .logo-box img { height: 32px; width: auto; object-fit: contain; }
+
+        nav ul { display: flex; list-style: none; gap: 25px; }
+        nav a { 
+            text-decoration: none; color: var(--nav-gray); font-size: 0.75rem; 
+            text-transform: uppercase; letter-spacing: 2px; font-weight: 600;
+            transition: 0.3s;
+        }
+        nav a:hover { color: var(--gold-accent); }
+
+        main { margin-top: 150px; }
+        
+        .section-wrap { padding: 50px 0; position: relative; }
+        
+        .section-title { 
+            padding-left: 6%; margin-bottom: 30px; 
+            font-family: 'Playfair Display', serif; 
+            font-size: 2.2rem; color: var(--stark-white); letter-spacing: 2px;
+        }
+
+        /* REINFORCED SLIDING ARROWS */
+        .nav-arrow {
+            position: absolute; 
+            top: 50%; 
+            transform: translateY(-50%);
+            width: 60px; 
+            height: 60px; 
+            background: rgba(17, 17, 17, 0.85); 
+            backdrop-filter: blur(5px);
+            border: 2px solid var(--gold-accent);
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            cursor: pointer; 
+            z-index: 800; 
+            color: var(--gold-accent); 
+            font-size: 1.5rem;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+            transition: all 0.3s ease;
+        }
+        .nav-arrow:hover { 
+            background: var(--gold-accent); 
+            color: #000; 
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.7);
+        }
+        .arrow-left { left: 2%; }
+        .arrow-right { right: 2%; }
+
+        .slider-viewport {
+            display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
+            gap: 35px; padding: 0 6% 60px 6%; 
+            scrollbar-width: none;
+        }
+        .slider-viewport::-webkit-scrollbar { display: none; }
+
+        .photo-cover {
+            flex: 0 0 300px; height: 420px; scroll-snap-align: start;
+            position: relative; transition: transform 0.5s ease;
+        }
+
+        .photo-cover.is-clicked { transform: scale(1.03); }
+
+        .cover-frame {
+            width: 100%; height: 100%; 
+            background: var(--card-bg);
+            border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .cover-frame img { max-width: 90%; max-height: 90%; object-fit: contain; }
+
+        .wa-order-btn {
+            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(20px);
+            background: var(--gold-accent); color: #000; border: none; 
+            padding: 12px 24px; font-weight: 700; font-size: 0.7rem; 
+            letter-spacing: 1px; border-radius: 2px; cursor: pointer; opacity: 0; transition: 0.4s;
+        }
+        .is-clicked .wa-order-btn { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        #zoom-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.98); z-index: 9999; display: none;
+            align-items: center; justify-content: center;
+        }
+        #zoom-img { max-width: 90%; max-height: 85%; object-fit: contain; }
+        .close-zoom {
+            position: absolute; top: 30px; right: 40px; font-size: 3rem; color: #fff; cursor: pointer;
+        }
+
+        .wa-float {
+            position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
+            background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 900;
+        }
+
+        @media (max-width: 900px) {
+            nav ul { display: none; }
+            .nav-arrow { width: 45px; height: 45px; font-size: 1.1rem; }
+            .section-title { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo-box"><img src="tiska_logo.jpg" alt="Tiska Logo"></div>
+    <nav><ul id="nav-list"></ul></nav>
+</header>
+
+<main id="gallery-root"></main>
+
+<div id="zoom-overlay">
+    <div class="close-zoom" onclick="closeZoom()">&times;</div>
+    <div id="zoom-container"><img id="zoom-img" src="" alt="View Item"></div>
+</div>
+
+<a href="https://wa.me/919993636912" class="wa-float" target="_blank">
+    <svg width="30" height="30" fill="white" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.06 3.973L0 16l4.195-1.103a7.859 7.859 0 0 0 3.792.98h.004c4.367 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
+</a>
+
+<script>
+    const waNumber = "919993636912";
+    
+    const config = {
+        e: { title: "Prewedding", folder: 'e', prefix: 'e', suffix: '', ext: 'webp', total: 213, featured: [8, 14, 15, 19, 20] },
+        d: { title: "Maternity", folder: 'd', prefix: 'd', suffix: '', ext: 'webp', total: 70 },
+        a: { title: "Cocktail", folder: 'a', prefix: 'a', suffix: '', ext: 'jpg', total: 49 },
+        b: { title: "Saree", folder: 'b', prefix: 'b', suffix: '', ext: 'jpg', total: 11 },
+        c: { title: "Mascots", folder: 'c', prefix: 'c', suffix: '', ext: 'webp', total: 60 },
+        f: { title: "Fancy Dress", folder: 'f', prefix: 'f', suffix: '', ext: 'webp', total: 988 }
+    };
+
+    const root = document.getElementById('gallery-root');
+    const navList = document.getElementById('nav-list');
+    const zoomOverlay = document.getElementById('zoom-overlay');
+    const zoomImg = document.getElementById('zoom-img');
+    let lastTap = 0;
+
+    function scrollGallery(id, direction) {
+        document.getElementById(`pane-${id}`).scrollBy({ left: direction * 500, behavior: 'smooth' });
+    }
+
+    function openZoom(src) {
+        zoomImg.src = src;
+        zoomOverlay.style.display = 'flex';
+        document.body.classList.add('lock-scroll');
+    }
+
+    function closeZoom() {
+        zoomOverlay.style.display = 'none';
+        document.body.classList.remove('lock-scroll');
+    }
+
+    function createCard(folder, prefix, i, suffix, ext) {
+        const url = `${folder}/${prefix}${i}${suffix}.${ext}`;
+        const container = document.createElement('div');
+        container.className = 'photo-cover';
+        
+        container.onclick = () => {
+            const now = Date.now();
+            if (now - lastTap < 300) {
+                openZoom(url);
+            } else {
+                document.querySelectorAll('.photo-cover').forEach(el => el.classList.remove('is-clicked'));
+                container.classList.add('is-clicked');
+            }
+            lastTap = now;
+        };
+
+        const frame = document.createElement('div');
+        frame.className = 'cover-frame';
+        const img = document.createElement('img');
+        img.src = url; img.loading = "lazy";
+        
+        const btn = document.createElement('button');
+        btn.className = 'wa-order-btn';
+        btn.innerText = "INQUIRE NOW";
+        btn.onclick = (e) => { 
+            e.stopPropagation(); 
+            window.open(`https://wa.me/${waNumber}?text=Inquiry for image: ${url}`, '_blank'); 
+        };
+
+        frame.appendChild(img);
+        container.appendChild(frame);
+        container.appendChild(btn);
+        return container;
+    }
+
+    Object.keys(config).forEach(key => {
+        const cat = config[key];
+        const li = document.createElement('li');
+        li.innerHTML = `<a href="#section-${key}">${cat.title}</a>`;
+        navList.appendChild(li);
+
+        const section = document.createElement('section');
+        section.className = 'section-wrap';
+        section.id = `section-${key}`;
+        section.innerHTML = `
+            <h2 class="section-title">${cat.title}</h2>
+            <div class="nav-arrow arrow-left" onclick="scrollGallery('${key}', -1)">&#10094;</div>
+            <div class="nav-arrow arrow-right" onclick="scrollGallery('${key}', 1)">&#10095;</div>
+            <div class="slider-viewport" id="pane-${key}"></div>
+        `;
+        root.appendChild(section);
+        const pane = document.getElementById(`pane-${key}`);
+
+        if (cat.featured) {
+            cat.featured.forEach(num => pane.appendChild(createCard(cat.folder, cat.prefix, num, cat.suffix, cat.ext)));
+            for(let i=1; i<=cat.total; i++) {
+                if (!cat.featured.includes(i)) pane.appendChild(createCard(cat.folder, cat.prefix, i, cat.suffix, cat.ext));
+            }
+        } else {
+            for(let i=1; i<=cat.total; i++) {
+                pane.appendChild(createCard(cat.folder, cat.prefix, i, cat.suffix, cat.ext));
+            }
+        }
+    });
+</script>
+</body>
+</html>

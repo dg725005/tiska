@@ -3,45 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Tiska Enterprises | Midnight Chic</title>
+    <title>Tiska Enterprises | Boutique Collection</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --pitch-black: #050505;
-            --card-bg: #111111;
-            --gold-accent: #D4AF37;
-            --stark-white: #FFFFFF;
-            --nav-gray: #BBBBBB;
+            --bg-neutral: #EAE7E2;      /* Sophisticated Greige */
+            --card-white: #FFFFFF;
+            --text-dark: #2D2D2D;
+            --accent-gold: #967B4F;     /* Muted Matte Gold */
+            --nav-muted: #555555;
+            --shadow-soft: rgba(0, 0, 0, 0.08);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--pitch-black);
-            color: var(--stark-white);
+            background-color: var(--bg-neutral);
+            color: var(--text-dark);
             min-height: 100vh;
             overflow-x: hidden;
         }
 
         body.lock-scroll { overflow: hidden; }
 
+        /* HEADER & NAVIGATION */
         header {
-            background: rgba(5, 5, 5, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 20px 6%;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(15px);
+            padding: 15px 6%;
             position: fixed;
             top: 0; width: 100%;
             z-index: 1000;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 2px 10px var(--shadow-soft);
         }
 
         .logo-box {
             background: #FFFFFF;
-            padding: 6px 15px;
+            padding: 5px 12px;
+            border: 1px solid #EEE;
             border-radius: 2px;
             display: flex;
             align-items: center;
@@ -50,104 +54,102 @@
 
         .logo-box img { height: 32px; width: auto; object-fit: contain; }
 
-        nav ul { display: flex; list-style: none; gap: 25px; }
+        nav ul { display: flex; list-style: none; gap: 22px; }
         nav a { 
-            text-decoration: none; color: var(--nav-gray); font-size: 0.75rem; 
-            text-transform: uppercase; letter-spacing: 2px; font-weight: 600;
+            text-decoration: none; color: var(--nav-muted); font-size: 0.7rem; 
+            text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600;
             transition: 0.3s;
         }
-        nav a:hover { color: var(--gold-accent); }
+        nav a:hover { color: var(--accent-gold); }
 
-        main { margin-top: 150px; }
+        /* MAIN LAYOUT */
+        main { margin-top: 140px; }
         
-        .section-wrap { padding: 50px 0; position: relative; }
+        .section-wrap { padding: 40px 0; position: relative; }
         
         .section-title { 
-            padding-left: 6%; margin-bottom: 30px; 
+            padding-left: 6%; margin-bottom: 25px; 
             font-family: 'Playfair Display', serif; 
-            font-size: 2.2rem; color: var(--stark-white); letter-spacing: 2px;
+            font-size: 2.2rem; color: var(--text-dark);
         }
 
         /* REINFORCED SLIDING ARROWS */
         .nav-arrow {
-            position: absolute; 
-            top: 50%; 
-            transform: translateY(-50%);
-            width: 60px; 
-            height: 60px; 
-            background: rgba(17, 17, 17, 0.85); 
-            backdrop-filter: blur(5px);
-            border: 2px solid var(--gold-accent);
-            border-radius: 50%; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center;
-            cursor: pointer; 
-            z-index: 800; 
-            color: var(--gold-accent); 
-            font-size: 1.5rem;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
-            transition: all 0.3s ease;
+            position: absolute; top: 55%; transform: translateY(-50%);
+            width: 55px; height: 55px; background: var(--card-white); 
+            border: 1px solid #CCC; border-radius: 50%; display: flex; 
+            align-items: center; justify-content: center;
+            cursor: pointer; z-index: 800; color: var(--accent-gold); 
+            font-size: 1.3rem; box-shadow: 0 4px 12px var(--shadow-soft);
+            transition: 0.3s;
         }
         .nav-arrow:hover { 
-            background: var(--gold-accent); 
-            color: #000; 
-            box-shadow: 0 0 25px rgba(212, 175, 55, 0.7);
+            background: var(--accent-gold); 
+            color: #FFF; 
+            border-color: var(--accent-gold); 
+            box-shadow: 0 6px 15px rgba(150, 123, 79, 0.3);
         }
-        .arrow-left { left: 2%; }
-        .arrow-right { right: 2%; }
+        .arrow-left { left: 1.5%; }
+        .arrow-right { right: 1.5%; }
 
         .slider-viewport {
             display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
-            gap: 35px; padding: 0 6% 60px 6%; 
+            gap: 30px; padding: 0 6% 60px 6%; 
             scrollbar-width: none;
         }
         .slider-viewport::-webkit-scrollbar { display: none; }
 
         .photo-cover {
-            flex: 0 0 300px; height: 420px; scroll-snap-align: start;
-            position: relative; transition: transform 0.5s ease;
+            flex: 0 0 280px; height: 400px; scroll-snap-align: start;
+            position: relative; transition: transform 0.4s ease;
         }
 
         .photo-cover.is-clicked { transform: scale(1.03); }
 
         .cover-frame {
             width: 100%; height: 100%; 
-            background: var(--card-bg);
-            border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center;
-            cursor: pointer; border: 1px solid rgba(255,255,255,0.08);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            background: var(--card-white);
+            border-radius: 6px; overflow: hidden; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; border: 1px solid #DDD;
+            box-shadow: 0 10px 25px var(--shadow-soft);
         }
 
         .cover-frame img { max-width: 90%; max-height: 90%; object-fit: contain; }
 
         .wa-order-btn {
-            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(20px);
-            background: var(--gold-accent); color: #000; border: none; 
-            padding: 12px 24px; font-weight: 700; font-size: 0.7rem; 
-            letter-spacing: 1px; border-radius: 2px; cursor: pointer; opacity: 0; transition: 0.4s;
+            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(10px);
+            background: var(--text-dark); color: #FFF; border: none; 
+            padding: 10px 22px; font-weight: 700; font-size: 0.7rem; 
+            letter-spacing: 1px; border-radius: 2px; cursor: pointer; opacity: 0; transition: 0.3s;
         }
         .is-clicked .wa-order-btn { opacity: 1; transform: translateX(-50%) translateY(0); }
 
+        /* ZOOM MODAL */
         #zoom-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.98); z-index: 9999; display: none;
+            background: rgba(255, 255, 255, 0.98); z-index: 9999; display: none;
             align-items: center; justify-content: center;
         }
-        #zoom-img { max-width: 90%; max-height: 85%; object-fit: contain; }
+        #zoom-img { max-width: 90%; max-height: 85%; object-fit: contain; box-shadow: 0 30px 60px rgba(0,0,0,0.1); }
         .close-zoom {
-            position: absolute; top: 30px; right: 40px; font-size: 3rem; color: #fff; cursor: pointer;
+            position: absolute; top: 25px; right: 35px; font-size: 3rem; color: #333; cursor: pointer;
         }
 
         .wa-float {
             position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
-            background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 900;
+            background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+            z-index: 900; box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 1100px) {
+            nav a { font-size: 0.6rem; gap: 10px; }
         }
 
         @media (max-width: 900px) {
             nav ul { display: none; }
-            .nav-arrow { width: 45px; height: 45px; font-size: 1.1rem; }
             .section-title { font-size: 1.6rem; }
+            .nav-arrow { width: 45px; height: 45px; }
+            .photo-cover { flex: 0 0 240px; height: 340px; }
         }
     </style>
 </head>
@@ -172,12 +174,14 @@
 <script>
     const waNumber = "919993636912";
     
+    // Ordered configuration: Prewedding, Maternity, Cocktail, Saree, Mascots, Convocation, Fancy Dress
     const config = {
         e: { title: "Prewedding", folder: 'e', prefix: 'e', suffix: '', ext: 'webp', total: 213, featured: [8, 14, 15, 19, 20] },
         d: { title: "Maternity", folder: 'd', prefix: 'd', suffix: '', ext: 'webp', total: 70 },
         a: { title: "Cocktail", folder: 'a', prefix: 'a', suffix: '', ext: 'jpg', total: 49 },
         b: { title: "Saree", folder: 'b', prefix: 'b', suffix: '', ext: 'jpg', total: 11 },
         c: { title: "Mascots", folder: 'c', prefix: 'c', suffix: '', ext: 'webp', total: 60 },
+        g: { title: "Convocation", folder: 'g', prefix: 'g', suffix: '', ext: 'webp', total: 80 }, // New Category added here
         f: { title: "Fancy Dress", folder: 'f', prefix: 'f', suffix: '', ext: 'webp', total: 988 }
     };
 
@@ -228,7 +232,7 @@
         btn.innerText = "INQUIRE NOW";
         btn.onclick = (e) => { 
             e.stopPropagation(); 
-            window.open(`https://wa.me/${waNumber}?text=Inquiry for image: ${url}`, '_blank'); 
+            window.open(`https://wa.me/${waNumber}?text=Inquiry for item: ${url}`, '_blank'); 
         };
 
         frame.appendChild(img);
