@@ -7,12 +7,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-neutral: #EAE7E2;      /* Sophisticated Greige */
+            --bg-neutral: #EAE7E2;
             --card-white: #FFFFFF;
             --text-dark: #2D2D2D;
-            --accent-gold: #967B4F;     /* Muted Matte Gold */
+            --accent-gold: #967B4F;
             --nav-muted: #555555;
             --shadow-soft: rgba(0, 0, 0, 0.08);
+            --black-90: rgba(0, 0, 0, 0.9);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -54,9 +55,9 @@
 
         .logo-box img { height: 32px; width: auto; object-fit: contain; }
 
-        nav ul { display: flex; list-style: none; gap: 22px; }
+        nav ul { display: flex; list-style: none; gap: 18px; }
         nav a { 
-            text-decoration: none; color: var(--nav-muted); font-size: 0.7rem; 
+            text-decoration: none; color: var(--nav-muted); font-size: 0.65rem; 
             text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600;
             transition: 0.3s;
         }
@@ -73,7 +74,7 @@
             font-size: 2.2rem; color: var(--text-dark);
         }
 
-        /* REINFORCED SLIDING ARROWS */
+        /* NAVIGATION CONTROLS */
         .nav-arrow {
             position: absolute; top: 55%; transform: translateY(-50%);
             width: 55px; height: 55px; background: var(--card-white); 
@@ -87,7 +88,6 @@
             background: var(--accent-gold); 
             color: #FFF; 
             border-color: var(--accent-gold); 
-            box-shadow: 0 6px 15px rgba(150, 123, 79, 0.3);
         }
         .arrow-left { left: 1.5%; }
         .arrow-right { right: 1.5%; }
@@ -99,6 +99,7 @@
         }
         .slider-viewport::-webkit-scrollbar { display: none; }
 
+        /* IMAGE CARDS */
         .photo-cover {
             flex: 0 0 280px; height: 400px; scroll-snap-align: start;
             position: relative; transition: transform 0.4s ease;
@@ -112,27 +113,41 @@
             border-radius: 6px; overflow: hidden; display: flex; align-items: center; justify-content: center;
             cursor: pointer; border: 1px solid #DDD;
             box-shadow: 0 10px 25px var(--shadow-soft);
+            position: relative;
         }
 
-        .cover-frame img { max-width: 90%; max-height: 90%; object-fit: contain; }
+        .cover-frame img { 
+            max-width: 95%; 
+            max-height: 95%; 
+            object-fit: contain; /* Proportional Fix */
+        }
 
         .wa-order-btn {
             position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(10px);
             background: var(--text-dark); color: #FFF; border: none; 
             padding: 10px 22px; font-weight: 700; font-size: 0.7rem; 
             letter-spacing: 1px; border-radius: 2px; cursor: pointer; opacity: 0; transition: 0.3s;
+            z-index: 10;
         }
         .is-clicked .wa-order-btn { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-        /* ZOOM MODAL */
+        /* ZOOM MODAL (FIXED PROPORTIONS) */
         #zoom-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.98); z-index: 9999; display: none;
+            background: var(--black-90); z-index: 9999; display: none;
             align-items: center; justify-content: center;
+            touch-action: none;
         }
-        #zoom-img { max-width: 90%; max-height: 85%; object-fit: contain; box-shadow: 0 30px 60px rgba(0,0,0,0.1); }
+        #zoom-container { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        #zoom-img { 
+            max-width: 95%; 
+            max-height: 95%; 
+            object-fit: contain; /* CRUCIAL FIX: Maintain Proportion */
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            transition: transform 0.1s ease-out;
+        }
         .close-zoom {
-            position: absolute; top: 25px; right: 35px; font-size: 3rem; color: #333; cursor: pointer;
+            position: absolute; top: 25px; right: 35px; font-size: 3rem; color: #fff; cursor: pointer; z-index: 10001;
         }
 
         .wa-float {
@@ -141,14 +156,9 @@
             z-index: 900; box-shadow: 0 8px 15px rgba(0,0,0,0.1);
         }
 
-        @media (max-width: 1100px) {
-            nav a { font-size: 0.6rem; gap: 10px; }
-        }
-
         @media (max-width: 900px) {
             nav ul { display: none; }
             .section-title { font-size: 1.6rem; }
-            .nav-arrow { width: 45px; height: 45px; }
             .photo-cover { flex: 0 0 240px; height: 340px; }
         }
     </style>
@@ -174,14 +184,13 @@
 <script>
     const waNumber = "919993636912";
     
-    // Ordered configuration: Prewedding, Maternity, Cocktail, Saree, Mascots, Convocation, Fancy Dress
     const config = {
-        e: { title: "Prewedding", folder: 'e', prefix: 'e', suffix: '', ext: 'webp', total: 213, featured: [8, 14, 15, 19, 20] },
+        e: { title: "Prewedding", folder: 'e', prefix: 'e', suffix: '', ext: 'webp', total: 69 }, // Updated to 69
         d: { title: "Maternity", folder: 'd', prefix: 'd', suffix: '', ext: 'webp', total: 70 },
         a: { title: "Cocktail", folder: 'a', prefix: 'a', suffix: '', ext: 'jpg', total: 49 },
         b: { title: "Saree", folder: 'b', prefix: 'b', suffix: '', ext: 'jpg', total: 11 },
         c: { title: "Mascots", folder: 'c', prefix: 'c', suffix: '', ext: 'webp', total: 60 },
-        g: { title: "Convocation", folder: 'g', prefix: 'g', suffix: '', ext: 'webp', total: 80 }, // New Category added here
+        g: { title: "Convocation", folder: 'g', prefix: 'g', suffix: '', ext: 'webp', total: 80 },
         f: { title: "Fancy Dress", folder: 'f', prefix: 'f', suffix: '', ext: 'webp', total: 988 }
     };
 
@@ -232,7 +241,7 @@
         btn.innerText = "INQUIRE NOW";
         btn.onclick = (e) => { 
             e.stopPropagation(); 
-            window.open(`https://wa.me/${waNumber}?text=Inquiry for item: ${url}`, '_blank'); 
+            window.open(`https://wa.me/${waNumber}?text=Inquiry for image: ${url}`, '_blank'); 
         };
 
         frame.appendChild(img);
@@ -259,15 +268,9 @@
         root.appendChild(section);
         const pane = document.getElementById(`pane-${key}`);
 
-        if (cat.featured) {
-            cat.featured.forEach(num => pane.appendChild(createCard(cat.folder, cat.prefix, num, cat.suffix, cat.ext)));
-            for(let i=1; i<=cat.total; i++) {
-                if (!cat.featured.includes(i)) pane.appendChild(createCard(cat.folder, cat.prefix, i, cat.suffix, cat.ext));
-            }
-        } else {
-            for(let i=1; i<=cat.total; i++) {
-                pane.appendChild(createCard(cat.folder, cat.prefix, i, cat.suffix, cat.ext));
-            }
+        // Ascending loop (1 to total)
+        for(let i=1; i<=cat.total; i++) {
+            pane.appendChild(createCard(cat.folder, cat.prefix, i, cat.suffix, cat.ext));
         }
     });
 </script>
