@@ -473,42 +473,152 @@ a.contact-value:active {
 .close-zoom { position: absolute; top: 20px; right: 20px; font-size: 2.5rem; color: #fff; cursor: pointer; z-index: 10001; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.15); border-radius: 50%; line-height: 1; backdrop-filter: blur(5px); }
 
 /* ==========================================
-   FOOTER STYLING & DIRECT MENU
+   FOOTER STYLING (mirrors header: brand + social,
+   nav links, and contact info, on a dark surface)
    ========================================== */
-footer { 
-    background: #FFFFFF; 
-    border-top: 1px solid var(--border-light); 
-    padding: 30px 16px; 
-    margin-top: 40px; 
-    text-align: center; 
-    flex-shrink: 0; 
+footer {
+    background: var(--text-dark);
+    border-top: 3px solid var(--accent-gold);
+    margin-top: 40px;
+    flex-shrink: 0;
 }
 
-.footer-nav {
+.footer-top {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 16px 30px;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px 20px;
-    margin-bottom: 20px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 32px;
 }
 
-.footer-nav a {
-    color: var(--text-dark);
+.footer-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-brand {
+    gap: 14px;
+}
+
+.footer-logo-box {
+    background: #FFFFFF;
+    border-radius: 8px;
+    padding: 8px 14px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.footer-logo-box img {
+    height: 36px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.footer-tagline {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.75rem;
+    letter-spacing: 0.3px;
+}
+
+.footer-social {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.footer-social a {
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-decoration: none;
-    font-size: 0.8rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
     transition: color 0.2s ease;
 }
 
-.footer-nav a:hover,
-.footer-nav a:active {
+.footer-social a:active {
     color: var(--accent-gold);
 }
 
-.footer-content p { color: var(--text-dark); font-size: 0.85rem; font-weight: 600; }
-.footer-content .footer-sub { color: var(--nav-muted); font-size: 0.75rem; margin-top: 6px; font-weight: 400; }
+.footer-social .jd-icon span {
+    font-size: 0.62rem;
+    font-weight: 800;
+    border: 1.5px solid #FFFFFF;
+    padding: 1px 4px;
+    border-radius: 4px;
+    line-height: 1;
+    letter-spacing: -0.2px;
+    display: inline-block;
+    transition: border-color 0.2s ease;
+}
+
+.footer-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-bottom: 16px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-heading::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 28px;
+    height: 2px;
+    background: var(--accent-gold);
+}
+
+.footer-links,
+.footer-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.footer-links a,
+.footer-info a,
+.footer-info p {
+    color: rgba(255, 255, 255, 0.72);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 600;
+    line-height: 1.5;
+    max-width: 260px;
+    transition: color 0.2s ease;
+}
+
+.footer-links a {
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.footer-links a:active,
+.footer-info a:active {
+    color: var(--accent-gold);
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 16px;
+    text-align: center;
+}
+
+.footer-bottom p {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
 
 /* ==========================================
    RESPONSIVE DESIGN UPGRADES (DESKTOP)
@@ -578,4 +688,34 @@ footer {
     .photo-cover { height: 400px; padding: 12px; }
     .cover-frame { height: calc(100% - 60px); }
     .wa-order-btn { height: 48px; font-size: 0.75rem; letter-spacing: 1.5px; }
+
+    /* Footer: left-aligned multi-column layout + hover states on desktop */
+    .footer-top {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        text-align: left;
+        padding: 56px 4% 40px;
+    }
+    .footer-col {
+        align-items: flex-start;
+    }
+    .footer-heading::after {
+        left: 0;
+        transform: none;
+    }
+    .footer-links,
+    .footer-info {
+        align-items: flex-start;
+    }
+    .footer-social a:hover {
+        color: var(--accent-gold);
+    }
+    .footer-social .jd-icon span:hover {
+        border-color: var(--accent-gold);
+    }
+    .footer-links a:hover,
+    .footer-info a:hover {
+        color: var(--accent-gold);
+    }
 }
