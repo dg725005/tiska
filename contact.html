@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-    <title>Tiska Enterprises | Boutique Collection</title>
+    <title>Contact | Tiska Enterprises</title>
     <!-- Preconnect to external font servers for faster mobile paint times -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,9 +25,9 @@
     <div class="header-inner">
         <div class="logo-row">
             <div class="logo-box">
-                <img src="tiska_logo.jpg" alt="Tiska Logo">
+                <a href="index.html"><img src="tiska_logo.jpg" alt="Tiska Logo"></a>
             </div>
-            
+
             <!-- Actions Section: Shifted Centered Social Medias Links -->
             <div class="header-actions">
                 <div class="social-links">
@@ -46,10 +46,10 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Condensed Navigation Row: Explore Link + Contact Link + Categories Dropdown Menu Container -->
         <nav class="explore-nav">
-            <a href="#section-explore" class="nav-link-btn">Explore</a>
+            <a href="index.html#section-explore" class="nav-link-btn">Explore</a>
             <a href="contact.html" class="nav-link-btn">Contact</a>
             <div class="dropdown">
                 <button class="dropdown-btn" id="explore-btn" aria-haspopup="true" aria-expanded="false">
@@ -64,22 +64,54 @@
     </div>
 </header>
 
-<!-- Main Grid Root Layout Container -->
-<main id="gallery-root">
-    <!-- Static Explore Section: Intro copy + Featured Video -->
-    <section class="section-wrap" id="section-explore">
-        <h2 class="section-title">Explore</h2>
-        <p class="explore-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <div class="video-embed-wrap">
-            <iframe
-                src="https://www.youtube.com/embed/ND_OcNkEngs"
-                title="Tiska Enterprises Explore Video"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-                loading="lazy">
-            </iframe>
+<!-- Contact Page Main Content -->
+<main>
+    <section class="section-wrap" id="section-contact">
+        <h2 class="section-title">Contact Us</h2>
+
+        <div class="contact-card">
+            <div class="contact-row">
+                <div class="contact-icon" aria-hidden="true">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
+                </div>
+                <div class="contact-detail">
+                    <span class="contact-label">Address</span>
+                    <span class="contact-value">No 130, Near Jain Temple, Kirti Nagar, Adhartal, Jabalpur, Madhya Pradesh 482004</span>
+                </div>
+            </div>
+
+            <div class="contact-row">
+                <div class="contact-icon" aria-hidden="true">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/></svg>
+                </div>
+                <div class="contact-detail">
+                    <span class="contact-label">General Enquiries</span>
+                    <a class="contact-value contact-link" href="mailto:tiskaenterprise@gmail.com">tiskaenterprise@gmail.com</a>
+                </div>
+            </div>
+
+            <div class="contact-row">
+                <div class="contact-icon" aria-hidden="true">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328Z"/></svg>
+                </div>
+                <div class="contact-detail">
+                    <span class="contact-label">Call Us</span>
+                    <a class="contact-value contact-link" href="tel:+919993636912">+91-9993636912</a>
+                </div>
+            </div>
+
+            <div class="contact-row">
+                <div class="contact-icon" aria-hidden="true">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5Z"/><path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16Zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/></svg>
+                </div>
+                <div class="contact-detail">
+                    <span class="contact-label">Our Timing</span>
+                    <span class="contact-value">Mon - Sun : 12:00 PM - 12:00 PM / 12:00 AM - 12:00 AM</span>
+                </div>
+            </div>
         </div>
+
+        <a href="https://wa.me/919993636912" class="wa-order-btn contact-wa-btn" target="_blank">CHAT ON WHATSAPP</a>
     </section>
 </main>
 
@@ -87,57 +119,23 @@
     <div class="footer-content">
         <!-- Direct Category Links List (Non-dropdown) -->
         <nav class="footer-nav">
-            <a href="#section-prewedding">Prewedding</a>
-            <a href="#section-maternity">Maternity</a>
-            <a href="#section-cocktail">Cocktail</a>
-            <a href="#section-saree">Saree</a>
-            <a href="#section-convocation">Convocation</a>
-            <a href="#section-fancy_dress">Fancy Dress</a>
-            <a href="#section-mascots">Mascots</a>
+            <a href="index.html#section-prewedding">Prewedding</a>
+            <a href="index.html#section-maternity">Maternity</a>
+            <a href="index.html#section-cocktail">Cocktail</a>
+            <a href="index.html#section-saree">Saree</a>
+            <a href="index.html#section-convocation">Convocation</a>
+            <a href="index.html#section-fancy_dress">Fancy Dress</a>
+            <a href="index.html#section-mascots">Mascots</a>
         </nav>
         <p>&copy; 2026 Tiska Enterprises. All Rights Reserved.</p>
         <p class="footer-sub">Premium Clothing & Rental Boutique Collection</p>
     </div>
 </footer>
 
-<!-- Zoom System Overlay Component -->
-<div id="zoom-overlay">
-    <div class="close-zoom" id="close-zoom-btn" aria-label="Close Gallery View">&times;</div>
-    <div id="zoom-track"></div>
-</div>
-
 <!-- Floating WhatsApp Contact Anchor Pin -->
 <a href="https://wa.me/919993636912" class="wa-float" target="_blank" aria-label="Inquire on WhatsApp">
     <svg width="28" height="28" fill="white" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.06 3.973L0 16l4.195-1.103a7.859 7.859 0 0 0 3.792.98h.004c4.367 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
 </a>
-
-<!-- Admin Authorization Modal System -->
-<div id="admin-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:10005; justify-content:center; align-items:center; padding:16px;">
-    <div style="background:#FFF; padding:24px; border-radius:12px; width:100%; max-width:340px; box-shadow:0 10px 25px rgba(0,0,0,0.3);">
-        <h3 style="font-family:'Playfair Display', serif; margin-bottom:16px; font-size:1.4rem;">Add Temporary Item</h3>
-        
-        <div id="auth-step">
-            <label style="font-size:0.8rem; font-weight:600; display:block; margin-bottom:6px;">ENTER AUTHORIZATION CODE</label>
-            <input type="password" id="admin-pin" style="width:100%; height:44px; padding:10px; border:1px solid #CCC; border-radius:6px; margin-bottom:16px; font-size:1rem; text-align:center; letter-spacing:4px;">
-            <button id="btn-verify-pin" class="wa-order-btn" style="margin-top:0;">VERIFY CODE</button>
-        </div>
-
-        <div id="upload-step" style="display:none;">
-            <label style="font-size:0.8rem; font-weight:600; display:block; margin-bottom:6px;">SELECT TARGET CATEGORY</label>
-            <select id="upload-category" style="width:100%; height:44px; padding:10px; border:1px solid #CCC; border-radius:6px; margin-bottom:16px; font-size:0.9rem; background:#FFF; font-weight:600;">
-            </select>
-
-            <label style="font-size:0.8rem; font-weight:600; display:block; margin-bottom:6px;">CHOOSE IMAGE FILE</label>
-            <input type="file" id="upload-file" accept="image/*" style="width:100%; margin-bottom:20px; font-size:0.85rem;">
-            <button id="btn-submit-upload" class="wa-order-btn" style="margin-top:0; background:#846B43;">INJECT TO GALLERY</button>
-        </div>
-
-        <button id="btn-close-modal" style="background:none; border:none; color:#666; font-size:0.85rem; font-weight:600; width:100%; text-align:center; margin-top:16px; cursor:pointer; text-decoration:underline;">Cancel</button>
-    </div>
-</div>
-
-<!-- Floating Action Trigger Button -->
-<button id="admin-trigger-fab" style="position:fixed; bottom:90px; right:20px; width:54px; height:54px; background:#232323; color:#FFF; border:none; border-radius:50%; font-size:1.8rem; display:flex; align-items:center; justify-content:center; z-index:850; box-shadow:0 4px 16px rgba(0,0,0,0.2); cursor:pointer; font-weight:300;">+</button>
 
 <script src="script.js"></script>
 </body>

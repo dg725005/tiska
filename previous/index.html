@@ -47,11 +47,12 @@
             </div>
         </div>
         
-        <!-- Condensed Categories Navigation Dropdown Menu Container -->
+        <!-- Condensed Navigation Row: Explore Link + Categories Dropdown Menu Container -->
         <nav class="explore-nav">
+            <a href="#section-explore" class="nav-link-btn">Explore</a>
             <div class="dropdown">
                 <button class="dropdown-btn" id="explore-btn" aria-haspopup="true" aria-expanded="false">
-                    Explore Categories
+                    Categories
                     <svg width="12" height="12" fill="currentColor" viewBox="0 0 16 16" style="margin-left: 6px; vertical-align: -1px;"><path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/></svg>
                 </button>
                 <div class="dropdown-content" id="dropdown-menu">
@@ -63,7 +64,23 @@
 </header>
 
 <!-- Main Grid Root Layout Container -->
-<main id="gallery-root"></main>
+<main id="gallery-root">
+    <!-- Static Explore Section: Intro copy + Featured Video -->
+    <section class="section-wrap" id="section-explore">
+        <h2 class="section-title">Explore</h2>
+        <p class="explore-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <div class="video-embed-wrap">
+            <iframe
+                src="https://www.youtube.com/watch?v=HrHwSgg_JDY"
+                title="Tiska Enterprises Explore Video"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+                loading="lazy">
+            </iframe>
+        </div>
+    </section>
+</main>
 
 <footer>
     <div class="footer-content">

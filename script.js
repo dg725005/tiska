@@ -135,8 +135,9 @@ function closeZoom() {
     resetZoomState();
 }
 
-closeBtn.addEventListener('click', closeZoom);
+if (closeBtn) closeBtn.addEventListener('click', closeZoom);
 
+if (zoomOverlay && zoomTrack) {
 zoomOverlay.addEventListener('pointerdown', e => {
     if(e.target === closeBtn) return;
     activePointers.push(e);
@@ -212,6 +213,7 @@ zoomOverlay.addEventListener('pointerup', e => {
 });
 
 zoomOverlay.addEventListener('pointercancel', e => { activePointers = []; isDragging = false; });
+}
 
 // SINGLE UI GRID ELEMENT FACTORY
 function createGridCard(categoryKey, fileName, folderPath, isVideo = false) {
@@ -274,7 +276,28 @@ function renderNextBatch(categoryKey, targetGrid, nextTriggerBtn) {
 }
 
 // CENTRAL SYSTEMS INITIALIZATION
+// Populates the "Categories" dropdown menu on ANY page. Links point straight to
+// an in-page anchor on the homepage, or to index.html#section-key from other pages.
+function populateCategoryDropdown() {
+    if (!dropdownMenu) return;
+    const onHomepage = !!root;
+
+    Object.keys(categoryMeta).forEach(key => {
+        const meta = categoryMeta[key];
+        if (meta.count > 0) {
+            const a = document.createElement('a');
+            a.href = onHomepage ? `#section-${key}` : `index.html#section-${key}`;
+            a.innerText = meta.title;
+            a.onclick = () => { dropdownMenu.classList.remove('show'); exploreBtn.setAttribute('aria-expanded', 'false'); };
+            dropdownMenu.appendChild(a);
+        }
+    });
+}
+
+// Builds the actual gallery sections/grids. Only runs on the homepage, where #gallery-root exists.
 function initializeGallery() {
+    if (!root) return;
+
     Object.keys(categoryMeta).forEach(key => {
         const meta = categoryMeta[key];
         let structuredFiles = [];
@@ -285,15 +308,6 @@ function initializeGallery() {
         }
 
         galleryData[key] = sortFilesNumerically(structuredFiles);
-
-        // Inject link item securely into condensed Dropdown menu
-        if (meta.count > 0 && dropdownMenu) {
-            const a = document.createElement('a');
-            a.href = `#section-${key}`;
-            a.innerText = meta.title;
-            a.onclick = () => { dropdownMenu.classList.remove('show'); exploreBtn.setAttribute('aria-expanded', 'false'); };
-            dropdownMenu.appendChild(a);
-        }
 
         const section = document.createElement('section');
         section.className = 'section-wrap';
@@ -321,6 +335,7 @@ function initializeGallery() {
     });
 }
 
+populateCategoryDropdown();
 initializeGallery();
 
 // UI Event Handles for Explore Dropdown Toggle Lifecycles
@@ -350,6 +365,8 @@ const submitUploadBtn = document.getElementById('btn-submit-upload');
 const closeModalBtn = document.getElementById('btn-close-modal');
 const uploadCategorySelect = document.getElementById('upload-category');
 const uploadFileInput = document.getElementById('upload-file');
+
+if (adminFab && adminModal && authStep && uploadStep && adminPinInput && verifyPinBtn && submitUploadBtn && closeModalBtn && uploadCategorySelect && uploadFileInput) {
 
 adminFab.addEventListener('click', () => {
     adminPinInput.value = "", authStep.style.display = "block", uploadStep.style.display = "none", adminModal.style.display = "flex";
@@ -392,3 +409,5 @@ submitUploadBtn.addEventListener('click', () => {
     }
 });
 closeModalBtn.addEventListener('click', () => { adminModal.style.display = "none"; });
+
+}

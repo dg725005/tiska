@@ -144,14 +144,39 @@ header {
    ========================================== */
 .explore-nav {
     width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
     display: flex;
     justify-content: center;
+    gap: 10px;
+}
+
+.nav-link-btn {
+    flex: 1;
+    background: var(--bg-neutral);
+    color: var(--text-dark);
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: background 0.2s ease;
+}
+
+.nav-link-btn:active {
+    background: #EAE7E2;
 }
 
 .dropdown {
     position: relative;
-    width: 100%;
-    max-width: 400px;
+    flex: 1;
 }
 
 .dropdown-btn {
@@ -235,6 +260,37 @@ main {
     font-size: 1.75rem; 
     border-bottom: 1px solid var(--border-light);
     padding-bottom: 8px;
+}
+
+/* ==========================================
+   EXPLORE SECTION: INTRO TEXT & VIDEO EMBED
+   ========================================== */
+.explore-text {
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: var(--text-dark);
+    max-width: 700px;
+    margin-bottom: 20px;
+}
+
+.video-embed-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 700px;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 2px 10px var(--shadow-soft);
+}
+
+.video-embed-wrap iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
 }
 
 .grid-container { 
@@ -396,11 +452,19 @@ footer {
     }
     .explore-nav { 
         width: auto; 
+        max-width: none;
+        margin: 0;
+    }
+    .nav-link-btn {
+        flex: none;
+        width: 140px;
     }
     .dropdown {
+        flex: none;
         width: 220px;
     }
-    .dropdown-btn:hover {
+    .dropdown-btn:hover,
+    .nav-link-btn:hover {
         background: #EAE7E2;
     }
     .dropdown-content a:hover {
