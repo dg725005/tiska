@@ -265,14 +265,37 @@ main {
 }
 
 /* ==========================================
-   EXPLORE SECTION: INTRO TEXT & VIDEO EMBED
+   EXPLORE SECTION: VIDEO GRID
    ========================================== */
+.explore-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 14px;
+}
+
+.explore-card {
+    display: flex;
+    flex-direction: column;
+}
+
 .explore-text {
     font-size: 0.9rem;
     line-height: 1.75;
     color: var(--text-dark);
     max-width: 700px;
     margin-bottom: 20px;
+}
+
+.explore-card .explore-text {
+    font-size: 0.72rem;
+    line-height: 1.5;
+    max-width: none;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+.explore-card .explore-text + .explore-text {
+    margin-top: 8px;
 }
 
 .video-embed-wrap {
@@ -549,6 +572,8 @@ footer {
     a.contact-value:hover {
         color: var(--accent-gold);
     }
+    .explore-grid { gap: 32px 24px; }
+    .explore-card .explore-text { font-size: 0.82rem; }
     .grid-container { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 24px; }
     .photo-cover { height: 400px; padding: 12px; }
     .cover-frame { height: calc(100% - 60px); }
