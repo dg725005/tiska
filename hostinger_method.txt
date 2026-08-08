@@ -1,0 +1,90 @@
+In hpanel:
+
+In the left sidebar, go to Files → File Manager.
+
+Open the public_html folder (this is the root folder of your website).
+Delete any default files (like index.html or placeholder files from Hostinger) if they exist.
+
+Upload your website files:
+Click the Upload button (top right).
+
+Drag & drop or select all your .html, .js, .csv, images, and other files/folders.
+
+Make sure your main homepage file is named index.html (this is what loads by default when someone visits your domain).
+
+
+Important tips:
+
+Upload the contents of your website folder directly into public_html, not inside a subfolder.
+.csv files work fine — browsers can fetch them via JavaScript (AJAX/Fetch).
+If you have many files, zip them first on your computer → upload the .zip → right-click it in File Manager → Extract.
+
+---------------------------------------------------
+
+The Gemini help link:
+
+https://gemini.google.com/app/5bafb283135bdc75
+
+---------------------------------------------------
+
+Hostinger Login details:
+
+tiskaenterprise@gmail.com
+
+Deepanshu@12345@
+
+---------------------------------------------------
+
+Website details:
+
+145.223.17.235
+
+ftp://peru-echidna-621348.hostingersite.com
+---------------------------------------------------
+
+Perfect! Since you're seeing the Website IP address in Hostinger, we'll use the A record method to point your GoDaddy domain. This keeps DNS management at GoDaddy (good if you have email there).
+Step-by-Step: Point Your GoDaddy Domain Using the IP
+
+Copy the IP Address
+In Hostinger hPanel, copy the Website IP address shown (it looks like 123.456.78.90).
+Go to GoDaddy DNS Settings
+Log in to GoDaddy.
+Go to My Products → Click Manage next to your domain.
+Click DNS (or Manage DNS).
+
+Update the A Records
+Find and delete any existing A records for:
+@ (this is the root domain)
+www (if it exists)
+
+Click Add New Record (or Add):
+Type: A
+Host/Name: @
+Value/Points to: Paste the Hostinger IP address
+TTL: Leave as default (or 1 hour)
+Save
+
+Add another one:
+Type: A
+Host/Name: www
+Value/Points to: Same Hostinger IP address
+Save
+
+
+Optional but Recommended:
+If you want your site to work on both yourdomain.com and www.yourdomain.com, the above covers it.
+
+
+After Saving
+
+DNS changes can take 30 minutes to 24 hours to propagate (often 1–4 hours).
+Check progress here: dnschecker.org — enter your domain and look at A records.
+Once it shows the Hostinger IP everywhere, visit your domain in an incognito window.
+
+Final Touches in Hostinger
+
+Go back to your website dashboard in hPanel.
+Look for the SSL section and enable the free SSL certificate (it will activate after propagation).
+
+Would you like me to also explain how to set up email (if you need it) or what to do if it doesn't work after 24 hours?
+Let me know when you've added the records or if you see any errors!
