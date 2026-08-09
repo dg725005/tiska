@@ -782,13 +782,13 @@ footer {
     }
     .logo-row {
         width: auto;
-        flex-grow: 1;
+        flex-grow: 0;
+        justify-content: flex-start;
+        gap: 28px;
     }
     
     .header-actions {
-        flex-grow: 1;
-        justify-content: flex-end;
-        padding-right: 22%;
+        flex-grow: 0;
     }
     .social-links {
         gap: 18px;
@@ -802,7 +802,7 @@ footer {
     .explore-nav { 
         max-width: none;
         grid-template-columns: repeat(4, 1fr);
-        gap: 34px;
+        gap: 24px;
     }
     .nav-link:hover,
     .dropdown-btn:hover {

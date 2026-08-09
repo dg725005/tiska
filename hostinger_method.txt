@@ -21,9 +21,11 @@ If you have many files, zip them first on your computer → upload the .zip → 
 
 ---------------------------------------------------
 
-The Gemini help link:
+The AI help link:
 
 https://gemini.google.com/app/5bafb283135bdc75
+
+https://claude.ai/chat/27bf441f-f016-4b39-8429-c7a538f9b25e
 
 ---------------------------------------------------
 
