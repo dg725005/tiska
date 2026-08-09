@@ -308,11 +308,28 @@ main {
 /* ==========================================
    ABOUT PAGE
    ========================================== */
+.about-hero-image-wrap {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px 16px 0;
+}
+
+.about-hero-img {
+    width: 100%;
+    max-height: 420px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px var(--shadow-soft);
+    display: block;
+}
+
 .about-lead {
     font-size: 0.95rem;
     line-height: 1.8;
     color: var(--text-dark);
     max-width: 720px;
+    margin-bottom: 16px;
 }
 
 .about-text {
@@ -798,6 +815,8 @@ footer {
     a.contact-value:hover {
         color: var(--accent-gold);
     }
+    .about-hero-image-wrap { padding: 32px 4% 0; }
+    .about-hero-img { max-height: 520px; }
     .about-lead { font-size: 1.05rem; }
     .values-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; }
     .cta-card { padding: 48px 40px; }
