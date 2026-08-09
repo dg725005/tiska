@@ -251,93 +251,6 @@ main {
     padding-bottom: 8px;
 }
 
-.section-intro {
-    font-size: 0.88rem;
-    line-height: 1.7;
-    color: var(--nav-muted);
-    max-width: 640px;
-    margin-top: -8px;
-    margin-bottom: 20px;
-}
-
-/* ==========================================
-   HERO / WELCOME SECTION
-   ========================================== */
-.hero-section {
-    background: radial-gradient(circle at 50% 0%, rgba(132, 107, 67, 0.08), transparent 65%), var(--bg-neutral);
-    border-bottom: 1px solid var(--border-light);
-    padding: 44px 16px 40px;
-    text-align: center;
-}
-
-.hero-content {
-    max-width: 640px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.hero-eyebrow {
-    font-size: 0.7rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: var(--accent-gold);
-    margin-bottom: 12px;
-}
-
-.hero-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.9rem;
-    line-height: 1.25;
-    color: var(--text-dark);
-    margin-bottom: 14px;
-}
-
-.hero-subtitle {
-    font-size: 0.9rem;
-    line-height: 1.7;
-    color: var(--nav-muted);
-    max-width: 480px;
-    margin-bottom: 26px;
-}
-
-.hero-actions {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    width: 100%;
-    max-width: 260px;
-}
-
-.hero-btn {
-    text-decoration: none;
-}
-
-.hero-btn-secondary {
-    width: 100%;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-dark);
-    border: 1px solid var(--text-dark);
-    border-radius: 6px;
-    font-size: 0.68rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    text-decoration: none;
-    transition: border-color 0.2s ease, color 0.2s ease;
-}
-
-.hero-btn-secondary:active {
-    border-color: var(--accent-gold);
-    color: var(--accent-gold);
-}
-
 /* ==========================================
    EXPLORE SECTION: VIDEO GRID
    ========================================== */
@@ -900,15 +813,6 @@ footer {
         color: var(--accent-gold);
     }
     a.contact-value:hover {
-        color: var(--accent-gold);
-    }
-    .hero-section { padding: 64px 4% 56px; }
-    .hero-title { font-size: 2.6rem; }
-    .hero-subtitle { font-size: 1rem; max-width: 560px; }
-    .hero-actions { flex-direction: row; max-width: none; }
-    .hero-btn, .hero-btn-secondary { width: 200px; }
-    .hero-btn-secondary:hover {
-        border-color: var(--accent-gold);
         color: var(--accent-gold);
     }
     .about-hero-image-wrap { padding: 32px 4% 0; }
