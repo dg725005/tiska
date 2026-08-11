@@ -431,6 +431,19 @@ main {
     margin-bottom: 0;
 }
 
+/* Centered text treatment for the "About Us" and "Our Story" sections only */
+#section-about-hero,
+#section-our-story {
+    text-align: center;
+}
+
+#section-about-hero .about-lead,
+#section-about-hero .about-text,
+#section-our-story .about-text {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .offer-grid {
     display: flex;
     flex-wrap: wrap;
