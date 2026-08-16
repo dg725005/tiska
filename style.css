@@ -972,3 +972,87 @@ footer {
         color: var(--accent-gold);
     }
 }
+
+/* ==========================================
+   Welcome Popup
+========================================== */
+#welcome-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 10010;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    animation: welcomeOverlayFade 0.3s ease;
+}
+
+#welcome-modal .welcome-box {
+    position: relative;
+    background: var(--card-white);
+    padding: 36px 28px 28px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 380px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: welcomePopIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#welcome-modal .welcome-meta {
+    margin-top: -6px;
+    margin-bottom: 0;
+    font-size: 0.85rem;
+    color: var(--accent-gold);
+    font-weight: 600;
+}
+
+@keyframes welcomeOverlayFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes welcomePopIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+#welcome-modal .welcome-close {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    background: none;
+    border: none;
+    font-size: 1.6rem;
+    line-height: 1;
+    color: var(--nav-muted);
+    cursor: pointer;
+}
+
+#welcome-modal .welcome-close:hover {
+    color: var(--text-dark);
+}
+
+#welcome-modal h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+    color: var(--text-dark);
+}
+
+#welcome-modal p {
+    font-size: 0.95rem;
+    color: var(--nav-muted);
+    line-height: 1.5;
+    margin-bottom: 20px;
+}

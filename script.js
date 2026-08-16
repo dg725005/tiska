@@ -2,9 +2,9 @@ const waNumber = "919993636912";
 
 // CONFIGURATION PANEL: Dynamic content indexing profiles mapping data/ paths directly
 const categoryMeta = {
-    prewedding: { title: "Prewedding", folder: 'data/prewedding/webp', prefix: 'prewedding', count: 23 },
-    maternity: { title: "Maternity", folder: 'data/maternity/webp', prefix: 'maternity', count: 44 },
-    cocktail: { title: "Cocktail", folder: 'data/cocktail/webp', prefix: 'cocktail', count: 10 },
+    prewedding: { title: "Prewedding", folder: 'data/prewedding/webp', prefix: 'prewedding', count: 23, videos: []},
+    maternity: { title: "Maternity", folder: 'data/maternity/webp', prefix: 'maternity', count: 44, videos: [] },
+    cocktail: { title: "Cocktail", folder: 'data/cocktail/webp', prefix: 'cocktail', count: 10 ,videos: []},
     saree: { title: "Saree", folder: 'data/saree/webp', prefix: 'saree', count: 10 },
     convocation: { 
         title: "Convocation", 
@@ -411,3 +411,38 @@ submitUploadBtn.addEventListener('click', () => {
 closeModalBtn.addEventListener('click', () => { adminModal.style.display = "none"; });
 
 }
+
+// ==========================================
+// WELCOME POPUP
+// ==========================================
+(function initWelcomePopup() {
+    if (sessionStorage.getItem('welcomeShown')) return;
+
+    const modal = document.createElement('div');
+    modal.id = 'welcome-modal';
+    modal.innerHTML = `
+        <div class="welcome-box">
+            <button class="welcome-close" id="welcome-close-btn" aria-label="Close">&times;</button>
+            <h3>✨ BOOK YOUR GOWNS + 3D STUDIO SHOOT! ✨</h3>
+            <p>
+                👗 Pre-Wedding &bull; Maternity &bull; Portfolio Gowns<br>
+                📸 Unlimited Gown Changes + 3D Studio Access<br>
+                💖 Complete Package at just &#8377;6,000!
+            </p>
+            <p>Choose from our beautiful collection of gowns and create stunning pictures for your special shoot. ✨</p>
+            <p class="welcome-meta">
+                📍 Tiska Enterprise<br>
+                📌 Conditions Apply
+            </p>
+        </div>
+    `;
+    document.body.appendChild(modal);
+
+    const closeWelcome = () => { modal.style.display = 'none'; };
+
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeWelcome(); });
+    modal.querySelector('#welcome-close-btn').addEventListener('click', closeWelcome);
+
+    modal.style.display = 'flex';
+    sessionStorage.setItem('welcomeShown', '1');
+})();
