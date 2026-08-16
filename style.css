@@ -993,7 +993,7 @@ footer {
 
 #welcome-modal .welcome-box {
     position: relative;
-    background: var(--card-white);
+    background: #6A2E8C;
     padding: 36px 28px 28px;
     border-radius: 12px;
     width: 100%;
@@ -1003,11 +1003,27 @@ footer {
     animation: welcomePopIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+#welcome-modal .welcome-box h3 {
+    color: #FFFFFF;
+}
+
+#welcome-modal .welcome-box p {
+    color: #F0E6F5;
+}
+
+#welcome-modal .welcome-close {
+    color: #F0E6F5;
+}
+
+#welcome-modal .welcome-close:hover {
+    color: #FFFFFF;
+}
+
 #welcome-modal .welcome-meta {
     margin-top: -6px;
     margin-bottom: 0;
     font-size: 0.85rem;
-    color: var(--accent-gold);
+    color: #E8C9FF;
     font-weight: 600;
 }
 
