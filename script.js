@@ -1,5 +1,18 @@
 const waNumber = "919993636912";
 
+// Keeps --header-height in sync with the real (fixed) header size, since it
+// wraps to different heights across breakpoints and announcement text lengths.
+(function syncHeaderHeight() {
+    const header = document.querySelector('header');
+    if (!header) return;
+    const update = () => {
+        document.documentElement.style.setProperty('--header-height', `${header.offsetHeight}px`);
+    };
+    update();
+    window.addEventListener('resize', update);
+    if (window.ResizeObserver) new ResizeObserver(update).observe(header);
+})();
+
 // CONFIGURATION PANEL: Dynamic content indexing profiles mapping data/ paths directly
 const categoryMeta = {
     prewedding: { title: "Prewedding", folder: 'data/prewedding/webp', prefix: 'prewedding', count: 23, videos: []},

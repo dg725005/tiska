@@ -18,7 +18,7 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 155px; /* Perfect offset anchoring for condensed top dropdown navigation bar height */
+    scroll-padding-top: var(--header-height, 155px);
 }
 
 body { 
@@ -232,8 +232,8 @@ header {
 /* ==========================================
    MAIN LAYOUT & GRID CONTENT
    ========================================== */
-main { 
-    margin-top: 155px; /* Ideal height clearance value avoids overlap across layouts */
+main {
+    margin-top: var(--header-height, 155px); /* Kept in sync with the fixed header's real height via JS */
     flex: 1 0 auto; 
 }
 
@@ -865,13 +865,7 @@ footer {
    RESPONSIVE DESIGN UPGRADES (DESKTOP)
    ========================================== */
 @media (min-width: 768px) {
-    html {
-        scroll-padding-top: 130px;
-    }
-    main { 
-        margin-top: 130px; 
-    }
-    .header-inner { 
+    .header-inner {
         flex-direction: row; 
         justify-content: space-between; 
         padding: 14px 4%; 
