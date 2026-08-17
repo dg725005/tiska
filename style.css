@@ -1032,6 +1032,22 @@ footer {
     to { opacity: 1; }
 }
 
+/* ==========================================
+   Top Banner Image
+========================================== */
+.top-banner {
+    width: 100%;
+    line-height: 0;
+    text-align: center;
+}
+
+.top-banner img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    display: inline-block;
+}
+
 @keyframes welcomePopIn {
     0% {
         opacity: 0;
