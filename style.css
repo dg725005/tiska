@@ -121,11 +121,13 @@ header {
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    transition: color 0.2s ease;
+    transform: translateY(0);
+    transition: color 0.2s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .social-links a:active {
     color: var(--accent-gold);
+    transform: translateY(-1px);
 }
 
 .social-links .jd-icon span {
@@ -179,6 +181,41 @@ header {
 .nav-link:active,
 .dropdown-btn:active {
     color: var(--accent-gold);
+}
+
+/* Text-slide hover: the label and its off-white "shadow" copy sit in a
+   clipped box and swap places on hover, like a vertical conveyor belt. */
+.nav-link,
+.dropdown-btn-text {
+    position: relative;
+    overflow: hidden;
+}
+
+.dropdown-btn-text {
+    display: inline-block;
+}
+
+.nav-link span,
+.dropdown-btn-text span {
+    display: inline-block;
+    position: relative;
+    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.25s;
+    will-change: transform, opacity;
+}
+
+.nav-link::after,
+.dropdown-btn-text::after {
+    content: attr(data-alt);
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-gold);
+    transform: translateY(100%);
+    opacity: 0;
+    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.25s;
+    pointer-events: none;
 }
 
 .dropdown {
@@ -663,10 +700,11 @@ a.contact-value:active {
     cursor: pointer; 
 }
 
-.cover-frame img { 
-    max-width: 100%; 
-    max-height: 100%; 
-    object-fit: contain; 
+.cover-frame img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
 }
 
 /* ==========================================
@@ -889,6 +927,7 @@ footer {
     }
     .social-links a:hover {
         color: var(--accent-gold);
+        transform: translateY(-3px);
     }
     .social-links .jd-icon span:hover {
         border-color: var(--accent-gold);
@@ -898,9 +937,15 @@ footer {
         grid-template-columns: repeat(4, 1fr);
         gap: 24px;
     }
-    .nav-link:hover,
-    .dropdown-btn:hover {
-        color: var(--accent-gold);
+    .nav-link:hover span,
+    .dropdown-btn:hover .dropdown-btn-text span {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    .nav-link:hover::after,
+    .dropdown-btn:hover .dropdown-btn-text::after {
+        transform: translateY(0);
+        opacity: 1;
     }
     .dropdown-content a:hover {
         background: var(--bg-neutral);
@@ -934,7 +979,9 @@ footer {
     .grid-container { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 24px; }
     .photo-cover { height: 400px; padding: 12px; }
     .cover-frame { height: calc(100% - 60px); }
+    .cover-frame:hover img { transform: scale(1.08); }
     .wa-order-btn { height: 48px; font-size: 0.75rem; letter-spacing: 1.5px; }
+    .photo-cover .wa-order-btn:hover { color: #FF69B4; }
 
     /* Footer: left-aligned multi-column layout + hover states on desktop */
     .footer-top {
