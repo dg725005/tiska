@@ -10,6 +10,8 @@ const waNumber = "919993636912";
     };
     update();
     window.addEventListener('resize', update);
+    window.addEventListener('load', update);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(update);
     if (window.ResizeObserver) new ResizeObserver(update).observe(header);
 })();
 
