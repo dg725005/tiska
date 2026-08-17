@@ -8,10 +8,14 @@ const waNumber = "919993636912";
     const update = () => {
         document.documentElement.style.setProperty('--header-height', `${header.offsetHeight}px`);
     };
+    // Waits a full paint cycle before measuring, so a promise/event firing
+    // ahead of the browser's own reflow can't read a stale in-between height.
+    const settledUpdate = () => requestAnimationFrame(() => requestAnimationFrame(update));
+
     update();
-    window.addEventListener('resize', update);
-    window.addEventListener('load', update);
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(update);
+    window.addEventListener('resize', settledUpdate);
+    window.addEventListener('load', settledUpdate);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(settledUpdate);
     if (window.ResizeObserver) new ResizeObserver(update).observe(header);
 })();
 
