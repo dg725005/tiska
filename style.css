@@ -60,6 +60,22 @@ body.lock-scroll {
     flex-wrap: wrap;
 }
 
+.announcement-phone {
+    color: inherit;
+    text-decoration: underline;
+    font-weight: 800;
+}
+
+/* Larger, easier-to-read tap target on mobile, per accessibility feedback */
+@media (max-width: 767px) {
+    .announcement-bar {
+        font-size: 1.05rem;
+    }
+    .announcement-phone {
+        font-size: 1.2rem;
+    }
+}
+
 .announcement-track .divider {
     color: var(--accent-gold);
     font-weight: 400;
@@ -274,10 +290,14 @@ main {
     flex: 1 0 auto; 
 }
 
-.section-wrap { 
-    padding: 30px 16px 10px 16px; 
-    max-width: 1400px; 
-    margin: 0 auto; 
+.section-wrap {
+    padding: 30px 16px 10px 16px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.section-wrap + .section-wrap {
+    border-top: 1px solid var(--border-light);
 }
 
 .section-title { 
