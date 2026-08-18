@@ -996,7 +996,7 @@ footer {
     .hero-section { padding: 64px 4% 56px; }
     .hero-title { font-size: 2.6rem; }
     .hero-subtitle { font-size: 1rem; max-width: 560px; }
-    .hero-actions { flex-direction: row; max-width: none; }
+    .hero-actions { flex-direction: row; justify-content: center; max-width: none; }
     .hero-btn, .hero-btn-secondary { width: 200px; }
     .hero-btn-secondary:hover {
         border-color: var(--accent-gold);
@@ -1007,7 +1007,7 @@ footer {
     .about-lead { font-size: 1.05rem; }
     .values-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; }
     .cta-card { padding: 48px 40px; }
-    .cta-actions { flex-direction: row; max-width: none; }
+    .cta-actions { flex-direction: row; justify-content: center; max-width: none; }
     .cta-btn, .cta-btn-secondary { width: 220px; }
     .cta-btn-secondary:hover {
         border-color: var(--accent-gold);
