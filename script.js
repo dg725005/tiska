@@ -371,67 +371,6 @@ if (exploreBtn && dropdownMenu) {
 }
 
 // ==========================================
-// ADMIN INJECTION SYSTEM FOR STATIC HOSTING
-// ==========================================
-const SECRET_PIN = "7250";
-const adminFab = document.getElementById('admin-trigger-fab');
-const adminModal = document.getElementById('admin-modal');
-const authStep = document.getElementById('auth-step');
-const uploadStep = document.getElementById('upload-step');
-const adminPinInput = document.getElementById('admin-pin');
-const verifyPinBtn = document.getElementById('btn-verify-pin');
-const submitUploadBtn = document.getElementById('btn-submit-upload');
-const closeModalBtn = document.getElementById('btn-close-modal');
-const uploadCategorySelect = document.getElementById('upload-category');
-const uploadFileInput = document.getElementById('upload-file');
-
-if (adminFab && adminModal && authStep && uploadStep && adminPinInput && verifyPinBtn && submitUploadBtn && closeModalBtn && uploadCategorySelect && uploadFileInput) {
-
-adminFab.addEventListener('click', () => {
-    adminPinInput.value = "", authStep.style.display = "block", uploadStep.style.display = "none", adminModal.style.display = "flex";
-    uploadCategorySelect.innerHTML = "";
-    Object.keys(categoryMeta).forEach(key => {
-        const option = document.createElement('option');
-        option.value = key; option.innerText = categoryMeta[key].title;
-        uploadCategorySelect.appendChild(option);
-    });
-});
-
-verifyPinBtn.addEventListener('click', () => {
-    if (adminPinInput.value === SECRET_PIN) { authStep.style.display = "none"; uploadStep.style.display = "block"; } 
-    else { alert("Invalid Code."); adminPinInput.value = ""; }
-});
-
-submitUploadBtn.addEventListener('click', () => {
-    const selectedCategory = uploadCategorySelect.value;
-    const file = uploadFileInput.files[0];
-    if (!file) { alert("Choose file."); return; }
-
-    const readerUrl = URL.createObjectURL(file);
-    const targetGrid = document.getElementById(`grid-${selectedCategory}`);
-    if (targetGrid) {
-        const card = createGridCard(selectedCategory, "", "");
-        const imgNode = card.querySelector('.cover-frame img');
-        if (imgNode) imgNode.src = readerUrl;
-        
-        card.onclick = () => {
-            zoomTrack.innerHTML = ''; resetZoomState();
-            const box = document.createElement('div'); box.className = 'zoom-photo-box';
-            box.innerHTML = `<img src="${readerUrl}" class="zoom-main-photo" alt="Preview Asset" style="transform-origin: center center;">`;
-            zoomTrack.appendChild(box);
-            pointX = 0; updateTransform();
-            zoomOverlay.style.display = 'block'; document.body.classList.add('lock-scroll');
-        };
-
-        targetGrid.insertBefore(card, targetGrid.firstChild);
-        adminModal.style.display = "none"; uploadFileInput.value = "";
-    }
-});
-closeModalBtn.addEventListener('click', () => { adminModal.style.display = "none"; });
-
-}
-
-// ==========================================
 // WELCOME POPUP
 // ==========================================
 (function initWelcomePopup() {

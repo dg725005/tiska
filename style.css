@@ -488,6 +488,55 @@ main {
     margin-bottom: 0;
 }
 
+.about-subhead {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: var(--text-dark);
+    max-width: 720px;
+    margin: 28px auto 12px;
+}
+
+.about-list {
+    text-align: left;
+    max-width: 720px;
+    margin: 0 auto 16px;
+    padding-left: 20px;
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: var(--text-dark);
+}
+
+.about-list li {
+    margin-bottom: 6px;
+}
+
+.about-list li:last-child {
+    margin-bottom: 0;
+}
+
+.search-tags-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.search-tags-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.search-tag {
+    background: var(--bg-neutral);
+    color: var(--nav-muted);
+    border: 1px solid var(--border-light);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
 /* Centered text treatment for the "About Us" and "Our Story" sections only */
 #section-about-hero,
 #section-our-story {
